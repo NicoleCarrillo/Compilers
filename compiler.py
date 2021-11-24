@@ -1,15 +1,43 @@
 import ply.yacc as yacc
 import ply.lex as lex
 
-literals = ['=', '+', '-', '*', '/', '(', ')']
+literals = ['=', '+', '-', '*', '/', '(', ')', '{', '}', '<', '>', ';', '^']
 reserved = { 
-    'int' : 'INTDEC',
-    'float' : 'FLOATDEC',
-    'print' : 'PRINT'
+    'int': 'INTDEC', 
+    'float': 'FLOATDEC', 
+    'boolean': 'BOOLDEC', 
+    'string': 'STRINGDEC',
+    'if': 'IF', 
+    'else': 'ELSE', 
+    'while': 'WHILE', 
+    'print': 'PRINT',
+    'and': 'AND', 
+    'or': 'OR', 
+    'not': 'NOT', 
  }
 
 tokens = [
-    'INUMBER', 'FNUMBER', 'NAME'
+    'ASSIGN',
+    'INUMBER', 
+    'FNUMBER', 
+    'STRING',
+    'BOOL',
+    'NAME'
+    'GREATER',
+    'GREATEREQUAL',
+    'NOTEQUAL',
+    'EQUAL',
+    'LESSEQUAL',
+    'LESSTHAN',
+    'LEFTPAR',
+    'RIGHTPAR',
+    'LCURLY',
+    'RCURLY',
+    'SUB',
+    'ADD',
+    'DIV',
+    'MULTI',
+    'SEMI',
 ] + list(reserved.values())
 
 # Token
@@ -37,6 +65,10 @@ def t_newline(t):
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
+
+def t_BOOL(t):
+    r'True|False'
+    return t
 
 # Build the lexer
 lexer = lex.lex()
@@ -69,8 +101,12 @@ def p_is_assing(p):
         p[0] = p[2]
 
 def p_statement_declare_float(p):
-    'statement : FLOATDEC NAME'
-    names[p[2]] = { "type": "FLOAT", "value":0}
+    'statement : FLOATDEC NAME is_assing'
+    names[p[2]] = { "type": "FLOAT", "value": p[3]}
+
+def p_statement_declare_bool(p):
+    'statement : BOOLDEC NAME is_assing'
+    names[p[2]] = { "type": "BOOL", "value": p[3]}
 
 def p_statement_print(p):
     '''statement : PRINT '(' expression ')' '''
@@ -113,6 +149,10 @@ def p_expression_fnumber(p):
     "expression : FNUMBER"
     p[0] = p[1]
 
+def p_expression_boolean(p):
+    "expression : BOOL"
+    p[0] = p[1]
+
 def p_expression_name(p):
     "expression : NAME"
     try:
@@ -129,16 +169,6 @@ def p_error(p):
         print("Syntax error at EOF")
 
 parser = yacc.yacc()
-
-# Console 
-#while True:
-#    try:
-#        s = input('calc > ')
-#    except EOFError:
-#        break
-#    if not s:
-#        continue
-#    yacc.parse(s)
 
 #File
 inputData = []
