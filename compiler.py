@@ -617,10 +617,152 @@ def semantic(root):
 initVariables(root)
 semantic(root)
 
-#File
-inputData = []
-with open('data.txt') as file:
-    inputData = file.readlines()
+tokenNodes = {}
+extraNodes = {}
+spaceNodes = {}
+endNodes = {}
 
-for data in inputData:
-    yacc.parse(data)
+tokenCounter = 1
+destinyCounter = 1
+gotoCounter = 1
+
+finalFile = open("/Users/nicolecarrillo/Desktop/ply-compiler-master/output.txt", "w")
+
+def space_gen():
+    finalFile.write('\n')
+    finalFile.write('\n')
+
+def block_else_code(node):
+    for child in node.children:
+        threeAddressCode(child)
+
+def declaration_code(node, tokenNodes):
+    varType = node.children[1].type
+    finalFile.write(varType + " declaration( " + node.children[0].type + " )\n")
+    tokenNodes[node] = node.children[0].type
+
+def assigment_code(node, tokenNodes):
+    # * preorder visit
+    threeAddressCode(node.children[0])
+    threeAddressCode(node.children[1])
+    finalFile.write(tokenNodes[node.children[0]] + " := " + tokenNodes[node.children[1]] + "\n")
+
+def numconvertion_code(node, tokenCounter, tokenNodes):
+    threeAddressCode(node.children[0])
+    finalFile.write("t" + str(tokenCounter) + " := " + node.type + "(" + tokenNodes[node.children[0]] + ")" + "\n")
+    tokenNodes[node] = "t" + str(tokenCounter)
+
+def numoperators_code(node, tokenCounter, tokenNodes):
+    threeAddressCode(node.children[0])
+    threeAddressCode(node.children[1])
+    finalFile.write("t" + str(tokenCounter) + " := " + tokenNodes[node.children[0]] + " " + node.type + " " + tokenNodes[node.children[1]] + "\n")
+    tokenNodes[node] = "t" + str(tokenCounter)
+
+def logicaloperators_code(node, tokenCounter, tokenNodes, destinyCounter):
+    threeAddressCode(node.children[0])
+    threeAddressCode(node.children[1])
+    finalFile.write("if (" + tokenNodes[node.children[0]] + " " + node.type + " " + tokenNodes[node.children[1]] + ") GOTO COSO" + str(destinyCounter) + "\n")
+    finalFile.write("t " + str(tokenCounter) + " := false" + "\n")
+    finalFile.write("GOTO COSO " + str(destinyCounter + 1) + "\n")
+    space_gen()
+    finalFile.write("COSO -> " + str(destinyCounter) + "\n")
+    finalFile.write("t " + str(tokenCounter) + " := true" + "\n")
+    space_gen()
+    finalFile.write("COSO ->" + str(destinyCounter + 1) + "\n")
+    tokenNodes[node] = "t" + str(tokenCounter)
+
+def and_code(node, tokenCounter, tokenNodes, destinyCounter):
+    threeAddressCode(node.children[0])
+    threeAddressCode(node.children[1])
+    finalFile.write("if (" + tokenNodes[node.children[0]] + ") GOTO COSO" + str(destinyCounter) + "\n")
+    finalFile.write("t" + str(tokenCounter) + " := false" + "\n")
+    finalFile.write("GOTO COSO" + str(destinyCounter + 2) + "\n")
+    space_gen()
+    finalFile.write("COSO -> " + str(destinyCounter) + "\n")
+    finalFile.write("if (" + tokenNodes[node.children[1]] + ") GOTO COSO" + str(destinyCounter + 1) + "\n")
+    finalFile.write("t" + str(tokenCounter) + " := false" + "\n")
+    finalFile.write("GOTO COSO" + str(destinyCounter + 2) + "\n")
+    space_gen()
+    finalFile.write("COSO -> " + str(destinyCounter + 1) + "\n")
+    finalFile.write("t" + str(tokenCounter) + " := true" + "\n")
+    space_gen()
+    finalFile.write("COSO -> " + str(destinyCounter + 2) + "\n")
+    tokenNodes[node] = "t" + str(tokenCounter)
+
+def or_code(node, tokenCounter, tokenNodes, destinyCounter):
+    threeAddressCode(node.children[0])
+    threeAddressCode(node.children[1])
+    finalFile.write("if (" + tokenNodes[node.children[0]] + ") GOTO COSO" + str(destinyCounter) + "\n")
+    finalFile.write("if (" + tokenNodes[node.children[1]] + ") GOTO COSO" + str(destinyCounter) + "\n")
+    finalFile.write("t" + str(tokenCounter) + " := false" + "\n")
+    finalFile.write("GOTO COSO" + str(destinyCounter + 1) + "\n")
+    space_gen()
+    finalFile.write("COSO -> " + str(destinyCounter) + "\n")
+    finalFile.write("t" + str(tokenCounter) + " := true" + "\n")
+    space_gen()
+    finalFile.write("COSO -> " + str(destinyCounter + 1) + "\n")
+    tokenNodes[node] = "t" + str(tokenCounter)
+
+def threeAddressCode(node):
+    global tokenCounter
+    global destinyCounter
+    global finalFile
+    if node.type in ["block", "else"]:
+        block_else_code(node)
+    elif node.type == "declaration":
+        declaration_code(node, tokenNodes)
+    elif node.type == "assignment":
+        assigment_code(node, tokenNodes)
+    elif node.type == "int2float" :
+        numconvertion_code(node, tokenCounter, tokenNodes)
+        tokenCounter += 1
+    elif node.type in ["+", "-", "/", "*", "^", "concat"]:
+        numoperators_code(node, tokenCounter, tokenNodes)
+        tokenCounter += 1
+    elif node.type in ["!=", "==", "<", ">", ">=", "<="]:
+        logicaloperators_code(node, tokenCounter, tokenNodes, destinyCounter)
+        tokenCounter += 1
+        destinyCounter += 2
+    elif node.type == "and":
+        and_code(node, tokenCounter, tokenNodes, destinyCounter)
+        tokenCounter += 1
+        destinyCounter += 3
+    elif node.type == "or":
+        or_code(node, tokenCounter, tokenNodes, destinyCounter)
+        tokenCounter += 1
+        destinyCounter += 2
+    elif node.type in ["if", "elif"]: 
+        threeAddressCode(node.children[0])
+        finalFile.write("if (" + tokenNodes[node.children[0]] + ") GOTO COSO " + str(destinyCounter) + "\n")
+        finalFile.write("GOTO COSO " + str(destinyCounter + 1) + "\n")
+        space_gen()
+        finalFile.write("COSO -> " + str(destinyCounter) + "\n")
+        saveLCount = destinyCounter
+        destinyCounter += 2
+        threeAddressCode(node.children[1])
+        saveLCount2 = destinyCounter
+        if node.type == "if":
+            finalFile.write("GOTO COSO " + str(destinyCounter) + "\n")
+            extraNodes[node] = str(destinyCounter)
+            destinyCounter += 1
+        else:
+            extraNodes[node] = extraNodes[node.parent]
+            finalFile.write("GOTO COSO " + extraNodes[node.parent] + "\n")
+        space_gen()
+        finalFile.write("COSO -> " + str(saveLCount + 1) + "\n")
+        if(len(node.children) > 2):
+            threeAddressCode(node.children[2])
+        if(len(node.children) > 3):
+            threeAddressCode(node.children[3])
+        if node.type == "if":
+            space_gen()
+            finalFile.write("COSO -> " + str(saveLCount2) + "\n")
+    elif node.type == "while":
+        threeAddressCode(node.children[0])
+    elif node.type == 'print':
+        finalFile.write("print( " + node.children[0].type + " )\n")
+    elif not node.children:
+        tokenNodes[node] = node.type
+
+threeAddressCode(root)
+print("IT COMPILES!!!!")
