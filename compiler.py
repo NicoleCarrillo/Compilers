@@ -5,7 +5,9 @@
 
 import ply.yacc as yacc
 import ply.lex as lex
-from Nodo import Nodo
+from Utils import Nodo
+from Utils import Var
+import re
 
 reserved = {
     'float' : 'FLOAT',
@@ -565,6 +567,55 @@ def BoolCheck(node):
     elif node.type in ["and", "or"]:
             BoolCheck(node.children[0])
     node.ptype = "boolean"
+
+def initVariables(root):
+    counter = 0
+    if(root.type == "declaration"):
+        scopeNode = Nodo.findScopeNode(Nodo,root)
+        if Var.isInScope(Var,root, root.children[0].type, variable):
+            counter = counter + 1;
+            print("VAR " + root.children[0].type + " IS ALREADY DEFINED, errors" + counter)
+        if scopeNode in variable.keys():
+            variable[scopeNode].append(Var(root.children[0].type, root.children[1].type))
+        else:
+            variable[scopeNode] = [Var(root.children[0].type, root.children[1].type)]
+    if root.children:
+        for child in root.children:
+            initVariables(child)
+
+def semantic(root):
+    if(root.type == "assignment"):
+        if root.children[0].type == "declaration":
+            correctType = root.children[0].children[1].type
+            varName = root.children[0].children[0].type
+            Var.isVarInTree(Var, root.children[1], varName)
+        elif (not Var.isInScope(Var,root, root.children[0].type, variable)):
+            print("VARIABLE " + root.children[0].type + "NEEDS TO BE DECLARED")
+        else:
+            correctType = Var.getVarType(Var, root, root.children[0].type, variable)
+        if correctType == "int" or correctType == "float":
+            numCheck(root.children[1])
+            if correctType == "float" and root.children[1].ptype == "int":
+                parseNode = Nodo('int2float', ptype="float")
+                root.children[1].parent = parseNode
+                parseNode.children = [root.children[1]]
+                root.children[1] = parseNode
+        elif correctType == "boolean":
+            BoolCheck(root.children[1])
+        elif correctType == "string":
+            StrCheck(root.children[1])
+    elif(root.type in ["==", "!=", "<", ">", ">=", "<=", "and", "or", "true", "false"]):
+        BoolCheck(root)
+    elif(root.type in ["concat", "num2string"]):
+        StrCheck(root)
+    elif(root.type in ["+", "-", "/", "*", "^"]):
+        numCheck(root)
+    elif root.children:
+        for child in root.children:
+            semantic(child)
+
+initVariables(root)
+semantic(root)
 
 #File
 inputData = []
