@@ -1,19 +1,27 @@
+# ---------------------------------------------------------------------------------------------
+# comp.py
+# A simple compiler. 
+# This is based on O'Reilly's "Lex and Yacc", calculator
+
 import ply.yacc as yacc
 import ply.lex as lex
 
-reserved = { 
-    'int': 'INTDEC', 
-    'float': 'FLOATDEC', 
-    'boolean': 'BOOLDEC', 
-    'string': 'STRINGDEC',
-    'if': 'IF', 
-    'else': 'ELSE', 
-    'while': 'WHILE', 
-    'print': 'PRINT',
-    'and': 'AND', 
-    'or': 'OR', 
-    'not': 'NOT', 
- }
+reserved = {
+    'float' : 'FLOAT',
+    'int' : 'INT',
+    'string' : 'STRING',
+    'and' : 'AND',
+    'or' : 'OR',
+    'if' : 'IF',
+    'elif' : 'ELIF',
+    'else' : 'ELSE',
+    'while' : 'WHILE',
+    'boolean' : 'BOOLEAN',
+    'for' : 'FOR',
+    'true' : 'TRUE',
+    'false' : 'FALSE',
+    'print' : 'PRINT'
+}
 
 tokens = [
     'ID',
@@ -24,7 +32,7 @@ tokens = [
     'STR',
     'GREATERTHAN',
     'LESSTHAN'
-] + list(reserved.values()) 
+] + list(reserved.values())
 
 literals = ['(', ')', '{', '}', '-', '+', '*', '/', '^', '=', '>', '<', ';']
 
@@ -44,7 +52,6 @@ t_GREATERTHAN = r'>='
 
 t_LESSTHAN = r'<='
 
-# Token
 def t_ID(t):
     r'[A-Za-z_][\w_]*'
     t.type = reserved.get(t.value, "ID")
@@ -109,8 +116,7 @@ def p_statement_assign(p):
 
 def p_statement_expr(p):
     'statement : expression'
-    # print(p[1])
-
+    
 def p_expression_binop(p):
     '''expression : expression '+' expression
                   | expression '-' expression
