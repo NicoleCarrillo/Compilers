@@ -503,6 +503,69 @@ def p_statement_print(p):
 parser = yacc.yacc()
 root = parser.parse(lexer=lx, input=open("/Users/nicolecarrillo/Desktop/ply-compiler-master/input.txt").read())
 
+variable = { }
+
+def StrCheck(node):
+    node.ptype = "string"
+
+def numCheck(node):
+    countInt = 0
+    countFlt = 0
+    recursion = True
+    if node.children:
+        if node.type in ["+", "-", "/", "*", "^"]:
+            for child in node.children:
+                recursion = True
+                numCheck(child)
+            if node.children[0].ptype == node.children[1].ptype:
+                node.ptype = node.children[0].ptype
+            else:
+                for i in range(len(node.children)):
+                    if node.children[i].ptype == "int":
+                        countInt = countInt + 1;
+                        parseNode = Nodo('int2float', ptype="float")
+                        node.children[i].parent = parseNode
+                        parseNode.children = [node.children[i]]
+                        node.children[i] = parseNode
+                countFlt = countFlt + 1;
+                node.ptype = "float"
+        else:
+            print("THERE IS AN ERROR AT THE NUMBERS DECLARATION, numCheck 548")
+    else:
+        if(re.fullmatch(r'\d+?', node.type)):
+            node.ptype = "int"
+            countInt = countInt + 1;
+        elif(re.fullmatch(r'((\d+)(\.\d+))', node.type)):
+            node.ptype = "float"
+            countFlt = countFlt + 1;
+        else:
+            if((node.type[0] == "-" and not Var.isInScope(Var, node, node.type[1:], variable))):
+                print("VAR" + node.type + " NEEDS TO BE DECLARED FIRST")
+            varType = Var.getVarType(Var, node, node.type, variable)
+            if varType == "string" or varType == "boolean":
+                print("CAN'T CONVERT A STRING TO NUMBER PLIS CHECK")
+            node.ptype = varType
+    if(not recursion):
+        print("THERE IS AN ERROR AT NUMCHECK, NOT ENTERING RECURSION")
+
+def BoolCheck(node):
+    if not node.children:
+        if node.type != "true" and node.type != "false":
+            if not Var.isInScope(Var, node, node.type, variable):
+                print("Variable " + node.type + " NEEDS TO BE DECLARED BEFORE USING IT")
+    elif node.type in ["==", "!="]:
+        if(node.children[0].type in ["+", "-", "/", "*", "^"]):
+            numCheck(node.children[0])
+            numCheck(node.children[1])
+        elif(node.children[0].type in ["==", "!=", "<", ">", ">=", "<=", "and", "or", "true", "false"]):
+            BoolCheck(node.children[0])
+    elif node.type in [">", "<", ">=", "<="]:
+        numCheck(node.children[0])
+        numCheck(node.children[1])
+    elif node.type in ["and", "or"]:
+            BoolCheck(node.children[0])
+    node.ptype = "boolean"
+
 #File
 inputData = []
 with open('data.txt') as file:
