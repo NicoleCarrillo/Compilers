@@ -162,6 +162,13 @@ def p_error(p):
     else:
         print("Syntax error at EOF")
 
+def parseTree(varInto, controlFlag):
+    
+    controller = []
+    result = []
+    counter = 0
+    flagWhile = controlFlag
+
 parser = yacc.yacc()
 
 #File
