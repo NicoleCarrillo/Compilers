@@ -9,6 +9,11 @@ from Utils import Nodo
 from Utils import Var
 import re
 
+# ! --------------------------------------- LEXER ---------------------------------------------
+
+# ? -------------------------------------------------------------------------------------------
+# ? RESERVED VARIABLES, TOKENS, CONSTANTS DECLARATIONS
+
 reserved = {
     'float' : 'FLOAT',
     'int' : 'INT',
@@ -55,6 +60,10 @@ t_GREATERTHAN = r'>='
 
 t_LESSTHAN = r'<='
 
+# ? -------------------------------------------------------------------------------------------
+# & -------------------------------------------------------------------------------------------
+# & VALUE OF EACH VARIABLE DEFINITION
+
 def t_ID(t):
     r'[A-Za-z_][\w_]*'
     t.type = reserved.get(t.value, "ID")
@@ -68,8 +77,18 @@ def t_error(t):
 	print("ILLEGAL CHARACTER '%s' AT T_ERROR FED LINE 82" % t.value[0])
 	t.lexer.skip(1)
 
-# Build the lexer
+# * THIS IS CALLED AT THE SEMATIC PART 
 lx = lex.lex()
+
+# & -------------------------------------------------------------------------------------------
+
+
+# ! ------------------------------------ END LEXER --------------------------------------------
+
+# ! ------------------------------------- PARSER ----------------------------------------------
+
+# ? -------------------------------------------------------------------------------------------
+# ? PARSE TREE GENERATION FOR ERRORS DETECTION 
 
 def parseTree(varInto, controlFlag):
     
@@ -163,6 +182,10 @@ def parseTree(varInto, controlFlag):
 
 def isLenghtValid(variable):
     return len(variable) > 0
+
+# ? -------------------------------------------------------------------------------------------
+# ^ -------------------------------------------------------------------------------------------
+# ^ VARIBLE FUNCTION DEFINITION
 
 def p_block(p):
     '''
@@ -502,10 +525,19 @@ def p_statement_print(p):
     p[0] = Nodo('print', [Nodo(p[3]), Nodo(p[3])])
     Nodo.setParent(p[0])
 
+# ^ -------------------------------------------------------------------------------------------
+
+# ! ------------------------------------- END PARSER ------------------------------------------
+
 parser = yacc.yacc()
 root = parser.parse(lexer=lx, input=open("/Users/nicolecarrillo/Desktop/Compilers/input.txt").read())
 
 variable = { }
+
+# ! ------------------------------------- SEMANTICS ------------------------------------------
+
+# & -------------------------------------------------------------------------------------------
+# & TYPE VARIABLE CHECK
 
 def StrCheck(node):
     node.ptype = "string"
@@ -567,6 +599,11 @@ def BoolCheck(node):
     elif node.type in ["and", "or"]:
             BoolCheck(node.children[0])
     node.ptype = "boolean"
+    
+# & -------------------------------------------------------------------------------------------
+
+# * -------------------------------------------------------------------------------------------
+# * VARIABLES INITIALIZATION, ERROR CHECKING 
 
 def initVariables(root):
     counter = 0
@@ -582,6 +619,10 @@ def initVariables(root):
     if root.children:
         for child in root.children:
             initVariables(child)
+
+# * -------------------------------------------------------------------------------------------
+# ? -------------------------------------------------------------------------------------------
+# *? ORQUESTER, GENERAL COMANDER FOR THE SEMANTIC ANALYSIS
 
 def semantic(root):
     if(root.type == "assignment"):
@@ -616,6 +657,12 @@ def semantic(root):
 
 initVariables(root)
 semantic(root)
+
+# ? -------------------------------------------------------------------------------------------
+
+# ! ---------------------------------- END SEMANTICS ------------------------------------------
+
+# ! ----------------------------------------- TAC ---------------------------------------------
 
 tokenNodes = {}
 extraNodes = {}
