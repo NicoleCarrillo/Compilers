@@ -69,6 +69,96 @@ def t_error(t):
 # Build the lexer
 lexer = lex.lex()
 
+def parseTree(varInto, controlFlag):
+    
+    controller = []
+    result = []
+    counter = 0
+    flagWhile = controlFlag
+
+    while(len(varInto) > 0):
+        character = varInto.pop(0)
+        counter = counter + 1
+        # * IF THERE IS A  (, INIT OF CONDITION ... THEN PUT INTO STACK
+        if(character == "("):
+            controller.append(character)
+            counter = counter + 1
+            flagWhile = True
+        elif(character == ")"):
+            while(len(controller) > 0 and controller[len(controller)-1] != "("):
+                # * THE END OF THE ) SO POP WHAT WAS INSIDE AND CONTINUE
+                result.append(controller.pop())
+                counter = counter + 1
+                flagWhile = True
+            if(controller[len(controller)-1] == "("):
+                controller.pop()
+                counter = counter + 1
+                flagWhile = True
+            else:
+                # * IF ERROR
+                counter = 0
+                flagWhile = False
+                print("HEY SOMETHING IS WRONG IN THE ( ) CONDITIONS! REVIEW ELSE 119")
+        elif(character in "+-/*^"):
+            counter = counter + 1
+            flagWhile = True
+            # * CHECKS THE CORRECT PRECEDENCE OF THE OPERATORS 
+            while(len(controller) > 0 and (controller[len(controller)-1] in "^" or (controller[len(controller)-1] in "*/" and character in "*/+-") or (controller[len(controller)-1] in "+-" and character in "+-"))):
+                result.append(controller.pop())
+            controller.append(character)
+        else:
+            counter = counter + 1
+            flagWhile = True
+            result.append(character)
+    while(len(controller) > 0):
+        result.append(controller.pop())
+        flagWhile = True
+        counter = counter + 1
+    if(not flagWhile):
+        print("HEY SOMETHING IS NOT WORKING AT PARSE TREE METHOD LINE 100")
+
+    controllerFinal = []
+    resultFinal = result
+    counterFinal = 1
+    errorWord = ""
+
+    # * CHECKS NUMERIC EXPRESSIONS
+    while(isLenghtValid(resultFinal)):
+        character = resultFinal.pop(0)
+        if(isinstance(character, Nodo)):
+            controllerFinal.append(character)
+            counterFinal = counterFinal + 1
+        elif(character == '('):
+            counterFinal = 0
+            errorWord = character + errorWord
+        elif(character in "+-*/^"):
+            if(not len(controllerFinal) < 2):
+                a2 = controllerFinal.pop()
+                counterFinal = counterFinal + 1
+                if(not(isinstance(a2, Nodo))):
+                    a2 = Nodo(a2)
+                    errorWord = character + errorWord
+                a1 = controllerFinal.pop()
+                if(not(isinstance(a1, Nodo))):
+                    a1 = Nodo(a1)
+                    errorWord = character + errorWord
+                newNode = Nodo(character,children=[a1, a2])
+                Nodo.setParent(newNode)
+                controllerFinal.append(newNode)
+        else:
+            controllerFinal.append(character)
+    # * ERROR VALIDATION
+    if(counterFinal == 0):
+        print("IT CAN BE ( AT CHARACTER 152")
+        print("ERROR TILL" + errorWord)
+    if(len(controllerFinal) != 1):
+        print("ERROR AT NUMBER EXPRESSION WHILE 148")
+    else:
+        character = controllerFinal.pop()
+        if(not(isinstance(character, Nodo))):
+            character = Nodo(character)
+        return character
+
 def p_block(p):
     '''
     block : statement
