@@ -5,7 +5,9 @@
 
 import ply.yacc as yacc
 import ply.lex as lex
-from Nodo import Nodo
+from Utils import Nodo
+from Utils import Var
+import re
 
 reserved = {
     'float' : 'FLOAT',
@@ -502,6 +504,118 @@ def p_statement_print(p):
 
 parser = yacc.yacc()
 root = parser.parse(lexer=lx, input=open("/Users/nicolecarrillo/Desktop/ply-compiler-master/input.txt").read())
+
+variable = { }
+
+def StrCheck(node):
+    node.ptype = "string"
+
+def numCheck(node):
+    countInt = 0
+    countFlt = 0
+    recursion = True
+    if node.children:
+        if node.type in ["+", "-", "/", "*", "^"]:
+            for child in node.children:
+                recursion = True
+                numCheck(child)
+            if node.children[0].ptype == node.children[1].ptype:
+                node.ptype = node.children[0].ptype
+            else:
+                for i in range(len(node.children)):
+                    if node.children[i].ptype == "int":
+                        countInt = countInt + 1;
+                        parseNode = Nodo('int2float', ptype="float")
+                        node.children[i].parent = parseNode
+                        parseNode.children = [node.children[i]]
+                        node.children[i] = parseNode
+                countFlt = countFlt + 1;
+                node.ptype = "float"
+        else:
+            print("THERE IS AN ERROR AT THE NUMBERS DECLARATION, numCheck 548")
+    else:
+        if(re.fullmatch(r'\d+?', node.type)):
+            node.ptype = "int"
+            countInt = countInt + 1;
+        elif(re.fullmatch(r'((\d+)(\.\d+))', node.type)):
+            node.ptype = "float"
+            countFlt = countFlt + 1;
+        else:
+            if((node.type[0] == "-" and not Var.isInScope(Var, node, node.type[1:], variable))):
+                print("VAR" + node.type + " NEEDS TO BE DECLARED FIRST")
+            varType = Var.getVarType(Var, node, node.type, variable)
+            if varType == "string" or varType == "boolean":
+                print("CAN'T CONVERT A STRING TO NUMBER PLIS CHECK")
+            node.ptype = varType
+    if(not recursion):
+        print("THERE IS AN ERROR AT NUMCHECK, NOT ENTERING RECURSION")
+
+def BoolCheck(node):
+    if not node.children:
+        if node.type != "true" and node.type != "false":
+            if not Var.isInScope(Var, node, node.type, variable):
+                print("Variable " + node.type + " NEEDS TO BE DECLARED BEFORE USING IT")
+    elif node.type in ["==", "!="]:
+        if(node.children[0].type in ["+", "-", "/", "*", "^"]):
+            numCheck(node.children[0])
+            numCheck(node.children[1])
+        elif(node.children[0].type in ["==", "!=", "<", ">", ">=", "<=", "and", "or", "true", "false"]):
+            BoolCheck(node.children[0])
+    elif node.type in [">", "<", ">=", "<="]:
+        numCheck(node.children[0])
+        numCheck(node.children[1])
+    elif node.type in ["and", "or"]:
+            BoolCheck(node.children[0])
+    node.ptype = "boolean"
+
+def initVariables(root):
+    counter = 0
+    if(root.type == "declaration"):
+        scopeNode = Nodo.findScopeNode(Nodo,root)
+        if Var.isInScope(Var,root, root.children[0].type, variable):
+            counter = counter + 1;
+            print("VAR " + root.children[0].type + " IS ALREADY DEFINED, errors" + counter)
+        if scopeNode in variable.keys():
+            variable[scopeNode].append(Var(root.children[0].type, root.children[1].type))
+        else:
+            variable[scopeNode] = [Var(root.children[0].type, root.children[1].type)]
+    if root.children:
+        for child in root.children:
+            initVariables(child)
+
+def semantic(root):
+    if(root.type == "assignment"):
+        if root.children[0].type == "declaration":
+            correctType = root.children[0].children[1].type
+            varName = root.children[0].children[0].type
+            Var.isVarInTree(Var, root.children[1], varName)
+        elif (not Var.isInScope(Var,root, root.children[0].type, variable)):
+            print("VARIABLE " + root.children[0].type + "NEEDS TO BE DECLARED")
+        else:
+            correctType = Var.getVarType(Var, root, root.children[0].type, variable)
+        if correctType == "int" or correctType == "float":
+            numCheck(root.children[1])
+            if correctType == "float" and root.children[1].ptype == "int":
+                parseNode = Nodo('int2float', ptype="float")
+                root.children[1].parent = parseNode
+                parseNode.children = [root.children[1]]
+                root.children[1] = parseNode
+        elif correctType == "boolean":
+            BoolCheck(root.children[1])
+        elif correctType == "string":
+            StrCheck(root.children[1])
+    elif(root.type in ["==", "!=", "<", ">", ">=", "<=", "and", "or", "true", "false"]):
+        BoolCheck(root)
+    elif(root.type in ["concat", "num2string"]):
+        StrCheck(root)
+    elif(root.type in ["+", "-", "/", "*", "^"]):
+        numCheck(root)
+    elif root.children:
+        for child in root.children:
+            semantic(child)
+
+initVariables(root)
+semantic(root)
 
 #File
 inputData = []

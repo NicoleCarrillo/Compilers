@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'left+-left*/rightUMINUSFLOATDEC FNUMBER INTDEC INUMBER NAME PRINT VARBOOL VBOOLstatement : INTDEC NAME is_assing\n    statement : VBOOL NAME is_assingis_assing : "=" expression \n                | statement : FLOATDEC NAMEstatement : PRINT \'(\' expression \')\' statement : NAME "=" expressionstatement : expressionexpression : expression \'+\' expression\n                  | expression \'-\' expression\n                  | expression \'*\' expression\n                  | expression \'/\' expressionexpression : \'-\' expression %prec UMINUSexpression : \'(\' expression \')\'expression : INUMBERexpression : FNUMBERexpression : VARBOOLexpression : NAME'
+_lr_signature = "AND BOOLEAN DIFFERENT ELIF ELSE EQUAL FALSE FLOAT FNUMBER FOR GREATERTHAN ID IF INT INUMBER LESSTHAN OR PRINT STR STRING TRUE WHILE\n    block : statement\n        | statement block\n    \n    statement : prodstatement ';'\n        | control\n    \n    prodstatement : INT ID '=' numericexp\n    \n    prodstatement : FLOAT ID '=' numericexp\n    \n    prodstatement : STRING ID '=' stringexp\n    \n    prodstatement : BOOLEAN ID '=' booleanexp\n    \n    expr : numericexp\n    \n    expr : booleanexp\n    \n    expr : stringexp\n    \n    control : IF '(' booleanexp ')' '{' block '}' elif else\n    \n    elif : ELIF '(' booleanexp ')' '{' block '}' elif\n        | epsilon\n    \n    else : ELSE '{' block '}'\n        | epsilon\n    \n    control : WHILE '(' booleanexp ')' '{' block '}'\n    \n    prodstatement : ID '=' expr\n    \n    prodstatement : FLOAT ID \n    \n    prodstatement : INT ID\n    \n    prodstatement : STRING ID\n    \n    prodstatement : BOOLEAN ID\n    \n    numericexp : ID '+' numericexp\n        | ID '-' numericexp\n        | ID '/' numericexp\n        | ID '*' numericexp \n        | ID '^' numericexp\n    \n    numericexp : num\n    \n    numericexp : numericexp operator numericexp\n    numericexp : '(' numericexp ')' \n    num : INUMBER\n        | FNUMBER\n    \n    operator : '+'\n        | '-'\n        | '*'\n        | '/'\n        | '^'\n    \n    concat : ID\n        | STR\n    \n    stringexp : concat\n    \n    stringexp : ID '+' stringexp\n    \n    stringexp : ID '+' ID\n    \n    stringexp : stringexp '+' stringexp\n    \n    bool : TRUE\n        | FALSE\n        | ID\n    \n    booleanexp : booleanexp AND booleanexp\n        | booleanexp OR booleanexp\n        | booleanexp EQUAL booleanexp\n        | booleanexp DIFFERENT booleanexp\n    \n    booleanexp : ID EQUAL stringexp\n        | ID DIFFERENT stringexp\n    \n    booleanexp : ID EQUAL numericexp\n        | ID DIFFERENT numericexp\n        | ID GREATERTHAN numericexp\n        | ID LESSTHAN numericexp\n        | ID '<' numericexp\n        | ID '>' numericexp\n    \n    boolop : strcomp\n        | numcomp\n        | bool\n    \n    comp : EQUAL\n        | DIFFERENT\n        | GREATERTHAN\n        | LESSTHAN\n        | '<'\n        | '>'\n    \n    strcomp : stringexp DIFFERENT stringexp\n        | stringexp  EQUAL stringexp\n    \n    numcomp : numericexp comp numericexp\n    epsilon :statement : PRINT '(' ID ')' "
     
-_lr_action_items = {'INTDEC':([0,],[2,]),'VBOOL':([0,],[4,]),'FLOATDEC':([0,],[5,]),'PRINT':([0,],[6,]),'NAME':([0,2,4,5,7,9,14,17,20,21,22,23,26,],[3,13,15,16,19,19,19,19,19,19,19,19,19,]),'-':([0,3,7,8,9,10,11,12,14,17,18,19,20,21,22,23,24,26,27,29,30,31,32,33,34,35,],[9,-18,9,21,9,-15,-16,-17,9,9,21,-18,9,9,9,9,-13,9,21,21,-14,-9,-10,-11,-12,21,]),'(':([0,6,7,9,14,17,20,21,22,23,26,],[7,17,7,7,7,7,7,7,7,7,7,]),'INUMBER':([0,7,9,14,17,20,21,22,23,26,],[10,10,10,10,10,10,10,10,10,10,]),'FNUMBER':([0,7,9,14,17,20,21,22,23,26,],[11,11,11,11,11,11,11,11,11,11,]),'VARBOOL':([0,7,9,14,17,20,21,22,23,26,],[12,12,12,12,12,12,12,12,12,12,]),'$end':([1,3,8,10,11,12,13,15,16,19,24,25,27,28,30,31,32,33,34,35,36,],[0,-18,-8,-15,-16,-17,-4,-4,-5,-18,-13,-1,-7,-2,-14,-9,-10,-11,-12,-3,-6,]),'=':([3,13,15,],[14,26,26,]),'+':([3,8,10,11,12,18,19,24,27,29,30,31,32,33,34,35,],[-18,20,-15,-16,-17,20,-18,-13,20,20,-14,-9,-10,-11,-12,20,]),'*':([3,8,10,11,12,18,19,24,27,29,30,31,32,33,34,35,],[-18,22,-15,-16,-17,22,-18,-13,22,22,-14,22,22,-11,-12,22,]),'/':([3,8,10,11,12,18,19,24,27,29,30,31,32,33,34,35,],[-18,23,-15,-16,-17,23,-18,-13,23,23,-14,23,23,-11,-12,23,]),')':([10,11,12,18,19,24,29,30,31,32,33,34,],[-15,-16,-17,30,-18,-13,36,-14,-9,-10,-11,-12,]),}
+_lr_action_items = {'PRINT':([0,2,4,14,42,99,100,106,107,108,110,111,113,115,119,120,122,123,],[5,5,-4,-3,-72,5,5,-71,-17,-71,-14,-12,-16,5,-15,5,-71,-13,]),'INT':([0,2,4,14,42,99,100,106,107,108,110,111,113,115,119,120,122,123,],[7,7,-4,-3,-72,7,7,-71,-17,-71,-14,-12,-16,7,-15,7,-71,-13,]),'FLOAT':([0,2,4,14,42,99,100,106,107,108,110,111,113,115,119,120,122,123,],[8,8,-4,-3,-72,8,8,-71,-17,-71,-14,-12,-16,8,-15,8,-71,-13,]),'STRING':([0,2,4,14,42,99,100,106,107,108,110,111,113,115,119,120,122,123,],[9,9,-4,-3,-72,9,9,-71,-17,-71,-14,-12,-16,9,-15,9,-71,-13,]),'BOOLEAN':([0,2,4,14,42,99,100,106,107,108,110,111,113,115,119,120,122,123,],[10,10,-4,-3,-72,10,10,-71,-17,-71,-14,-12,-16,10,-15,10,-71,-13,]),'ID':([0,2,4,7,8,9,10,14,15,16,21,22,30,35,36,37,38,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,97,98,99,100,101,106,107,108,110,111,113,114,115,119,120,122,123,],[6,6,-4,17,18,19,20,-3,23,24,40,40,66,66,66,69,40,-72,74,66,66,66,66,81,81,66,66,66,66,66,-33,-34,-35,-36,-37,40,40,40,40,69,66,102,6,6,105,-71,-17,-71,-14,-12,-16,40,6,-15,6,-71,-13,]),'IF':([0,2,4,14,42,99,100,106,107,108,110,111,113,115,119,120,122,123,],[11,11,-4,-3,-72,11,11,-71,-17,-71,-14,-12,-16,11,-15,11,-71,-13,]),'WHILE':([0,2,4,14,42,99,100,106,107,108,110,111,113,115,119,120,122,123,],[12,12,-4,-3,-72,12,12,-71,-17,-71,-14,-12,-16,12,-15,12,-71,-13,]),'$end':([1,2,4,13,14,42,106,107,108,110,111,113,119,122,123,],[0,-1,-4,-2,-3,-72,-71,-17,-71,-14,-12,-16,-15,-71,-13,]),'}':([2,4,13,14,42,103,104,106,107,108,110,111,113,117,119,121,122,123,],[-1,-4,-2,-3,-72,106,107,-71,-17,-71,-14,-12,-16,119,-15,122,-71,-13,]),';':([3,17,18,19,20,24,25,26,27,28,29,31,32,33,34,67,68,69,70,71,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,102,105,],[14,-20,-19,-21,-22,-38,-18,-9,-10,-11,-28,-40,-31,-32,-39,-5,-6,-38,-7,-8,-38,-23,-41,-24,-25,-26,-27,-38,-51,-53,-52,-54,-55,-56,-57,-58,-29,-47,-48,-49,-50,-43,-30,-38,-38,]),'(':([5,11,12,16,30,35,36,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,97,101,109,],[15,21,22,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,-33,-34,-35,-36,-37,30,30,114,]),'=':([6,17,18,19,20,],[16,35,36,37,38,]),'INUMBER':([16,30,35,36,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,97,101,],[32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,-33,-34,-35,-36,-37,32,32,]),'FNUMBER':([16,30,35,36,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,97,101,],[33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,-33,-34,-35,-36,-37,33,33,]),'STR':([16,37,43,48,49,64,98,101,],[34,34,34,34,34,34,34,34,]),')':([23,29,31,32,33,34,39,41,65,69,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,102,105,116,],[42,-28,-40,-31,-32,-39,72,73,96,-38,-23,-41,-24,-25,-26,-27,-38,-51,-53,-52,-54,-55,-56,-57,-58,-29,-47,-48,-49,-50,-43,-30,-38,-38,118,]),'+':([24,26,28,29,31,32,33,34,65,66,67,68,69,70,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,95,96,102,105,],[43,55,64,-28,-40,-31,-32,-39,55,97,55,55,98,64,43,55,64,55,55,55,55,101,64,55,64,55,55,55,55,55,55,64,-30,98,101,]),'-':([24,26,29,32,33,65,66,67,68,74,75,77,78,79,80,81,83,85,86,87,88,89,90,96,105,],[44,56,-28,-31,-32,56,44,56,56,44,56,56,56,56,56,44,56,56,56,56,56,56,56,-30,44,]),'/':([24,26,29,32,33,65,66,67,68,74,75,77,78,79,80,81,83,85,86,87,88,89,90,96,105,],[45,58,-28,-31,-32,58,45,58,58,45,58,58,58,58,58,45,58,58,58,58,58,58,58,-30,45,]),'*':([24,26,29,32,33,65,66,67,68,74,75,77,78,79,80,81,83,85,86,87,88,89,90,96,105,],[46,57,-28,-31,-32,57,46,57,57,46,57,57,57,57,57,46,57,57,57,57,57,57,57,-30,46,]),'^':([24,26,29,32,33,65,66,67,68,74,75,77,78,79,80,81,83,85,86,87,88,89,90,96,105,],[47,59,-28,-31,-32,59,47,59,59,47,59,59,59,59,59,47,59,59,59,59,59,59,59,-30,47,]),'EQUAL':([24,27,29,31,32,33,34,39,40,41,69,71,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,102,105,116,],[48,62,-28,-40,-31,-32,-39,62,48,62,-38,62,-23,-41,-24,-25,-26,-27,-38,-51,-53,-52,-54,-55,-56,-57,-58,-29,62,62,62,62,-43,-30,-38,-38,62,]),'DIFFERENT':([24,27,29,31,32,33,34,39,40,41,69,71,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,102,105,116,],[49,63,-28,-40,-31,-32,-39,63,49,63,-38,63,-23,-41,-24,-25,-26,-27,-38,-51,-53,-52,-54,-55,-56,-57,-58,-29,63,63,63,63,-43,-30,-38,-38,63,]),'GREATERTHAN':([24,40,],[50,50,]),'LESSTHAN':([24,40,],[51,51,]),'<':([24,40,],[52,52,]),'>':([24,40,],[53,53,]),'AND':([27,29,31,32,33,34,39,41,69,71,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,102,105,116,],[60,-28,-40,-31,-32,-39,60,60,-38,60,-23,-41,-24,-25,-26,-27,-38,-51,-53,-52,-54,-55,-56,-57,-58,-29,60,60,60,60,-43,-30,-38,-38,60,]),'OR':([27,29,31,32,33,34,39,41,69,71,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,102,105,116,],[61,-28,-40,-31,-32,-39,61,61,-38,61,-23,-41,-24,-25,-26,-27,-38,-51,-53,-52,-54,-55,-56,-57,-58,-29,61,61,61,61,-43,-30,-38,-38,61,]),'{':([72,73,112,118,],[99,100,115,120,]),'ELIF':([106,122,],[109,109,]),'ELSE':([106,108,110,122,123,],[-71,112,-14,-71,-13,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'statement':([0,],[1,]),'expression':([0,7,9,14,17,20,21,22,23,26,],[8,18,24,27,29,31,32,33,34,35,]),'is_assing':([13,15,],[25,28,]),}
+_lr_goto_items = {'block':([0,2,99,100,115,120,],[1,13,103,104,117,121,]),'statement':([0,2,99,100,115,120,],[2,2,2,2,2,2,]),'prodstatement':([0,2,99,100,115,120,],[3,3,3,3,3,3,]),'control':([0,2,99,100,115,120,],[4,4,4,4,4,4,]),'expr':([16,],[25,]),'numericexp':([16,30,35,36,43,44,45,46,47,48,49,50,51,52,53,54,97,101,],[26,65,67,68,75,77,78,79,80,83,85,86,87,88,89,90,75,75,]),'booleanexp':([16,21,22,38,60,61,62,63,114,],[27,39,41,71,91,92,93,94,116,]),'stringexp':([16,37,43,48,49,64,98,101,],[28,70,76,82,84,95,76,76,]),'num':([16,30,35,36,43,44,45,46,47,48,49,50,51,52,53,54,97,101,],[29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,]),'concat':([16,37,43,48,49,64,98,101,],[31,31,31,31,31,31,31,31,]),'operator':([26,65,67,68,75,77,78,79,80,83,85,86,87,88,89,90,],[54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,]),'elif':([106,122,],[108,123,]),'epsilon':([106,108,122,],[110,113,110,]),'else':([108,],[111,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,23 +26,77 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> statement","S'",1,None,None,None),
-  ('statement -> INTDEC NAME is_assing','statement',3,'p_statement_declare_int','compiler.py',63),
-  ('statement -> VBOOL NAME is_assing','statement',3,'p_statement_declare_bool','compiler.py',71),
-  ('is_assing -> = expression','is_assing',2,'p_is_assing','compiler.py',75),
-  ('is_assing -> <empty>','is_assing',0,'p_is_assing','compiler.py',76),
-  ('statement -> FLOATDEC NAME','statement',2,'p_statement_declare_float','compiler.py',82),
-  ('statement -> PRINT ( expression )','statement',4,'p_statement_print','compiler.py',86),
-  ('statement -> NAME = expression','statement',3,'p_statement_assign','compiler.py',90),
-  ('statement -> expression','statement',1,'p_statement_expr','compiler.py',97),
-  ('expression -> expression + expression','expression',3,'p_expression_binop','compiler.py',101),
-  ('expression -> expression - expression','expression',3,'p_expression_binop','compiler.py',102),
-  ('expression -> expression * expression','expression',3,'p_expression_binop','compiler.py',103),
-  ('expression -> expression / expression','expression',3,'p_expression_binop','compiler.py',104),
-  ('expression -> - expression','expression',2,'p_expression_uminus','compiler.py',111),
-  ('expression -> ( expression )','expression',3,'p_expression_group','compiler.py',115),
-  ('expression -> INUMBER','expression',1,'p_expression_inumber','compiler.py',119),
-  ('expression -> FNUMBER','expression',1,'p_expression_fnumber','compiler.py',123),
-  ('expression -> VARBOOL','expression',1,'p_expression_varbool','compiler.py',127),
-  ('expression -> NAME','expression',1,'p_expression_name','compiler.py',131),
+  ("S' -> block","S'",1,None,None,None),
+  ('block -> statement','block',1,'p_block','compiler.py',169),
+  ('block -> statement block','block',2,'p_block','compiler.py',170),
+  ('statement -> prodstatement ;','statement',2,'p_statement','compiler.py',182),
+  ('statement -> control','statement',1,'p_statement','compiler.py',183),
+  ('prodstatement -> INT ID = numericexp','prodstatement',4,'p_prodstatement_assdec_num_int','compiler.py',189),
+  ('prodstatement -> FLOAT ID = numericexp','prodstatement',4,'p_prodstatement_assdec_num_float','compiler.py',198),
+  ('prodstatement -> STRING ID = stringexp','prodstatement',4,'p_prodstatement_assdec_strings','compiler.py',207),
+  ('prodstatement -> BOOLEAN ID = booleanexp','prodstatement',4,'p_prodstatement_assdec_boolean','compiler.py',216),
+  ('expr -> numericexp','expr',1,'p_expr_num','compiler.py',225),
+  ('expr -> booleanexp','expr',1,'p_expr_bool','compiler.py',231),
+  ('expr -> stringexp','expr',1,'p_expr_str','compiler.py',237),
+  ('control -> IF ( booleanexp ) { block } elif else','control',9,'p_control_if','compiler.py',243),
+  ('elif -> ELIF ( booleanexp ) { block } elif','elif',8,'p_control_elif','compiler.py',259),
+  ('elif -> epsilon','elif',1,'p_control_elif','compiler.py',260),
+  ('else -> ELSE { block }','else',4,'p_control_else','compiler.py',274),
+  ('else -> epsilon','else',1,'p_control_else','compiler.py',275),
+  ('control -> WHILE ( booleanexp ) { block }','control',7,'p_control_while','compiler.py',288),
+  ('prodstatement -> ID = expr','prodstatement',3,'p_prodstatement_assigment','compiler.py',295),
+  ('prodstatement -> FLOAT ID','prodstatement',2,'p_prodstatement_declaration_float','compiler.py',302),
+  ('prodstatement -> INT ID','prodstatement',2,'p_prodstatement_declaration_int','compiler.py',309),
+  ('prodstatement -> STRING ID','prodstatement',2,'p_prodstatement_declaration_string','compiler.py',316),
+  ('prodstatement -> BOOLEAN ID','prodstatement',2,'p_prodstatement_declaration_boolean','compiler.py',323),
+  ('numericexp -> ID + numericexp','numericexp',3,'p_numericexp_id','compiler.py',330),
+  ('numericexp -> ID - numericexp','numericexp',3,'p_numericexp_id','compiler.py',331),
+  ('numericexp -> ID / numericexp','numericexp',3,'p_numericexp_id','compiler.py',332),
+  ('numericexp -> ID * numericexp','numericexp',3,'p_numericexp_id','compiler.py',333),
+  ('numericexp -> ID ^ numericexp','numericexp',3,'p_numericexp_id','compiler.py',334),
+  ('numericexp -> num','numericexp',1,'p_numericexp_num','compiler.py',346),
+  ('numericexp -> numericexp operator numericexp','numericexp',3,'p_numericexp_operator','compiler.py',352),
+  ('numericexp -> ( numericexp )','numericexp',3,'p_numericexp_group','compiler.py',365),
+  ('num -> INUMBER','num',1,'p_num','compiler.py',370),
+  ('num -> FNUMBER','num',1,'p_num','compiler.py',371),
+  ('operator -> +','operator',1,'p_operator','compiler.py',377),
+  ('operator -> -','operator',1,'p_operator','compiler.py',378),
+  ('operator -> *','operator',1,'p_operator','compiler.py',379),
+  ('operator -> /','operator',1,'p_operator','compiler.py',380),
+  ('operator -> ^','operator',1,'p_operator','compiler.py',381),
+  ('concat -> ID','concat',1,'p_concat','compiler.py',387),
+  ('concat -> STR','concat',1,'p_concat','compiler.py',388),
+  ('stringexp -> concat','stringexp',1,'p_stringexp_one','compiler.py',395),
+  ('stringexp -> ID + stringexp','stringexp',3,'p_stringexp_concat_id','compiler.py',401),
+  ('stringexp -> ID + ID','stringexp',3,'p_stringexp_concat_id_id','compiler.py',408),
+  ('stringexp -> stringexp + stringexp','stringexp',3,'p_stringexp_concat_string','compiler.py',415),
+  ('bool -> TRUE','bool',1,'p_bool','compiler.py',422),
+  ('bool -> FALSE','bool',1,'p_bool','compiler.py',423),
+  ('bool -> ID','bool',1,'p_bool','compiler.py',424),
+  ('booleanexp -> booleanexp AND booleanexp','booleanexp',3,'p_booleanexp','compiler.py',430),
+  ('booleanexp -> booleanexp OR booleanexp','booleanexp',3,'p_booleanexp','compiler.py',431),
+  ('booleanexp -> booleanexp EQUAL booleanexp','booleanexp',3,'p_booleanexp','compiler.py',432),
+  ('booleanexp -> booleanexp DIFFERENT booleanexp','booleanexp',3,'p_booleanexp','compiler.py',433),
+  ('booleanexp -> ID EQUAL stringexp','booleanexp',3,'p_booleanexp_equal_dif','compiler.py',440),
+  ('booleanexp -> ID DIFFERENT stringexp','booleanexp',3,'p_booleanexp_equal_dif','compiler.py',441),
+  ('booleanexp -> ID EQUAL numericexp','booleanexp',3,'p_booleanexp_num','compiler.py',448),
+  ('booleanexp -> ID DIFFERENT numericexp','booleanexp',3,'p_booleanexp_num','compiler.py',449),
+  ('booleanexp -> ID GREATERTHAN numericexp','booleanexp',3,'p_booleanexp_num','compiler.py',450),
+  ('booleanexp -> ID LESSTHAN numericexp','booleanexp',3,'p_booleanexp_num','compiler.py',451),
+  ('booleanexp -> ID < numericexp','booleanexp',3,'p_booleanexp_num','compiler.py',452),
+  ('booleanexp -> ID > numericexp','booleanexp',3,'p_booleanexp_num','compiler.py',453),
+  ('boolop -> strcomp','boolop',1,'p_boolop','compiler.py',460),
+  ('boolop -> numcomp','boolop',1,'p_boolop','compiler.py',461),
+  ('boolop -> bool','boolop',1,'p_boolop','compiler.py',462),
+  ('comp -> EQUAL','comp',1,'p_comparation','compiler.py',468),
+  ('comp -> DIFFERENT','comp',1,'p_comparation','compiler.py',469),
+  ('comp -> GREATERTHAN','comp',1,'p_comparation','compiler.py',470),
+  ('comp -> LESSTHAN','comp',1,'p_comparation','compiler.py',471),
+  ('comp -> <','comp',1,'p_comparation','compiler.py',472),
+  ('comp -> >','comp',1,'p_comparation','compiler.py',473),
+  ('strcomp -> stringexp DIFFERENT stringexp','strcomp',3,'p_str_comparation','compiler.py',479),
+  ('strcomp -> stringexp EQUAL stringexp','strcomp',3,'p_str_comparation','compiler.py',480),
+  ('numcomp -> numericexp comp numericexp','numcomp',3,'p_num_comparation','compiler.py',487),
+  ('epsilon -> <empty>','epsilon',0,'p_epsilon','compiler.py',493),
+  ('statement -> PRINT ( ID )','statement',4,'p_statement_print','compiler.py',501),
 ]
