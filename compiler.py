@@ -1,42 +1,69 @@
+# ---------------------------------------------------------------------------------------------
+# comp.py
+# A simple compiler. 
+# This is based on O'Reilly's "Lex and Yacc", calculator
+
 import ply.yacc as yacc
 import ply.lex as lex
 
-literals = ['=', '+', '-', '*', '/', '(', ')']
-reserved = { 
-    'int' : 'INTDEC',
-    'float' : 'FLOATDEC',
+reserved = {
+    'float' : 'FLOAT',
+    'int' : 'INT',
+    'string' : 'STRING',
+    'and' : 'AND',
+    'or' : 'OR',
+    'if' : 'IF',
+    'elif' : 'ELIF',
+    'else' : 'ELSE',
+    'while' : 'WHILE',
+    'boolean' : 'BOOLEAN',
+    'for' : 'FOR',
+    'true' : 'TRUE',
+    'false' : 'FALSE',
     'print' : 'PRINT'
- }
+}
 
 tokens = [
-    'INUMBER', 'FNUMBER', 'NAME'
+    'ID',
+    'EQUAL',
+    'DIFFERENT',
+    'INUMBER',
+    'FNUMBER',
+    'STR',
+    'GREATERTHAN',
+    'LESSTHAN'
 ] + list(reserved.values())
 
-# Token
-def t_NAME(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reserved.get(t.value,'NAME')    # Check for reserved words
-    return t
+literals = ['(', ')', '{', '}', '-', '+', '*', '/', '^', '=', '>', '<', ';']
 
-def t_FNUMBER(t):
-    r'\d+\.\d+'
-    t.value = float(t.value)
-    return t
+t_INUMBER = r'\d+'
 
-def t_INUMBER(t):
-    r'\d+'
-    t.value = int(t.value)
-    return t
+t_FNUMBER = r'\d+\.\d+' 
 
-t_ignore = " \t"
+t_STR = r'".*"'
+
+t_ignore = ' \t'
+
+t_EQUAL = r'=='
+
+t_DIFFERENT = r'!='
+
+t_GREATERTHAN = r'>='
+
+t_LESSTHAN = r'<='
+
+def t_ID(t):
+    r'[A-Za-z_][\w_]*'
+    t.type = reserved.get(t.value, "ID")
+    return t
 
 def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += t.value.count("\n")
+	r'\n+'
+	t.lexer.lineno += t.value.count("\n")
 
 def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
-    t.lexer.skip(1)
+	print("ILLEGAL CHARACTER '%s' AT T_ERROR FED LINE 82" % t.value[0])
+	t.lexer.skip(1)
 
 # Build the lexer
 lexer = lex.lex()
@@ -69,8 +96,12 @@ def p_is_assing(p):
         p[0] = p[2]
 
 def p_statement_declare_float(p):
-    'statement : FLOATDEC NAME'
-    names[p[2]] = { "type": "FLOAT", "value":0}
+    'statement : FLOATDEC NAME is_assing'
+    names[p[2]] = { "type": "FLOAT", "value": p[3]}
+
+def p_statement_declare_bool(p):
+    'statement : BOOLDEC NAME is_assing'
+    names[p[2]] = { "type": "BOOL", "value": p[3]}
 
 def p_statement_print(p):
     '''statement : PRINT '(' expression ')' '''
@@ -85,8 +116,7 @@ def p_statement_assign(p):
 
 def p_statement_expr(p):
     'statement : expression'
-    # print(p[1])
-
+    
 def p_expression_binop(p):
     '''expression : expression '+' expression
                   | expression '-' expression
@@ -113,6 +143,10 @@ def p_expression_fnumber(p):
     "expression : FNUMBER"
     p[0] = p[1]
 
+def p_expression_boolean(p):
+    "expression : BOOL"
+    p[0] = p[1]
+
 def p_expression_name(p):
     "expression : NAME"
     try:
@@ -129,16 +163,6 @@ def p_error(p):
         print("Syntax error at EOF")
 
 parser = yacc.yacc()
-
-# Console 
-#while True:
-#    try:
-#        s = input('calc > ')
-#    except EOFError:
-#        break
-#    if not s:
-#        continue
-#    yacc.parse(s)
 
 #File
 inputData = []
