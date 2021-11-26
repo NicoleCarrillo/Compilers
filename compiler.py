@@ -5,6 +5,7 @@
 
 import ply.yacc as yacc
 import ply.lex as lex
+from Nodo import Nodo
 
 reserved = {
     'float' : 'FLOAT',
@@ -66,103 +67,441 @@ def t_error(t):
 	t.lexer.skip(1)
 
 # Build the lexer
-lexer = lex.lex()
+lx = lex.lex()
 
-# Parsing rules
-
-precedence = (
-    ('left', '+', '-'),
-    ('left', '*', '/'),
-    ('right', 'UMINUS'),
-)
-
-# dictionary of names
-names = {}
-abstractTree = []
-
-def p_statement_declare_int(p):
-    '''statement : INTDEC NAME is_assing
-    '''
-    if type(p[3]) == 'float':
-        print('No puedes asignar flotantes a enteros')
-    else:
-        names[p[2]] = { "type": "INT", "value": p[3]}
-
-def p_is_assing(p):
-    '''is_assing : "=" expression 
-                | '''
-    p[0] = 0
-    if len(p) > 2:
-        p[0] = p[2]
-
-def p_statement_declare_float(p):
-    'statement : FLOATDEC NAME is_assing'
-    names[p[2]] = { "type": "FLOAT", "value": p[3]}
-
-def p_statement_declare_bool(p):
-    'statement : BOOLDEC NAME is_assing'
-    names[p[2]] = { "type": "BOOL", "value": p[3]}
-
-def p_statement_print(p):
-    '''statement : PRINT '(' expression ')' '''
-    print(p[3])
-
-def p_statement_assign(p):
-    'statement : NAME "=" expression'
-    if p[1] not in names:
-        print ( "You must declare a variable before using it")
-    names[p[1]]["value"] = p[3]
-
-
-def p_statement_expr(p):
-    'statement : expression'
+def parseTree(varInto, controlFlag):
     
-def p_expression_binop(p):
-    '''expression : expression '+' expression
-                  | expression '-' expression
-                  | expression '*' expression
-                  | expression '/' expression'''
-    if p[2] == '+':
-        p[0] = p[1] + p[3]
-    elif p[2] == '-':
-        p[0] = p[1] - p[3]
+    controller = []
+    result = []
+    counter = 0
+    flagWhile = controlFlag
 
-def p_expression_uminus(p):
-    "expression : '-' expression %prec UMINUS"
-    p[0] = -p[2]
+    while(len(varInto) > 0):
+        character = varInto.pop(0)
+        counter = counter + 1
+        # * IF THERE IS A  (, INIT OF CONDITION ... THEN PUT INTO STACK
+        if(character == "("):
+            controller.append(character)
+            counter = counter + 1
+            flagWhile = True
+        elif(character == ")"):
+            while(len(controller) > 0 and controller[len(controller)-1] != "("):
+                # * THE END OF THE ) SO POP WHAT WAS INSIDE AND CONTINUE
+                result.append(controller.pop())
+                counter = counter + 1
+                flagWhile = True
+            if(controller[len(controller)-1] == "("):
+                controller.pop()
+                counter = counter + 1
+                flagWhile = True
+            else:
+                # * IF ERROR
+                counter = 0
+                flagWhile = False
+                print("HEY SOMETHING IS WRONG IN THE ( ) CONDITIONS! REVIEW ELSE 119")
+        elif(character in "+-/*^"):
+            counter = counter + 1
+            flagWhile = True
+            # * CHECKS THE CORRECT PRECEDENCE OF THE OPERATORS 
+            while(len(controller) > 0 and (controller[len(controller)-1] in "^" or (controller[len(controller)-1] in "*/" and character in "*/+-") or (controller[len(controller)-1] in "+-" and character in "+-"))):
+                result.append(controller.pop())
+            controller.append(character)
+        else:
+            counter = counter + 1
+            flagWhile = True
+            result.append(character)
+    while(len(controller) > 0):
+        result.append(controller.pop())
+        flagWhile = True
+        counter = counter + 1
+    if(not flagWhile):
+        print("HEY SOMETHING IS NOT WORKING AT PARSE TREE METHOD LINE 100")
 
-def p_expression_group(p):
-    "expression : '(' expression ')'"
+    controllerFinal = []
+    resultFinal = result
+    counterFinal = 1
+    errorWord = ""
+
+    # * CHECKS NUMERIC EXPRESSIONS
+    while(isLenghtValid(resultFinal)):
+        character = resultFinal.pop(0)
+        if(isinstance(character, Nodo)):
+            controllerFinal.append(character)
+            counterFinal = counterFinal + 1
+        elif(character == '('):
+            counterFinal = 0
+            errorWord = character + errorWord
+        elif(character in "+-*/^"):
+            if(not len(controllerFinal) < 2):
+                a2 = controllerFinal.pop()
+                counterFinal = counterFinal + 1
+                if(not(isinstance(a2, Nodo))):
+                    a2 = Nodo(a2)
+                    errorWord = character + errorWord
+                a1 = controllerFinal.pop()
+                if(not(isinstance(a1, Nodo))):
+                    a1 = Nodo(a1)
+                    errorWord = character + errorWord
+                newNode = Nodo(character,children=[a1, a2])
+                Nodo.setParent(newNode)
+                controllerFinal.append(newNode)
+        else:
+            controllerFinal.append(character)
+    # * ERROR VALIDATION
+    if(counterFinal == 0):
+        print("IT CAN BE ( AT CHARACTER 152")
+        print("ERROR TILL" + errorWord)
+    if(len(controllerFinal) != 1):
+        print("ERROR AT NUMBER EXPRESSION WHILE 148")
+    else:
+        character = controllerFinal.pop()
+        if(not(isinstance(character, Nodo))):
+            character = Nodo(character)
+        return character
+
+def isLenghtValid(variable):
+    return len(variable) > 0
+
+def p_block(p):
+    '''
+    block : statement
+        | statement block
+    '''
+    if(len(p) > 2):
+        p[0] = Nodo('block', children=[p[1], p[2]])
+        Nodo.setParent(p[0])
+    elif(len(p) < 0):
+        print("INVALID BLOCK GENERATION")
+    else:
+        p[0] = p[1]
+
+def p_statement(p):
+    '''
+    statement : prodstatement ';'
+        | control
+    '''
+    p[0] = p[1]
+
+def p_prodstatement_assdec_num_int(p):
+    '''
+    prodstatement : INT ID '=' numericexp
+    '''
+    declarationDefinition = Nodo('declaration', [Nodo(p[2]), Nodo(p[1])])
+    Nodo.setParent(declarationDefinition)
+    p[0] = Nodo('assignment', [declarationDefinition, parseTree(p[4], False)])
+    Nodo.setParent(p[0])
+
+def p_prodstatement_assdec_num_float(p):
+    '''
+    prodstatement : FLOAT ID '=' numericexp
+    '''
+    declarationDefinition = Nodo('declaration', [Nodo(p[2]), Nodo(p[1])])
+    Nodo.setParent(declarationDefinition)
+    p[0] = Nodo('assignment', [declarationDefinition, parseTree(p[4], False)])
+    Nodo.setParent(p[0])
+
+def p_prodstatement_assdec_strings(p):
+    '''
+    prodstatement : STRING ID '=' stringexp
+    '''
+    declarationDefinition = Nodo('declaration', [Nodo(p[2]), Nodo(p[1])])
+    Nodo.setParent(declarationDefinition)
+    p[0] = Nodo('assignment', [declarationDefinition, p[4]])
+    Nodo.setParent(p[0])
+
+def p_prodstatement_assdec_boolean(p):
+    '''
+    prodstatement : BOOLEAN ID '=' booleanexp
+    '''
+    declarationDefinition = Nodo('declaration', [Nodo(p[2]), Nodo(p[1])])
+    Nodo.setParent(declarationDefinition)
+    p[0] = Nodo('assignment', [declarationDefinition, p[4]])
+    Nodo.setParent(p[0])
+
+def p_expr_num(p):
+    '''
+    expr : numericexp
+    '''
+    p[0] = parseTree(p[1], False)
+
+def p_expr_bool(p):
+    '''
+    expr : booleanexp
+    '''
+    p[0] = p[1]
+
+def p_expr_str(p):
+    '''
+    expr : stringexp
+    '''
+    p[0] = p[1]
+
+def p_control_if(p):
+    '''
+    control : IF '(' booleanexp ')' '{' block '}' elif else
+    '''
+    if(not len(p) > 2):
+        print("THERE IS AN ERROR AT P_CONTROL_IF!")
+    else:
+        p[0] = 0
+        ch = [p[3], p[6]]
+        if(p[8]):
+            ch.append(p[8])
+        if(p[9]):
+            ch.append(p[9])
+        p[0] = Nodo('if', children=ch)
+        Nodo.setParent(p[0])
+
+def p_control_elif(p): 
+    '''
+    elif : ELIF '(' booleanexp ')' '{' block '}' elif
+        | epsilon
+    '''
+    if(len(p) < 2):
+        print("THERE IS AN ERROR AT P_CONTROL_ELIF!")
+    if(len(p) > 2):
+        ch = [p[3], p[6]]
+        p[0] = 0
+        if(p[8]):
+            ch.append(p[8])
+        p[0] = Nodo('elif', children=ch)
+        Nodo.setParent(p[0])
+
+def p_control_else(p):
+    '''
+    else : ELSE '{' block '}'
+        | epsilon
+    '''
+    if(not len(p) > 2):
+        print("THERE IS AN ERROR AT P_CONTROL_ELSE!")
+    else:
+        p[0] = 0
+        elseNode = Nodo('else', [p[3]])
+        p[0] = elseNode
+        Nodo.setParent(elseNode)
+        Nodo.setParent(p[0])
+
+def p_control_while(p):
+    '''
+    control : WHILE '(' booleanexp ')' '{' block '}'
+    '''
+    p[0] = Nodo('while', [p[3], p[6]])
+    Nodo.setParent(p[0])
+
+def p_prodstatement_assigment(p):
+    '''
+    prodstatement : ID '=' expr
+    '''
+    p[0] = Nodo('assignment', [Nodo(p[1]), p[3]])
+    Nodo.setParent(p[0])
+
+def p_prodstatement_declaration_float(p):
+    '''
+    prodstatement : FLOAT ID 
+    '''
+    p[0] = Nodo('declaration', [Nodo(p[2]), Nodo(p[1])])
+    Nodo.setParent(p[0])
+
+def p_prodstatement_declaration_int(p):
+    '''
+    prodstatement : INT ID
+    '''
+    p[0] = Nodo('declaration', [Nodo(p[2]), Nodo(p[1])])
+    Nodo.setParent(p[0])
+
+def p_prodstatement_declaration_string(p):
+    '''
+    prodstatement : STRING ID
+    '''
+    p[0] = Nodo('declaration', [Nodo(p[2]), Nodo(p[1])])
+    Nodo.setParent(p[0])
+
+def p_prodstatement_declaration_boolean(p):
+    '''
+    prodstatement : BOOLEAN ID
+    '''
+    p[0] = Nodo('declaration', [Nodo(p[2]), Nodo(p[1])])
+    Nodo.setParent(p[0])
+
+def p_numericexp_id(p):
+    '''
+    numericexp : ID '+' numericexp
+        | ID '-' numericexp
+        | ID '/' numericexp
+        | ID '*' numericexp 
+        | ID '^' numericexp
+    '''
+    p[0] = []
+
+    p[0].append(p[1])
+    p[0].append(p[2])
+
+    for i in p[3]:
+        p[0].append(i)
+
+def p_numericexp_num(p):
+    '''
+    numericexp : num
+    '''
+    p[0] = [p[1]]
+
+def p_numericexp_operator(p):
+    '''
+    numericexp : numericexp operator numericexp
+    '''
+    p[0] = []
+
+    for i in p[1]:
+        p[0].append(i)
+
+    p[0].append(p[2])
+
+    for i in p[3]:
+        p[0].append(i)
+
+def p_numericexp_group(p):
+    '''numericexp : '(' numericexp ')' '''
     p[0] = p[2]
 
-def p_expression_inumber(p):
-    "expression : INUMBER"
+def p_num(p):
+    '''
+    num : INUMBER
+        | FNUMBER
+    '''
     p[0] = p[1]
 
-def p_expression_fnumber(p):
-    "expression : FNUMBER"
+def p_operator(p):
+    '''
+    operator : '+'
+        | '-'
+        | '*'
+        | '/'
+        | '^'
+    '''
     p[0] = p[1]
 
-def p_expression_boolean(p):
-    "expression : BOOL"
+def p_concat(p):
+    '''
+    concat : ID
+        | STR
+    '''
+    p[0] = 0
+    p[0] = Nodo(p[1])
+
+def p_stringexp_one(p):
+    '''
+    stringexp : concat
+    '''
+    p[0] = p[1]
+    
+def p_stringexp_concat_id(p):
+    '''
+    stringexp : ID '+' stringexp
+    '''
+    p[0] = Nodo('concat', [Nodo(p[1]), p[3]])
+    Nodo.setParent(p[0])
+
+def p_stringexp_concat_id_id(p):
+    '''
+    stringexp : ID '+' ID
+    '''
+    p[0] = Nodo('concat', [Nodo(p[1]), p[3]])
+    Nodo.setParent(p[0])
+
+def p_stringexp_concat_string(p):
+    '''
+    stringexp : stringexp '+' stringexp
+    '''
+    p[0] = Nodo('concat', [p[1], p[3]])
+    Nodo.setParent(p[0])
+    
+def p_bool(p):
+    '''
+    bool : TRUE
+        | FALSE
+        | ID
+    '''
+    p[0] = Nodo(p[1])
+
+def p_booleanexp(p):
+    '''
+    booleanexp : booleanexp AND booleanexp
+        | booleanexp OR booleanexp
+        | booleanexp EQUAL booleanexp
+        | booleanexp DIFFERENT booleanexp
+    '''
+    p[0] = Nodo(p[2], [p[1], p[3]])
+    Nodo.setParent(p[0])
+
+def p_booleanexp_equal_dif(p):
+    '''
+    booleanexp : ID EQUAL stringexp
+        | ID DIFFERENT stringexp
+    '''
+    p[0] = Nodo(p[2], [Nodo(p[1]), p[3]])
+    Nodo.setParent(p[0])
+
+def p_booleanexp_num(p):
+    '''
+    booleanexp : ID EQUAL numericexp
+        | ID DIFFERENT numericexp
+        | ID GREATERTHAN numericexp
+        | ID LESSTHAN numericexp
+        | ID '<' numericexp
+        | ID '>' numericexp
+    '''
+    p[0] = Nodo(p[2], [Nodo(p[1]), parseTree(p[3], False)])
+    Nodo.setParent(p[0])
+
+def p_boolop(p):
+    '''
+    boolop : strcomp
+        | numcomp
+        | bool
+    '''
     p[0] = p[1]
 
-def p_expression_name(p):
-    "expression : NAME"
-    try:
-        p[0] = names[p[1]]["value"]
-    except LookupError:
-        print("Undefined name '%s'" % p[1])
-        p[0] = 0
+def p_comparation(p):
+    '''
+    comp : EQUAL
+        | DIFFERENT
+        | GREATERTHAN
+        | LESSTHAN
+        | '<'
+        | '>'
+    '''
+    p[0] = p[1]
+
+def p_str_comparation(p):
+    '''
+    strcomp : stringexp DIFFERENT stringexp
+        | stringexp  EQUAL stringexp
+    '''
+    p[0] = Nodo(p[2], [p[1], p[3]])
+    Nodo.setParent(p[0])
+
+def p_num_comparation(p):
+    '''
+    numcomp : numericexp comp numericexp
+    '''
+    p[0] = Nodo(p[2], [parseTree(p[1], False), parseTree(p[3], False)])
+    Nodo.setParent(p[0])
+        
+def p_epsilon(p):
+    'epsilon :'
+    pass
 
 def p_error(p):
-    if p:
-        print(p)
-        print("Syntax error at line '%s' character '%s'" % (p.lexpos, p.lineno) )
-    else:
-        print("Syntax error at EOF")
+    print("Syntax error.")
+    pass
+
+def p_statement_print(p): 
+    '''statement : PRINT '(' ID ')' '''
+    p[0] = Nodo('print', [Nodo(p[3]), Nodo(p[3])])
+    Nodo.setParent(p[0])
 
 parser = yacc.yacc()
+root = parser.parse(lexer=lx, input=open("/Users/nicolecarrillo/Desktop/ply-compiler-master/input.txt").read())
 
 #File
 inputData = []
