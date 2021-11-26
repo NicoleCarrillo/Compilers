@@ -80,6 +80,7 @@ precedence = (
 names = {}
 abstractTree = []
 
+
 def p_statement_declare_int(p):
     '''statement : INTDEC NAME is_assing
     '''
