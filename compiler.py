@@ -503,7 +503,7 @@ def p_statement_print(p):
     Nodo.setParent(p[0])
 
 parser = yacc.yacc()
-root = parser.parse(lexer=lx, input=open("/Users/nicolecarrillo/Desktop/ply-compiler-master/input.txt").read())
+root = parser.parse(lexer=lx, input=open("/Users/nicolecarrillo/Desktop/Compilers/input.txt").read())
 
 variable = { }
 
@@ -626,7 +626,7 @@ tokenCounter = 1
 destinyCounter = 1
 gotoCounter = 1
 
-finalFile = open("/Users/nicolecarrillo/Desktop/ply-compiler-master/output.txt", "w")
+finalFile = open("/Users/nicolecarrillo/Desktop/Compilers/output.txt", "w")
 
 def space_gen():
     finalFile.write('\n')
