@@ -530,7 +530,7 @@ def p_statement_print(p):
 # ! ------------------------------------- END PARSER ------------------------------------------
 
 parser = yacc.yacc()
-root = parser.parse(lexer=lx, input=open("/Users/nicolecarrillo/Desktop/Compilers/input.txt").read())
+root = parser.parse(lexer=lx, input=open("input.txt").read())
 
 variable = { }
 
@@ -673,7 +673,7 @@ tokenCounter = 1
 destinyCounter = 1
 gotoCounter = 1
 
-finalFile = open("/Users/nicolecarrillo/Desktop/Compilers/output.txt", "w")
+finalFile = open("output.txt", "w")
 
 def space_gen():
     finalFile.write('\n')
