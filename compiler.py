@@ -159,6 +159,9 @@ def parseTree(varInto, controlFlag):
             character = Nodo(character)
         return character
 
+def isLenghtValid(variable):
+    return len(variable) > 0
+
 def p_block(p):
     '''
     block : statement
