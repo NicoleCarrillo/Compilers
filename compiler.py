@@ -407,14 +407,6 @@ def p_statement_print(p):
     p[0] = Nodo('print', [Nodo(p[3]), Nodo(p[3])])
     Nodo.setParent(p[0])
 
-
-def parseTree(varInto, controlFlag):
-    
-    controller = []
-    result = []
-    counter = 0
-    flagWhile = controlFlag
-
 parser = yacc.yacc()
 
 #File
