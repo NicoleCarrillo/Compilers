@@ -67,7 +67,7 @@ def t_error(t):
 	t.lexer.skip(1)
 
 # Build the lexer
-lexer = lex.lex()
+lx = lex.lex()
 
 def parseTree(varInto, controlFlag):
     
@@ -501,6 +501,7 @@ def p_statement_print(p):
     Nodo.setParent(p[0])
 
 parser = yacc.yacc()
+root = parser.parse(lexer=lx, input=open("/Users/nicolecarrillo/Desktop/ply-compiler-master/input.txt").read())
 
 #File
 inputData = []
