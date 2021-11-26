@@ -1,7 +1,6 @@
 import ply.yacc as yacc
 import ply.lex as lex
 
-literals = ['=', '+', '-', '*', '/', '(', ')', '{', '}', '<', '>', ';', '^']
 reserved = { 
     'int': 'INTDEC', 
     'float': 'FLOATDEC', 
@@ -17,58 +16,47 @@ reserved = {
  }
 
 tokens = [
-    'ASSIGN',
-    'INUMBER', 
-    'FNUMBER', 
-    'STRING',
-    'BOOL',
-    'NAME'
-    'GREATER',
-    'GREATEREQUAL',
-    'NOTEQUAL',
+    'ID',
     'EQUAL',
-    'LESSEQUAL',
-    'LESSTHAN',
-    'LEFTPAR',
-    'RIGHTPAR',
-    'LCURLY',
-    'RCURLY',
-    'SUB',
-    'ADD',
-    'DIV',
-    'MULTI',
-    'SEMI',
-] + list(reserved.values())
+    'DIFFERENT',
+    'INUMBER',
+    'FNUMBER',
+    'STR',
+    'GREATERTHAN',
+    'LESSTHAN'
+] + list(reserved.values()) 
+
+literals = ['(', ')', '{', '}', '-', '+', '*', '/', '^', '=', '>', '<', ';']
+
+t_INUMBER = r'\d+'
+
+t_FNUMBER = r'\d+\.\d+' 
+
+t_STR = r'".*"'
+
+t_ignore = ' \t'
+
+t_EQUAL = r'=='
+
+t_DIFFERENT = r'!='
+
+t_GREATERTHAN = r'>='
+
+t_LESSTHAN = r'<='
 
 # Token
-def t_NAME(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reserved.get(t.value,'NAME')    # Check for reserved words
+def t_ID(t):
+    r'[A-Za-z_][\w_]*'
+    t.type = reserved.get(t.value, "ID")
     return t
-
-def t_FNUMBER(t):
-    r'\d+\.\d+'
-    t.value = float(t.value)
-    return t
-
-def t_INUMBER(t):
-    r'\d+'
-    t.value = int(t.value)
-    return t
-
-t_ignore = " \t"
 
 def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += t.value.count("\n")
+	r'\n+'
+	t.lexer.lineno += t.value.count("\n")
 
 def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
-    t.lexer.skip(1)
-
-def t_BOOL(t):
-    r'True|False'
-    return t
+	print("ILLEGAL CHARACTER '%s' AT T_ERROR FED LINE 82" % t.value[0])
+	t.lexer.skip(1)
 
 # Build the lexer
 lexer = lex.lex()
