@@ -1,0 +1,22 @@
+int i = 10;
+int j = 20;
+
+print(i)
+
+string nick = aaaa;
+nick = nick + aaa;
+
+if (j != i){
+    i = 0;
+}
+else{
+    i = 20;
+}
+
+int f = 0;
+
+while (f < 20 and f <20 ){
+    f = f + 1;
+    i = j;
+}
+

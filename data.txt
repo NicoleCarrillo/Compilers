@@ -1,6 +1,0 @@
-int n1
-boolean a = TRUE
-int n2
-n1 = 1
-n2 = n1 +  1.5
-print (n2)
