@@ -49,6 +49,7 @@ String
 
 * If: if(){}
 * Else: else(){}
+* For: for(){}
 
 ### Loops
 
