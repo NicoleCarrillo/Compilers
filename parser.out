@@ -1,9 +1,5 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    FOR
-
 Grammar
 
 Rule 0     S' -> block
@@ -24,122 +20,123 @@ Rule 14    elif -> epsilon
 Rule 15    else -> ELSE { block }
 Rule 16    else -> epsilon
 Rule 17    control -> WHILE ( booleanexp ) { block }
-Rule 18    prodstatement -> ID = expr
-Rule 19    prodstatement -> FLOAT ID
-Rule 20    prodstatement -> INT ID
-Rule 21    prodstatement -> STRING ID
-Rule 22    prodstatement -> BOOLEAN ID
-Rule 23    numericexp -> ID + numericexp
-Rule 24    numericexp -> ID - numericexp
-Rule 25    numericexp -> ID / numericexp
-Rule 26    numericexp -> ID * numericexp
-Rule 27    numericexp -> ID ^ numericexp
-Rule 28    numericexp -> num
-Rule 29    numericexp -> numericexp operator numericexp
-Rule 30    numericexp -> ( numericexp )
-Rule 31    num -> INUMBER
-Rule 32    num -> FNUMBER
-Rule 33    operator -> +
-Rule 34    operator -> -
-Rule 35    operator -> *
-Rule 36    operator -> /
-Rule 37    operator -> ^
-Rule 38    concat -> ID
-Rule 39    concat -> STR
-Rule 40    stringexp -> concat
-Rule 41    stringexp -> ID + stringexp
-Rule 42    stringexp -> ID + ID
-Rule 43    stringexp -> stringexp + stringexp
-Rule 44    bool -> TRUE
-Rule 45    bool -> FALSE
-Rule 46    bool -> ID
-Rule 47    booleanexp -> booleanexp AND booleanexp
-Rule 48    booleanexp -> booleanexp OR booleanexp
-Rule 49    booleanexp -> booleanexp EQUAL booleanexp
-Rule 50    booleanexp -> booleanexp DIFFERENT booleanexp
-Rule 51    booleanexp -> ID EQUAL stringexp
-Rule 52    booleanexp -> ID DIFFERENT stringexp
-Rule 53    booleanexp -> ID EQUAL numericexp
-Rule 54    booleanexp -> ID DIFFERENT numericexp
-Rule 55    booleanexp -> ID GREATERTHAN numericexp
-Rule 56    booleanexp -> ID LESSTHAN numericexp
-Rule 57    booleanexp -> ID < numericexp
-Rule 58    booleanexp -> ID > numericexp
-Rule 59    boolop -> strcomp
-Rule 60    boolop -> numcomp
-Rule 61    boolop -> bool
-Rule 62    comp -> EQUAL
-Rule 63    comp -> DIFFERENT
-Rule 64    comp -> GREATERTHAN
-Rule 65    comp -> LESSTHAN
-Rule 66    comp -> <
-Rule 67    comp -> >
-Rule 68    strcomp -> stringexp DIFFERENT stringexp
-Rule 69    strcomp -> stringexp EQUAL stringexp
-Rule 70    numcomp -> numericexp comp numericexp
-Rule 71    epsilon -> <empty>
-Rule 72    statement -> PRINT ( ID )
+Rule 18    control -> FOR ( prodstatement ; booleanexp ; prodstatement ) { block }
+Rule 19    prodstatement -> ID = expr
+Rule 20    prodstatement -> FLOAT ID
+Rule 21    prodstatement -> INT ID
+Rule 22    prodstatement -> STRING ID
+Rule 23    prodstatement -> BOOLEAN ID
+Rule 24    numericexp -> ID + numericexp
+Rule 25    numericexp -> ID - numericexp
+Rule 26    numericexp -> ID / numericexp
+Rule 27    numericexp -> ID * numericexp
+Rule 28    numericexp -> ID ^ numericexp
+Rule 29    numericexp -> num
+Rule 30    numericexp -> numericexp operator numericexp
+Rule 31    numericexp -> ( numericexp )
+Rule 32    num -> INUMBER
+Rule 33    num -> FNUMBER
+Rule 34    operator -> +
+Rule 35    operator -> -
+Rule 36    operator -> *
+Rule 37    operator -> /
+Rule 38    operator -> ^
+Rule 39    concat -> ID
+Rule 40    concat -> STR
+Rule 41    stringexp -> concat
+Rule 42    stringexp -> ID + stringexp
+Rule 43    stringexp -> ID + ID
+Rule 44    stringexp -> stringexp + stringexp
+Rule 45    bool -> TRUE
+Rule 46    bool -> FALSE
+Rule 47    bool -> ID
+Rule 48    booleanexp -> booleanexp AND booleanexp
+Rule 49    booleanexp -> booleanexp OR booleanexp
+Rule 50    booleanexp -> booleanexp EQUAL booleanexp
+Rule 51    booleanexp -> booleanexp DIFFERENT booleanexp
+Rule 52    booleanexp -> ID EQUAL stringexp
+Rule 53    booleanexp -> ID DIFFERENT stringexp
+Rule 54    booleanexp -> ID EQUAL numericexp
+Rule 55    booleanexp -> ID DIFFERENT numericexp
+Rule 56    booleanexp -> ID GREATERTHAN numericexp
+Rule 57    booleanexp -> ID LESSTHAN numericexp
+Rule 58    booleanexp -> ID < numericexp
+Rule 59    booleanexp -> ID > numericexp
+Rule 60    boolop -> strcomp
+Rule 61    boolop -> numcomp
+Rule 62    boolop -> bool
+Rule 63    comp -> EQUAL
+Rule 64    comp -> DIFFERENT
+Rule 65    comp -> GREATERTHAN
+Rule 66    comp -> LESSTHAN
+Rule 67    comp -> <
+Rule 68    comp -> >
+Rule 69    strcomp -> stringexp DIFFERENT stringexp
+Rule 70    strcomp -> stringexp EQUAL stringexp
+Rule 71    numcomp -> numericexp comp numericexp
+Rule 72    epsilon -> <empty>
+Rule 73    statement -> PRINT ( ID )
 
 Terminals, with rules where they appear
 
-(                    : 12 13 17 30 72
-)                    : 12 13 17 30 72
-*                    : 26 35
-+                    : 23 33 41 42 43
--                    : 24 34
-/                    : 25 36
-;                    : 3
-<                    : 57 66
-=                    : 5 6 7 8 18
->                    : 58 67
-AND                  : 47
-BOOLEAN              : 8 22
-DIFFERENT            : 50 52 54 63 68
+(                    : 12 13 17 18 31 73
+)                    : 12 13 17 18 31 73
+*                    : 27 36
++                    : 24 34 42 43 44
+-                    : 25 35
+/                    : 26 37
+;                    : 3 18 18
+<                    : 58 67
+=                    : 5 6 7 8 19
+>                    : 59 68
+AND                  : 48
+BOOLEAN              : 8 23
+DIFFERENT            : 51 53 55 64 69
 ELIF                 : 13
 ELSE                 : 15
-EQUAL                : 49 51 53 62 69
-FALSE                : 45
-FLOAT                : 6 19
-FNUMBER              : 32
-FOR                  : 
-GREATERTHAN          : 55 64
-ID                   : 5 6 7 8 18 19 20 21 22 23 24 25 26 27 38 41 42 42 46 51 52 53 54 55 56 57 58 72
+EQUAL                : 50 52 54 63 70
+FALSE                : 46
+FLOAT                : 6 20
+FNUMBER              : 33
+FOR                  : 18
+GREATERTHAN          : 56 65
+ID                   : 5 6 7 8 19 20 21 22 23 24 25 26 27 28 39 42 43 43 47 52 53 54 55 56 57 58 59 73
 IF                   : 12
-INT                  : 5 20
-INUMBER              : 31
-LESSTHAN             : 56 65
-OR                   : 48
-PRINT                : 72
-STR                  : 39
-STRING               : 7 21
-TRUE                 : 44
+INT                  : 5 21
+INUMBER              : 32
+LESSTHAN             : 57 66
+OR                   : 49
+PRINT                : 73
+STR                  : 40
+STRING               : 7 22
+TRUE                 : 45
 WHILE                : 17
-^                    : 27 37
+^                    : 28 38
 error                : 
-{                    : 12 13 15 17
-}                    : 12 13 15 17
+{                    : 12 13 15 17 18
+}                    : 12 13 15 17 18
 
 Nonterminals, with rules where they appear
 
-block                : 2 12 13 15 17 0
-bool                 : 61
-booleanexp           : 8 10 12 13 17 47 47 48 48 49 49 50 50
+block                : 2 12 13 15 17 18 0
+bool                 : 62
+booleanexp           : 8 10 12 13 17 18 48 48 49 49 50 50 51 51
 boolop               : 
-comp                 : 70
-concat               : 40
+comp                 : 71
+concat               : 41
 control              : 4
 elif                 : 12 13
 else                 : 12
 epsilon              : 14 16
-expr                 : 18
-num                  : 28
-numcomp              : 60
-numericexp           : 5 6 9 23 24 25 26 27 29 29 30 53 54 55 56 57 58 70 70
-operator             : 29
-prodstatement        : 3
+expr                 : 19
+num                  : 29
+numcomp              : 61
+numericexp           : 5 6 9 24 25 26 27 28 30 30 31 54 55 56 57 58 59 71 71
+operator             : 30
+prodstatement        : 3 18 18
 statement            : 1 2
-strcomp              : 59
-stringexp            : 7 11 41 43 43 51 52 68 68 69 69
+strcomp              : 60
+stringexp            : 7 11 42 44 44 52 53 69 69 70 70
 
 Parsing method: LALR
 
@@ -150,18 +147,19 @@ state 0
     (2) block -> . statement block
     (3) statement -> . prodstatement ;
     (4) statement -> . control
-    (72) statement -> . PRINT ( ID )
+    (73) statement -> . PRINT ( ID )
     (5) prodstatement -> . INT ID = numericexp
     (6) prodstatement -> . FLOAT ID = numericexp
     (7) prodstatement -> . STRING ID = stringexp
     (8) prodstatement -> . BOOLEAN ID = booleanexp
-    (18) prodstatement -> . ID = expr
-    (19) prodstatement -> . FLOAT ID
-    (20) prodstatement -> . INT ID
-    (21) prodstatement -> . STRING ID
-    (22) prodstatement -> . BOOLEAN ID
+    (19) prodstatement -> . ID = expr
+    (20) prodstatement -> . FLOAT ID
+    (21) prodstatement -> . INT ID
+    (22) prodstatement -> . STRING ID
+    (23) prodstatement -> . BOOLEAN ID
     (12) control -> . IF ( booleanexp ) { block } elif else
     (17) control -> . WHILE ( booleanexp ) { block }
+    (18) control -> . FOR ( prodstatement ; booleanexp ; prodstatement ) { block }
 
     PRINT           shift and go to state 5
     INT             shift and go to state 7
@@ -171,6 +169,7 @@ state 0
     ID              shift and go to state 6
     IF              shift and go to state 11
     WHILE           shift and go to state 12
+    FOR             shift and go to state 13
 
     block                          shift and go to state 1
     statement                      shift and go to state 2
@@ -191,18 +190,19 @@ state 2
     (2) block -> . statement block
     (3) statement -> . prodstatement ;
     (4) statement -> . control
-    (72) statement -> . PRINT ( ID )
+    (73) statement -> . PRINT ( ID )
     (5) prodstatement -> . INT ID = numericexp
     (6) prodstatement -> . FLOAT ID = numericexp
     (7) prodstatement -> . STRING ID = stringexp
     (8) prodstatement -> . BOOLEAN ID = booleanexp
-    (18) prodstatement -> . ID = expr
-    (19) prodstatement -> . FLOAT ID
-    (20) prodstatement -> . INT ID
-    (21) prodstatement -> . STRING ID
-    (22) prodstatement -> . BOOLEAN ID
+    (19) prodstatement -> . ID = expr
+    (20) prodstatement -> . FLOAT ID
+    (21) prodstatement -> . INT ID
+    (22) prodstatement -> . STRING ID
+    (23) prodstatement -> . BOOLEAN ID
     (12) control -> . IF ( booleanexp ) { block } elif else
     (17) control -> . WHILE ( booleanexp ) { block }
+    (18) control -> . FOR ( prodstatement ; booleanexp ; prodstatement ) { block }
 
     $end            reduce using rule 1 (block -> statement .)
     }               reduce using rule 1 (block -> statement .)
@@ -214,9 +214,10 @@ state 2
     ID              shift and go to state 6
     IF              shift and go to state 11
     WHILE           shift and go to state 12
+    FOR             shift and go to state 13
 
     statement                      shift and go to state 2
-    block                          shift and go to state 13
+    block                          shift and go to state 14
     prodstatement                  shift and go to state 3
     control                        shift and go to state 4
 
@@ -224,7 +225,7 @@ state 3
 
     (3) statement -> prodstatement . ;
 
-    ;               shift and go to state 14
+    ;               shift and go to state 15
 
 
 state 4
@@ -239,71 +240,79 @@ state 4
     ID              reduce using rule 4 (statement -> control .)
     IF              reduce using rule 4 (statement -> control .)
     WHILE           reduce using rule 4 (statement -> control .)
+    FOR             reduce using rule 4 (statement -> control .)
     $end            reduce using rule 4 (statement -> control .)
     }               reduce using rule 4 (statement -> control .)
 
 
 state 5
 
-    (72) statement -> PRINT . ( ID )
+    (73) statement -> PRINT . ( ID )
 
-    (               shift and go to state 15
+    (               shift and go to state 16
 
 
 state 6
 
-    (18) prodstatement -> ID . = expr
+    (19) prodstatement -> ID . = expr
 
-    =               shift and go to state 16
+    =               shift and go to state 17
 
 
 state 7
 
     (5) prodstatement -> INT . ID = numericexp
-    (20) prodstatement -> INT . ID
+    (21) prodstatement -> INT . ID
 
-    ID              shift and go to state 17
+    ID              shift and go to state 18
 
 
 state 8
 
     (6) prodstatement -> FLOAT . ID = numericexp
-    (19) prodstatement -> FLOAT . ID
+    (20) prodstatement -> FLOAT . ID
 
-    ID              shift and go to state 18
+    ID              shift and go to state 19
 
 
 state 9
 
     (7) prodstatement -> STRING . ID = stringexp
-    (21) prodstatement -> STRING . ID
+    (22) prodstatement -> STRING . ID
 
-    ID              shift and go to state 19
+    ID              shift and go to state 20
 
 
 state 10
 
     (8) prodstatement -> BOOLEAN . ID = booleanexp
-    (22) prodstatement -> BOOLEAN . ID
+    (23) prodstatement -> BOOLEAN . ID
 
-    ID              shift and go to state 20
+    ID              shift and go to state 21
 
 
 state 11
 
     (12) control -> IF . ( booleanexp ) { block } elif else
 
-    (               shift and go to state 21
+    (               shift and go to state 22
 
 
 state 12
 
     (17) control -> WHILE . ( booleanexp ) { block }
 
-    (               shift and go to state 22
+    (               shift and go to state 23
 
 
 state 13
+
+    (18) control -> FOR . ( prodstatement ; booleanexp ; prodstatement ) { block }
+
+    (               shift and go to state 24
+
+
+state 14
 
     (2) block -> statement block .
 
@@ -311,7 +320,7 @@ state 13
     }               reduce using rule 2 (block -> statement block .)
 
 
-state 14
+state 15
 
     (3) statement -> prodstatement ; .
 
@@ -323,1692 +332,1759 @@ state 14
     ID              reduce using rule 3 (statement -> prodstatement ; .)
     IF              reduce using rule 3 (statement -> prodstatement ; .)
     WHILE           reduce using rule 3 (statement -> prodstatement ; .)
+    FOR             reduce using rule 3 (statement -> prodstatement ; .)
     $end            reduce using rule 3 (statement -> prodstatement ; .)
     }               reduce using rule 3 (statement -> prodstatement ; .)
 
 
-state 15
-
-    (72) statement -> PRINT ( . ID )
-
-    ID              shift and go to state 23
-
-
 state 16
 
-    (18) prodstatement -> ID = . expr
-    (9) expr -> . numericexp
-    (10) expr -> . booleanexp
-    (11) expr -> . stringexp
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (47) booleanexp -> . booleanexp AND booleanexp
-    (48) booleanexp -> . booleanexp OR booleanexp
-    (49) booleanexp -> . booleanexp EQUAL booleanexp
-    (50) booleanexp -> . booleanexp DIFFERENT booleanexp
-    (51) booleanexp -> . ID EQUAL stringexp
-    (52) booleanexp -> . ID DIFFERENT stringexp
-    (53) booleanexp -> . ID EQUAL numericexp
-    (54) booleanexp -> . ID DIFFERENT numericexp
-    (55) booleanexp -> . ID GREATERTHAN numericexp
-    (56) booleanexp -> . ID LESSTHAN numericexp
-    (57) booleanexp -> . ID < numericexp
-    (58) booleanexp -> . ID > numericexp
-    (40) stringexp -> . concat
-    (41) stringexp -> . ID + stringexp
-    (42) stringexp -> . ID + ID
-    (43) stringexp -> . stringexp + stringexp
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
-    (38) concat -> . ID
-    (39) concat -> . STR
+    (73) statement -> PRINT ( . ID )
 
-    ID              shift and go to state 24
-    (               shift and go to state 30
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
-    STR             shift and go to state 34
+    ID              shift and go to state 25
 
-    expr                           shift and go to state 25
-    numericexp                     shift and go to state 26
-    booleanexp                     shift and go to state 27
-    stringexp                      shift and go to state 28
-    num                            shift and go to state 29
-    concat                         shift and go to state 31
 
 state 17
 
-    (5) prodstatement -> INT ID . = numericexp
-    (20) prodstatement -> INT ID .
+    (19) prodstatement -> ID = . expr
+    (9) expr -> . numericexp
+    (10) expr -> . booleanexp
+    (11) expr -> . stringexp
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (48) booleanexp -> . booleanexp AND booleanexp
+    (49) booleanexp -> . booleanexp OR booleanexp
+    (50) booleanexp -> . booleanexp EQUAL booleanexp
+    (51) booleanexp -> . booleanexp DIFFERENT booleanexp
+    (52) booleanexp -> . ID EQUAL stringexp
+    (53) booleanexp -> . ID DIFFERENT stringexp
+    (54) booleanexp -> . ID EQUAL numericexp
+    (55) booleanexp -> . ID DIFFERENT numericexp
+    (56) booleanexp -> . ID GREATERTHAN numericexp
+    (57) booleanexp -> . ID LESSTHAN numericexp
+    (58) booleanexp -> . ID < numericexp
+    (59) booleanexp -> . ID > numericexp
+    (41) stringexp -> . concat
+    (42) stringexp -> . ID + stringexp
+    (43) stringexp -> . ID + ID
+    (44) stringexp -> . stringexp + stringexp
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
+    (39) concat -> . ID
+    (40) concat -> . STR
 
-    =               shift and go to state 35
-    ;               reduce using rule 20 (prodstatement -> INT ID .)
+    ID              shift and go to state 26
+    (               shift and go to state 32
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
+    STR             shift and go to state 36
 
+    expr                           shift and go to state 27
+    numericexp                     shift and go to state 28
+    booleanexp                     shift and go to state 29
+    stringexp                      shift and go to state 30
+    num                            shift and go to state 31
+    concat                         shift and go to state 33
 
 state 18
 
-    (6) prodstatement -> FLOAT ID . = numericexp
-    (19) prodstatement -> FLOAT ID .
+    (5) prodstatement -> INT ID . = numericexp
+    (21) prodstatement -> INT ID .
 
-    =               shift and go to state 36
-    ;               reduce using rule 19 (prodstatement -> FLOAT ID .)
+    =               shift and go to state 37
+    ;               reduce using rule 21 (prodstatement -> INT ID .)
+    )               reduce using rule 21 (prodstatement -> INT ID .)
 
 
 state 19
 
-    (7) prodstatement -> STRING ID . = stringexp
-    (21) prodstatement -> STRING ID .
+    (6) prodstatement -> FLOAT ID . = numericexp
+    (20) prodstatement -> FLOAT ID .
 
-    =               shift and go to state 37
-    ;               reduce using rule 21 (prodstatement -> STRING ID .)
+    =               shift and go to state 38
+    ;               reduce using rule 20 (prodstatement -> FLOAT ID .)
+    )               reduce using rule 20 (prodstatement -> FLOAT ID .)
 
 
 state 20
 
-    (8) prodstatement -> BOOLEAN ID . = booleanexp
-    (22) prodstatement -> BOOLEAN ID .
+    (7) prodstatement -> STRING ID . = stringexp
+    (22) prodstatement -> STRING ID .
 
-    =               shift and go to state 38
-    ;               reduce using rule 22 (prodstatement -> BOOLEAN ID .)
+    =               shift and go to state 39
+    ;               reduce using rule 22 (prodstatement -> STRING ID .)
+    )               reduce using rule 22 (prodstatement -> STRING ID .)
 
 
 state 21
 
-    (12) control -> IF ( . booleanexp ) { block } elif else
-    (47) booleanexp -> . booleanexp AND booleanexp
-    (48) booleanexp -> . booleanexp OR booleanexp
-    (49) booleanexp -> . booleanexp EQUAL booleanexp
-    (50) booleanexp -> . booleanexp DIFFERENT booleanexp
-    (51) booleanexp -> . ID EQUAL stringexp
-    (52) booleanexp -> . ID DIFFERENT stringexp
-    (53) booleanexp -> . ID EQUAL numericexp
-    (54) booleanexp -> . ID DIFFERENT numericexp
-    (55) booleanexp -> . ID GREATERTHAN numericexp
-    (56) booleanexp -> . ID LESSTHAN numericexp
-    (57) booleanexp -> . ID < numericexp
-    (58) booleanexp -> . ID > numericexp
+    (8) prodstatement -> BOOLEAN ID . = booleanexp
+    (23) prodstatement -> BOOLEAN ID .
 
-    ID              shift and go to state 40
+    =               shift and go to state 40
+    ;               reduce using rule 23 (prodstatement -> BOOLEAN ID .)
+    )               reduce using rule 23 (prodstatement -> BOOLEAN ID .)
 
-    booleanexp                     shift and go to state 39
 
 state 22
 
-    (17) control -> WHILE ( . booleanexp ) { block }
-    (47) booleanexp -> . booleanexp AND booleanexp
-    (48) booleanexp -> . booleanexp OR booleanexp
-    (49) booleanexp -> . booleanexp EQUAL booleanexp
-    (50) booleanexp -> . booleanexp DIFFERENT booleanexp
-    (51) booleanexp -> . ID EQUAL stringexp
-    (52) booleanexp -> . ID DIFFERENT stringexp
-    (53) booleanexp -> . ID EQUAL numericexp
-    (54) booleanexp -> . ID DIFFERENT numericexp
-    (55) booleanexp -> . ID GREATERTHAN numericexp
-    (56) booleanexp -> . ID LESSTHAN numericexp
-    (57) booleanexp -> . ID < numericexp
-    (58) booleanexp -> . ID > numericexp
+    (12) control -> IF ( . booleanexp ) { block } elif else
+    (48) booleanexp -> . booleanexp AND booleanexp
+    (49) booleanexp -> . booleanexp OR booleanexp
+    (50) booleanexp -> . booleanexp EQUAL booleanexp
+    (51) booleanexp -> . booleanexp DIFFERENT booleanexp
+    (52) booleanexp -> . ID EQUAL stringexp
+    (53) booleanexp -> . ID DIFFERENT stringexp
+    (54) booleanexp -> . ID EQUAL numericexp
+    (55) booleanexp -> . ID DIFFERENT numericexp
+    (56) booleanexp -> . ID GREATERTHAN numericexp
+    (57) booleanexp -> . ID LESSTHAN numericexp
+    (58) booleanexp -> . ID < numericexp
+    (59) booleanexp -> . ID > numericexp
 
-    ID              shift and go to state 40
+    ID              shift and go to state 42
 
     booleanexp                     shift and go to state 41
 
 state 23
 
-    (72) statement -> PRINT ( ID . )
+    (17) control -> WHILE ( . booleanexp ) { block }
+    (48) booleanexp -> . booleanexp AND booleanexp
+    (49) booleanexp -> . booleanexp OR booleanexp
+    (50) booleanexp -> . booleanexp EQUAL booleanexp
+    (51) booleanexp -> . booleanexp DIFFERENT booleanexp
+    (52) booleanexp -> . ID EQUAL stringexp
+    (53) booleanexp -> . ID DIFFERENT stringexp
+    (54) booleanexp -> . ID EQUAL numericexp
+    (55) booleanexp -> . ID DIFFERENT numericexp
+    (56) booleanexp -> . ID GREATERTHAN numericexp
+    (57) booleanexp -> . ID LESSTHAN numericexp
+    (58) booleanexp -> . ID < numericexp
+    (59) booleanexp -> . ID > numericexp
 
-    )               shift and go to state 42
+    ID              shift and go to state 42
 
+    booleanexp                     shift and go to state 43
 
 state 24
 
-    (23) numericexp -> ID . + numericexp
-    (24) numericexp -> ID . - numericexp
-    (25) numericexp -> ID . / numericexp
-    (26) numericexp -> ID . * numericexp
-    (27) numericexp -> ID . ^ numericexp
-    (51) booleanexp -> ID . EQUAL stringexp
-    (52) booleanexp -> ID . DIFFERENT stringexp
-    (53) booleanexp -> ID . EQUAL numericexp
-    (54) booleanexp -> ID . DIFFERENT numericexp
-    (55) booleanexp -> ID . GREATERTHAN numericexp
-    (56) booleanexp -> ID . LESSTHAN numericexp
-    (57) booleanexp -> ID . < numericexp
-    (58) booleanexp -> ID . > numericexp
-    (41) stringexp -> ID . + stringexp
-    (42) stringexp -> ID . + ID
-    (38) concat -> ID .
+    (18) control -> FOR ( . prodstatement ; booleanexp ; prodstatement ) { block }
+    (5) prodstatement -> . INT ID = numericexp
+    (6) prodstatement -> . FLOAT ID = numericexp
+    (7) prodstatement -> . STRING ID = stringexp
+    (8) prodstatement -> . BOOLEAN ID = booleanexp
+    (19) prodstatement -> . ID = expr
+    (20) prodstatement -> . FLOAT ID
+    (21) prodstatement -> . INT ID
+    (22) prodstatement -> . STRING ID
+    (23) prodstatement -> . BOOLEAN ID
 
-  ! shift/reduce conflict for + resolved as shift
-    +               shift and go to state 43
-    -               shift and go to state 44
-    /               shift and go to state 45
-    *               shift and go to state 46
-    ^               shift and go to state 47
-    EQUAL           shift and go to state 48
-    DIFFERENT       shift and go to state 49
-    GREATERTHAN     shift and go to state 50
-    LESSTHAN        shift and go to state 51
-    <               shift and go to state 52
-    >               shift and go to state 53
-    ;               reduce using rule 38 (concat -> ID .)
+    INT             shift and go to state 7
+    FLOAT           shift and go to state 8
+    STRING          shift and go to state 9
+    BOOLEAN         shift and go to state 10
+    ID              shift and go to state 6
 
-  ! +               [ reduce using rule 38 (concat -> ID .) ]
-
+    prodstatement                  shift and go to state 44
 
 state 25
 
-    (18) prodstatement -> ID = expr .
+    (73) statement -> PRINT ( ID . )
 
-    ;               reduce using rule 18 (prodstatement -> ID = expr .)
+    )               shift and go to state 45
 
 
 state 26
 
-    (9) expr -> numericexp .
-    (29) numericexp -> numericexp . operator numericexp
-    (33) operator -> . +
-    (34) operator -> . -
-    (35) operator -> . *
-    (36) operator -> . /
-    (37) operator -> . ^
+    (24) numericexp -> ID . + numericexp
+    (25) numericexp -> ID . - numericexp
+    (26) numericexp -> ID . / numericexp
+    (27) numericexp -> ID . * numericexp
+    (28) numericexp -> ID . ^ numericexp
+    (52) booleanexp -> ID . EQUAL stringexp
+    (53) booleanexp -> ID . DIFFERENT stringexp
+    (54) booleanexp -> ID . EQUAL numericexp
+    (55) booleanexp -> ID . DIFFERENT numericexp
+    (56) booleanexp -> ID . GREATERTHAN numericexp
+    (57) booleanexp -> ID . LESSTHAN numericexp
+    (58) booleanexp -> ID . < numericexp
+    (59) booleanexp -> ID . > numericexp
+    (42) stringexp -> ID . + stringexp
+    (43) stringexp -> ID . + ID
+    (39) concat -> ID .
 
-    ;               reduce using rule 9 (expr -> numericexp .)
-    +               shift and go to state 55
-    -               shift and go to state 56
-    *               shift and go to state 57
-    /               shift and go to state 58
-    ^               shift and go to state 59
+  ! shift/reduce conflict for + resolved as shift
+    +               shift and go to state 46
+    -               shift and go to state 47
+    /               shift and go to state 48
+    *               shift and go to state 49
+    ^               shift and go to state 50
+    EQUAL           shift and go to state 51
+    DIFFERENT       shift and go to state 52
+    GREATERTHAN     shift and go to state 53
+    LESSTHAN        shift and go to state 54
+    <               shift and go to state 55
+    >               shift and go to state 56
+    ;               reduce using rule 39 (concat -> ID .)
+    )               reduce using rule 39 (concat -> ID .)
 
-    operator                       shift and go to state 54
+  ! +               [ reduce using rule 39 (concat -> ID .) ]
+
 
 state 27
 
-    (10) expr -> booleanexp .
-    (47) booleanexp -> booleanexp . AND booleanexp
-    (48) booleanexp -> booleanexp . OR booleanexp
-    (49) booleanexp -> booleanexp . EQUAL booleanexp
-    (50) booleanexp -> booleanexp . DIFFERENT booleanexp
+    (19) prodstatement -> ID = expr .
 
-    ;               reduce using rule 10 (expr -> booleanexp .)
-    AND             shift and go to state 60
-    OR              shift and go to state 61
-    EQUAL           shift and go to state 62
-    DIFFERENT       shift and go to state 63
+    ;               reduce using rule 19 (prodstatement -> ID = expr .)
+    )               reduce using rule 19 (prodstatement -> ID = expr .)
 
 
 state 28
 
-    (11) expr -> stringexp .
-    (43) stringexp -> stringexp . + stringexp
+    (9) expr -> numericexp .
+    (30) numericexp -> numericexp . operator numericexp
+    (34) operator -> . +
+    (35) operator -> . -
+    (36) operator -> . *
+    (37) operator -> . /
+    (38) operator -> . ^
 
-    ;               reduce using rule 11 (expr -> stringexp .)
-    +               shift and go to state 64
+    ;               reduce using rule 9 (expr -> numericexp .)
+    )               reduce using rule 9 (expr -> numericexp .)
+    +               shift and go to state 58
+    -               shift and go to state 59
+    *               shift and go to state 60
+    /               shift and go to state 61
+    ^               shift and go to state 62
 
+    operator                       shift and go to state 57
 
 state 29
 
-    (28) numericexp -> num .
+    (10) expr -> booleanexp .
+    (48) booleanexp -> booleanexp . AND booleanexp
+    (49) booleanexp -> booleanexp . OR booleanexp
+    (50) booleanexp -> booleanexp . EQUAL booleanexp
+    (51) booleanexp -> booleanexp . DIFFERENT booleanexp
 
-    +               reduce using rule 28 (numericexp -> num .)
-    -               reduce using rule 28 (numericexp -> num .)
-    *               reduce using rule 28 (numericexp -> num .)
-    /               reduce using rule 28 (numericexp -> num .)
-    ^               reduce using rule 28 (numericexp -> num .)
-    ;               reduce using rule 28 (numericexp -> num .)
-    )               reduce using rule 28 (numericexp -> num .)
-    AND             reduce using rule 28 (numericexp -> num .)
-    OR              reduce using rule 28 (numericexp -> num .)
-    EQUAL           reduce using rule 28 (numericexp -> num .)
-    DIFFERENT       reduce using rule 28 (numericexp -> num .)
+    ;               reduce using rule 10 (expr -> booleanexp .)
+    )               reduce using rule 10 (expr -> booleanexp .)
+    AND             shift and go to state 63
+    OR              shift and go to state 64
+    EQUAL           shift and go to state 65
+    DIFFERENT       shift and go to state 66
 
 
 state 30
 
-    (30) numericexp -> ( . numericexp )
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
+    (11) expr -> stringexp .
+    (44) stringexp -> stringexp . + stringexp
 
-    ID              shift and go to state 66
-    (               shift and go to state 30
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
+    ;               reduce using rule 11 (expr -> stringexp .)
+    )               reduce using rule 11 (expr -> stringexp .)
+    +               shift and go to state 67
 
-    numericexp                     shift and go to state 65
-    num                            shift and go to state 29
 
 state 31
 
-    (40) stringexp -> concat .
+    (29) numericexp -> num .
 
-    +               reduce using rule 40 (stringexp -> concat .)
-    ;               reduce using rule 40 (stringexp -> concat .)
-    AND             reduce using rule 40 (stringexp -> concat .)
-    OR              reduce using rule 40 (stringexp -> concat .)
-    EQUAL           reduce using rule 40 (stringexp -> concat .)
-    DIFFERENT       reduce using rule 40 (stringexp -> concat .)
-    )               reduce using rule 40 (stringexp -> concat .)
+    +               reduce using rule 29 (numericexp -> num .)
+    -               reduce using rule 29 (numericexp -> num .)
+    *               reduce using rule 29 (numericexp -> num .)
+    /               reduce using rule 29 (numericexp -> num .)
+    ^               reduce using rule 29 (numericexp -> num .)
+    ;               reduce using rule 29 (numericexp -> num .)
+    )               reduce using rule 29 (numericexp -> num .)
+    AND             reduce using rule 29 (numericexp -> num .)
+    OR              reduce using rule 29 (numericexp -> num .)
+    EQUAL           reduce using rule 29 (numericexp -> num .)
+    DIFFERENT       reduce using rule 29 (numericexp -> num .)
 
 
 state 32
 
-    (31) num -> INUMBER .
+    (31) numericexp -> ( . numericexp )
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
 
-    +               reduce using rule 31 (num -> INUMBER .)
-    -               reduce using rule 31 (num -> INUMBER .)
-    *               reduce using rule 31 (num -> INUMBER .)
-    /               reduce using rule 31 (num -> INUMBER .)
-    ^               reduce using rule 31 (num -> INUMBER .)
-    ;               reduce using rule 31 (num -> INUMBER .)
-    )               reduce using rule 31 (num -> INUMBER .)
-    AND             reduce using rule 31 (num -> INUMBER .)
-    OR              reduce using rule 31 (num -> INUMBER .)
-    EQUAL           reduce using rule 31 (num -> INUMBER .)
-    DIFFERENT       reduce using rule 31 (num -> INUMBER .)
+    ID              shift and go to state 69
+    (               shift and go to state 32
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
 
+    numericexp                     shift and go to state 68
+    num                            shift and go to state 31
 
 state 33
 
-    (32) num -> FNUMBER .
+    (41) stringexp -> concat .
 
-    +               reduce using rule 32 (num -> FNUMBER .)
-    -               reduce using rule 32 (num -> FNUMBER .)
-    *               reduce using rule 32 (num -> FNUMBER .)
-    /               reduce using rule 32 (num -> FNUMBER .)
-    ^               reduce using rule 32 (num -> FNUMBER .)
-    ;               reduce using rule 32 (num -> FNUMBER .)
-    )               reduce using rule 32 (num -> FNUMBER .)
-    AND             reduce using rule 32 (num -> FNUMBER .)
-    OR              reduce using rule 32 (num -> FNUMBER .)
-    EQUAL           reduce using rule 32 (num -> FNUMBER .)
-    DIFFERENT       reduce using rule 32 (num -> FNUMBER .)
+    +               reduce using rule 41 (stringexp -> concat .)
+    ;               reduce using rule 41 (stringexp -> concat .)
+    )               reduce using rule 41 (stringexp -> concat .)
+    AND             reduce using rule 41 (stringexp -> concat .)
+    OR              reduce using rule 41 (stringexp -> concat .)
+    EQUAL           reduce using rule 41 (stringexp -> concat .)
+    DIFFERENT       reduce using rule 41 (stringexp -> concat .)
 
 
 state 34
 
-    (39) concat -> STR .
+    (32) num -> INUMBER .
 
-    +               reduce using rule 39 (concat -> STR .)
-    ;               reduce using rule 39 (concat -> STR .)
-    AND             reduce using rule 39 (concat -> STR .)
-    OR              reduce using rule 39 (concat -> STR .)
-    EQUAL           reduce using rule 39 (concat -> STR .)
-    DIFFERENT       reduce using rule 39 (concat -> STR .)
-    )               reduce using rule 39 (concat -> STR .)
+    +               reduce using rule 32 (num -> INUMBER .)
+    -               reduce using rule 32 (num -> INUMBER .)
+    *               reduce using rule 32 (num -> INUMBER .)
+    /               reduce using rule 32 (num -> INUMBER .)
+    ^               reduce using rule 32 (num -> INUMBER .)
+    ;               reduce using rule 32 (num -> INUMBER .)
+    )               reduce using rule 32 (num -> INUMBER .)
+    AND             reduce using rule 32 (num -> INUMBER .)
+    OR              reduce using rule 32 (num -> INUMBER .)
+    EQUAL           reduce using rule 32 (num -> INUMBER .)
+    DIFFERENT       reduce using rule 32 (num -> INUMBER .)
 
 
 state 35
 
-    (5) prodstatement -> INT ID = . numericexp
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
+    (33) num -> FNUMBER .
 
-    ID              shift and go to state 66
-    (               shift and go to state 30
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
+    +               reduce using rule 33 (num -> FNUMBER .)
+    -               reduce using rule 33 (num -> FNUMBER .)
+    *               reduce using rule 33 (num -> FNUMBER .)
+    /               reduce using rule 33 (num -> FNUMBER .)
+    ^               reduce using rule 33 (num -> FNUMBER .)
+    ;               reduce using rule 33 (num -> FNUMBER .)
+    )               reduce using rule 33 (num -> FNUMBER .)
+    AND             reduce using rule 33 (num -> FNUMBER .)
+    OR              reduce using rule 33 (num -> FNUMBER .)
+    EQUAL           reduce using rule 33 (num -> FNUMBER .)
+    DIFFERENT       reduce using rule 33 (num -> FNUMBER .)
 
-    numericexp                     shift and go to state 67
-    num                            shift and go to state 29
 
 state 36
 
-    (6) prodstatement -> FLOAT ID = . numericexp
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
+    (40) concat -> STR .
 
-    ID              shift and go to state 66
-    (               shift and go to state 30
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
+    +               reduce using rule 40 (concat -> STR .)
+    ;               reduce using rule 40 (concat -> STR .)
+    )               reduce using rule 40 (concat -> STR .)
+    AND             reduce using rule 40 (concat -> STR .)
+    OR              reduce using rule 40 (concat -> STR .)
+    EQUAL           reduce using rule 40 (concat -> STR .)
+    DIFFERENT       reduce using rule 40 (concat -> STR .)
 
-    numericexp                     shift and go to state 68
-    num                            shift and go to state 29
 
 state 37
 
-    (7) prodstatement -> STRING ID = . stringexp
-    (40) stringexp -> . concat
-    (41) stringexp -> . ID + stringexp
-    (42) stringexp -> . ID + ID
-    (43) stringexp -> . stringexp + stringexp
-    (38) concat -> . ID
-    (39) concat -> . STR
+    (5) prodstatement -> INT ID = . numericexp
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
 
     ID              shift and go to state 69
-    STR             shift and go to state 34
+    (               shift and go to state 32
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
 
-    stringexp                      shift and go to state 70
-    concat                         shift and go to state 31
+    numericexp                     shift and go to state 70
+    num                            shift and go to state 31
 
 state 38
 
-    (8) prodstatement -> BOOLEAN ID = . booleanexp
-    (47) booleanexp -> . booleanexp AND booleanexp
-    (48) booleanexp -> . booleanexp OR booleanexp
-    (49) booleanexp -> . booleanexp EQUAL booleanexp
-    (50) booleanexp -> . booleanexp DIFFERENT booleanexp
-    (51) booleanexp -> . ID EQUAL stringexp
-    (52) booleanexp -> . ID DIFFERENT stringexp
-    (53) booleanexp -> . ID EQUAL numericexp
-    (54) booleanexp -> . ID DIFFERENT numericexp
-    (55) booleanexp -> . ID GREATERTHAN numericexp
-    (56) booleanexp -> . ID LESSTHAN numericexp
-    (57) booleanexp -> . ID < numericexp
-    (58) booleanexp -> . ID > numericexp
+    (6) prodstatement -> FLOAT ID = . numericexp
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
 
-    ID              shift and go to state 40
+    ID              shift and go to state 69
+    (               shift and go to state 32
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
 
-    booleanexp                     shift and go to state 71
+    numericexp                     shift and go to state 71
+    num                            shift and go to state 31
 
 state 39
 
-    (12) control -> IF ( booleanexp . ) { block } elif else
-    (47) booleanexp -> booleanexp . AND booleanexp
-    (48) booleanexp -> booleanexp . OR booleanexp
-    (49) booleanexp -> booleanexp . EQUAL booleanexp
-    (50) booleanexp -> booleanexp . DIFFERENT booleanexp
+    (7) prodstatement -> STRING ID = . stringexp
+    (41) stringexp -> . concat
+    (42) stringexp -> . ID + stringexp
+    (43) stringexp -> . ID + ID
+    (44) stringexp -> . stringexp + stringexp
+    (39) concat -> . ID
+    (40) concat -> . STR
 
-    )               shift and go to state 72
-    AND             shift and go to state 60
-    OR              shift and go to state 61
-    EQUAL           shift and go to state 62
-    DIFFERENT       shift and go to state 63
+    ID              shift and go to state 72
+    STR             shift and go to state 36
 
+    stringexp                      shift and go to state 73
+    concat                         shift and go to state 33
 
 state 40
 
-    (51) booleanexp -> ID . EQUAL stringexp
-    (52) booleanexp -> ID . DIFFERENT stringexp
-    (53) booleanexp -> ID . EQUAL numericexp
-    (54) booleanexp -> ID . DIFFERENT numericexp
-    (55) booleanexp -> ID . GREATERTHAN numericexp
-    (56) booleanexp -> ID . LESSTHAN numericexp
-    (57) booleanexp -> ID . < numericexp
-    (58) booleanexp -> ID . > numericexp
+    (8) prodstatement -> BOOLEAN ID = . booleanexp
+    (48) booleanexp -> . booleanexp AND booleanexp
+    (49) booleanexp -> . booleanexp OR booleanexp
+    (50) booleanexp -> . booleanexp EQUAL booleanexp
+    (51) booleanexp -> . booleanexp DIFFERENT booleanexp
+    (52) booleanexp -> . ID EQUAL stringexp
+    (53) booleanexp -> . ID DIFFERENT stringexp
+    (54) booleanexp -> . ID EQUAL numericexp
+    (55) booleanexp -> . ID DIFFERENT numericexp
+    (56) booleanexp -> . ID GREATERTHAN numericexp
+    (57) booleanexp -> . ID LESSTHAN numericexp
+    (58) booleanexp -> . ID < numericexp
+    (59) booleanexp -> . ID > numericexp
 
-    EQUAL           shift and go to state 48
-    DIFFERENT       shift and go to state 49
-    GREATERTHAN     shift and go to state 50
-    LESSTHAN        shift and go to state 51
-    <               shift and go to state 52
-    >               shift and go to state 53
+    ID              shift and go to state 42
 
+    booleanexp                     shift and go to state 74
 
 state 41
 
-    (17) control -> WHILE ( booleanexp . ) { block }
-    (47) booleanexp -> booleanexp . AND booleanexp
-    (48) booleanexp -> booleanexp . OR booleanexp
-    (49) booleanexp -> booleanexp . EQUAL booleanexp
-    (50) booleanexp -> booleanexp . DIFFERENT booleanexp
+    (12) control -> IF ( booleanexp . ) { block } elif else
+    (48) booleanexp -> booleanexp . AND booleanexp
+    (49) booleanexp -> booleanexp . OR booleanexp
+    (50) booleanexp -> booleanexp . EQUAL booleanexp
+    (51) booleanexp -> booleanexp . DIFFERENT booleanexp
 
-    )               shift and go to state 73
-    AND             shift and go to state 60
-    OR              shift and go to state 61
-    EQUAL           shift and go to state 62
-    DIFFERENT       shift and go to state 63
+    )               shift and go to state 75
+    AND             shift and go to state 63
+    OR              shift and go to state 64
+    EQUAL           shift and go to state 65
+    DIFFERENT       shift and go to state 66
 
 
 state 42
 
-    (72) statement -> PRINT ( ID ) .
+    (52) booleanexp -> ID . EQUAL stringexp
+    (53) booleanexp -> ID . DIFFERENT stringexp
+    (54) booleanexp -> ID . EQUAL numericexp
+    (55) booleanexp -> ID . DIFFERENT numericexp
+    (56) booleanexp -> ID . GREATERTHAN numericexp
+    (57) booleanexp -> ID . LESSTHAN numericexp
+    (58) booleanexp -> ID . < numericexp
+    (59) booleanexp -> ID . > numericexp
 
-    PRINT           reduce using rule 72 (statement -> PRINT ( ID ) .)
-    INT             reduce using rule 72 (statement -> PRINT ( ID ) .)
-    FLOAT           reduce using rule 72 (statement -> PRINT ( ID ) .)
-    STRING          reduce using rule 72 (statement -> PRINT ( ID ) .)
-    BOOLEAN         reduce using rule 72 (statement -> PRINT ( ID ) .)
-    ID              reduce using rule 72 (statement -> PRINT ( ID ) .)
-    IF              reduce using rule 72 (statement -> PRINT ( ID ) .)
-    WHILE           reduce using rule 72 (statement -> PRINT ( ID ) .)
-    $end            reduce using rule 72 (statement -> PRINT ( ID ) .)
-    }               reduce using rule 72 (statement -> PRINT ( ID ) .)
+    EQUAL           shift and go to state 51
+    DIFFERENT       shift and go to state 52
+    GREATERTHAN     shift and go to state 53
+    LESSTHAN        shift and go to state 54
+    <               shift and go to state 55
+    >               shift and go to state 56
 
 
 state 43
 
-    (23) numericexp -> ID + . numericexp
-    (41) stringexp -> ID + . stringexp
-    (42) stringexp -> ID + . ID
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (40) stringexp -> . concat
-    (41) stringexp -> . ID + stringexp
-    (42) stringexp -> . ID + ID
-    (43) stringexp -> . stringexp + stringexp
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
-    (38) concat -> . ID
-    (39) concat -> . STR
+    (17) control -> WHILE ( booleanexp . ) { block }
+    (48) booleanexp -> booleanexp . AND booleanexp
+    (49) booleanexp -> booleanexp . OR booleanexp
+    (50) booleanexp -> booleanexp . EQUAL booleanexp
+    (51) booleanexp -> booleanexp . DIFFERENT booleanexp
 
-    ID              shift and go to state 74
-    (               shift and go to state 30
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
-    STR             shift and go to state 34
+    )               shift and go to state 76
+    AND             shift and go to state 63
+    OR              shift and go to state 64
+    EQUAL           shift and go to state 65
+    DIFFERENT       shift and go to state 66
 
-    numericexp                     shift and go to state 75
-    stringexp                      shift and go to state 76
-    num                            shift and go to state 29
-    concat                         shift and go to state 31
 
 state 44
 
-    (24) numericexp -> ID - . numericexp
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
+    (18) control -> FOR ( prodstatement . ; booleanexp ; prodstatement ) { block }
 
-    ID              shift and go to state 66
-    (               shift and go to state 30
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
+    ;               shift and go to state 77
 
-    numericexp                     shift and go to state 77
-    num                            shift and go to state 29
 
 state 45
 
-    (25) numericexp -> ID / . numericexp
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
+    (73) statement -> PRINT ( ID ) .
 
-    ID              shift and go to state 66
-    (               shift and go to state 30
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
+    PRINT           reduce using rule 73 (statement -> PRINT ( ID ) .)
+    INT             reduce using rule 73 (statement -> PRINT ( ID ) .)
+    FLOAT           reduce using rule 73 (statement -> PRINT ( ID ) .)
+    STRING          reduce using rule 73 (statement -> PRINT ( ID ) .)
+    BOOLEAN         reduce using rule 73 (statement -> PRINT ( ID ) .)
+    ID              reduce using rule 73 (statement -> PRINT ( ID ) .)
+    IF              reduce using rule 73 (statement -> PRINT ( ID ) .)
+    WHILE           reduce using rule 73 (statement -> PRINT ( ID ) .)
+    FOR             reduce using rule 73 (statement -> PRINT ( ID ) .)
+    $end            reduce using rule 73 (statement -> PRINT ( ID ) .)
+    }               reduce using rule 73 (statement -> PRINT ( ID ) .)
 
-    numericexp                     shift and go to state 78
-    num                            shift and go to state 29
 
 state 46
 
-    (26) numericexp -> ID * . numericexp
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
+    (24) numericexp -> ID + . numericexp
+    (42) stringexp -> ID + . stringexp
+    (43) stringexp -> ID + . ID
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (41) stringexp -> . concat
+    (42) stringexp -> . ID + stringexp
+    (43) stringexp -> . ID + ID
+    (44) stringexp -> . stringexp + stringexp
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
+    (39) concat -> . ID
+    (40) concat -> . STR
 
-    ID              shift and go to state 66
-    (               shift and go to state 30
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
+    ID              shift and go to state 78
+    (               shift and go to state 32
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
+    STR             shift and go to state 36
 
     numericexp                     shift and go to state 79
-    num                            shift and go to state 29
+    stringexp                      shift and go to state 80
+    num                            shift and go to state 31
+    concat                         shift and go to state 33
 
 state 47
 
-    (27) numericexp -> ID ^ . numericexp
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
+    (25) numericexp -> ID - . numericexp
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
 
-    ID              shift and go to state 66
-    (               shift and go to state 30
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
+    ID              shift and go to state 69
+    (               shift and go to state 32
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
 
-    numericexp                     shift and go to state 80
-    num                            shift and go to state 29
+    numericexp                     shift and go to state 81
+    num                            shift and go to state 31
 
 state 48
 
-    (51) booleanexp -> ID EQUAL . stringexp
-    (53) booleanexp -> ID EQUAL . numericexp
-    (40) stringexp -> . concat
-    (41) stringexp -> . ID + stringexp
-    (42) stringexp -> . ID + ID
-    (43) stringexp -> . stringexp + stringexp
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (38) concat -> . ID
-    (39) concat -> . STR
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
+    (26) numericexp -> ID / . numericexp
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
 
-    ID              shift and go to state 81
-    (               shift and go to state 30
-    STR             shift and go to state 34
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
+    ID              shift and go to state 69
+    (               shift and go to state 32
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
 
-    stringexp                      shift and go to state 82
-    numericexp                     shift and go to state 83
-    concat                         shift and go to state 31
-    num                            shift and go to state 29
+    numericexp                     shift and go to state 82
+    num                            shift and go to state 31
 
 state 49
 
-    (52) booleanexp -> ID DIFFERENT . stringexp
-    (54) booleanexp -> ID DIFFERENT . numericexp
-    (40) stringexp -> . concat
-    (41) stringexp -> . ID + stringexp
-    (42) stringexp -> . ID + ID
-    (43) stringexp -> . stringexp + stringexp
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (38) concat -> . ID
-    (39) concat -> . STR
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
+    (27) numericexp -> ID * . numericexp
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
 
-    ID              shift and go to state 81
-    (               shift and go to state 30
-    STR             shift and go to state 34
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
+    ID              shift and go to state 69
+    (               shift and go to state 32
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
 
-    stringexp                      shift and go to state 84
-    numericexp                     shift and go to state 85
-    concat                         shift and go to state 31
-    num                            shift and go to state 29
+    numericexp                     shift and go to state 83
+    num                            shift and go to state 31
 
 state 50
 
-    (55) booleanexp -> ID GREATERTHAN . numericexp
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
+    (28) numericexp -> ID ^ . numericexp
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
 
-    ID              shift and go to state 66
-    (               shift and go to state 30
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
+    ID              shift and go to state 69
+    (               shift and go to state 32
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
 
-    numericexp                     shift and go to state 86
-    num                            shift and go to state 29
+    numericexp                     shift and go to state 84
+    num                            shift and go to state 31
 
 state 51
 
-    (56) booleanexp -> ID LESSTHAN . numericexp
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
+    (52) booleanexp -> ID EQUAL . stringexp
+    (54) booleanexp -> ID EQUAL . numericexp
+    (41) stringexp -> . concat
+    (42) stringexp -> . ID + stringexp
+    (43) stringexp -> . ID + ID
+    (44) stringexp -> . stringexp + stringexp
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (39) concat -> . ID
+    (40) concat -> . STR
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
 
-    ID              shift and go to state 66
-    (               shift and go to state 30
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
+    ID              shift and go to state 85
+    (               shift and go to state 32
+    STR             shift and go to state 36
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
 
+    stringexp                      shift and go to state 86
     numericexp                     shift and go to state 87
-    num                            shift and go to state 29
+    concat                         shift and go to state 33
+    num                            shift and go to state 31
 
 state 52
 
-    (57) booleanexp -> ID < . numericexp
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
+    (53) booleanexp -> ID DIFFERENT . stringexp
+    (55) booleanexp -> ID DIFFERENT . numericexp
+    (41) stringexp -> . concat
+    (42) stringexp -> . ID + stringexp
+    (43) stringexp -> . ID + ID
+    (44) stringexp -> . stringexp + stringexp
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (39) concat -> . ID
+    (40) concat -> . STR
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
 
-    ID              shift and go to state 66
-    (               shift and go to state 30
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
+    ID              shift and go to state 85
+    (               shift and go to state 32
+    STR             shift and go to state 36
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
 
-    numericexp                     shift and go to state 88
-    num                            shift and go to state 29
+    stringexp                      shift and go to state 88
+    numericexp                     shift and go to state 89
+    concat                         shift and go to state 33
+    num                            shift and go to state 31
 
 state 53
 
-    (58) booleanexp -> ID > . numericexp
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
+    (56) booleanexp -> ID GREATERTHAN . numericexp
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
 
-    ID              shift and go to state 66
-    (               shift and go to state 30
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
+    ID              shift and go to state 69
+    (               shift and go to state 32
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
 
-    numericexp                     shift and go to state 89
-    num                            shift and go to state 29
+    numericexp                     shift and go to state 90
+    num                            shift and go to state 31
 
 state 54
 
-    (29) numericexp -> numericexp operator . numericexp
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
+    (57) booleanexp -> ID LESSTHAN . numericexp
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
 
-    ID              shift and go to state 66
-    (               shift and go to state 30
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
+    ID              shift and go to state 69
+    (               shift and go to state 32
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
 
-    numericexp                     shift and go to state 90
-    num                            shift and go to state 29
+    numericexp                     shift and go to state 91
+    num                            shift and go to state 31
 
 state 55
 
-    (33) operator -> + .
+    (58) booleanexp -> ID < . numericexp
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
 
-    ID              reduce using rule 33 (operator -> + .)
-    (               reduce using rule 33 (operator -> + .)
-    INUMBER         reduce using rule 33 (operator -> + .)
-    FNUMBER         reduce using rule 33 (operator -> + .)
+    ID              shift and go to state 69
+    (               shift and go to state 32
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
 
+    numericexp                     shift and go to state 92
+    num                            shift and go to state 31
 
 state 56
 
-    (34) operator -> - .
+    (59) booleanexp -> ID > . numericexp
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
 
-    ID              reduce using rule 34 (operator -> - .)
-    (               reduce using rule 34 (operator -> - .)
-    INUMBER         reduce using rule 34 (operator -> - .)
-    FNUMBER         reduce using rule 34 (operator -> - .)
+    ID              shift and go to state 69
+    (               shift and go to state 32
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
 
+    numericexp                     shift and go to state 93
+    num                            shift and go to state 31
 
 state 57
 
-    (35) operator -> * .
+    (30) numericexp -> numericexp operator . numericexp
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
 
-    ID              reduce using rule 35 (operator -> * .)
-    (               reduce using rule 35 (operator -> * .)
-    INUMBER         reduce using rule 35 (operator -> * .)
-    FNUMBER         reduce using rule 35 (operator -> * .)
+    ID              shift and go to state 69
+    (               shift and go to state 32
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
 
+    numericexp                     shift and go to state 94
+    num                            shift and go to state 31
 
 state 58
 
-    (36) operator -> / .
+    (34) operator -> + .
 
-    ID              reduce using rule 36 (operator -> / .)
-    (               reduce using rule 36 (operator -> / .)
-    INUMBER         reduce using rule 36 (operator -> / .)
-    FNUMBER         reduce using rule 36 (operator -> / .)
+    ID              reduce using rule 34 (operator -> + .)
+    (               reduce using rule 34 (operator -> + .)
+    INUMBER         reduce using rule 34 (operator -> + .)
+    FNUMBER         reduce using rule 34 (operator -> + .)
 
 
 state 59
 
-    (37) operator -> ^ .
+    (35) operator -> - .
 
-    ID              reduce using rule 37 (operator -> ^ .)
-    (               reduce using rule 37 (operator -> ^ .)
-    INUMBER         reduce using rule 37 (operator -> ^ .)
-    FNUMBER         reduce using rule 37 (operator -> ^ .)
+    ID              reduce using rule 35 (operator -> - .)
+    (               reduce using rule 35 (operator -> - .)
+    INUMBER         reduce using rule 35 (operator -> - .)
+    FNUMBER         reduce using rule 35 (operator -> - .)
 
 
 state 60
 
-    (47) booleanexp -> booleanexp AND . booleanexp
-    (47) booleanexp -> . booleanexp AND booleanexp
-    (48) booleanexp -> . booleanexp OR booleanexp
-    (49) booleanexp -> . booleanexp EQUAL booleanexp
-    (50) booleanexp -> . booleanexp DIFFERENT booleanexp
-    (51) booleanexp -> . ID EQUAL stringexp
-    (52) booleanexp -> . ID DIFFERENT stringexp
-    (53) booleanexp -> . ID EQUAL numericexp
-    (54) booleanexp -> . ID DIFFERENT numericexp
-    (55) booleanexp -> . ID GREATERTHAN numericexp
-    (56) booleanexp -> . ID LESSTHAN numericexp
-    (57) booleanexp -> . ID < numericexp
-    (58) booleanexp -> . ID > numericexp
+    (36) operator -> * .
 
-    ID              shift and go to state 40
+    ID              reduce using rule 36 (operator -> * .)
+    (               reduce using rule 36 (operator -> * .)
+    INUMBER         reduce using rule 36 (operator -> * .)
+    FNUMBER         reduce using rule 36 (operator -> * .)
 
-    booleanexp                     shift and go to state 91
 
 state 61
 
-    (48) booleanexp -> booleanexp OR . booleanexp
-    (47) booleanexp -> . booleanexp AND booleanexp
-    (48) booleanexp -> . booleanexp OR booleanexp
-    (49) booleanexp -> . booleanexp EQUAL booleanexp
-    (50) booleanexp -> . booleanexp DIFFERENT booleanexp
-    (51) booleanexp -> . ID EQUAL stringexp
-    (52) booleanexp -> . ID DIFFERENT stringexp
-    (53) booleanexp -> . ID EQUAL numericexp
-    (54) booleanexp -> . ID DIFFERENT numericexp
-    (55) booleanexp -> . ID GREATERTHAN numericexp
-    (56) booleanexp -> . ID LESSTHAN numericexp
-    (57) booleanexp -> . ID < numericexp
-    (58) booleanexp -> . ID > numericexp
+    (37) operator -> / .
 
-    ID              shift and go to state 40
+    ID              reduce using rule 37 (operator -> / .)
+    (               reduce using rule 37 (operator -> / .)
+    INUMBER         reduce using rule 37 (operator -> / .)
+    FNUMBER         reduce using rule 37 (operator -> / .)
 
-    booleanexp                     shift and go to state 92
 
 state 62
 
-    (49) booleanexp -> booleanexp EQUAL . booleanexp
-    (47) booleanexp -> . booleanexp AND booleanexp
-    (48) booleanexp -> . booleanexp OR booleanexp
-    (49) booleanexp -> . booleanexp EQUAL booleanexp
-    (50) booleanexp -> . booleanexp DIFFERENT booleanexp
-    (51) booleanexp -> . ID EQUAL stringexp
-    (52) booleanexp -> . ID DIFFERENT stringexp
-    (53) booleanexp -> . ID EQUAL numericexp
-    (54) booleanexp -> . ID DIFFERENT numericexp
-    (55) booleanexp -> . ID GREATERTHAN numericexp
-    (56) booleanexp -> . ID LESSTHAN numericexp
-    (57) booleanexp -> . ID < numericexp
-    (58) booleanexp -> . ID > numericexp
+    (38) operator -> ^ .
 
-    ID              shift and go to state 40
+    ID              reduce using rule 38 (operator -> ^ .)
+    (               reduce using rule 38 (operator -> ^ .)
+    INUMBER         reduce using rule 38 (operator -> ^ .)
+    FNUMBER         reduce using rule 38 (operator -> ^ .)
 
-    booleanexp                     shift and go to state 93
 
 state 63
 
-    (50) booleanexp -> booleanexp DIFFERENT . booleanexp
-    (47) booleanexp -> . booleanexp AND booleanexp
-    (48) booleanexp -> . booleanexp OR booleanexp
-    (49) booleanexp -> . booleanexp EQUAL booleanexp
-    (50) booleanexp -> . booleanexp DIFFERENT booleanexp
-    (51) booleanexp -> . ID EQUAL stringexp
-    (52) booleanexp -> . ID DIFFERENT stringexp
-    (53) booleanexp -> . ID EQUAL numericexp
-    (54) booleanexp -> . ID DIFFERENT numericexp
-    (55) booleanexp -> . ID GREATERTHAN numericexp
-    (56) booleanexp -> . ID LESSTHAN numericexp
-    (57) booleanexp -> . ID < numericexp
-    (58) booleanexp -> . ID > numericexp
+    (48) booleanexp -> booleanexp AND . booleanexp
+    (48) booleanexp -> . booleanexp AND booleanexp
+    (49) booleanexp -> . booleanexp OR booleanexp
+    (50) booleanexp -> . booleanexp EQUAL booleanexp
+    (51) booleanexp -> . booleanexp DIFFERENT booleanexp
+    (52) booleanexp -> . ID EQUAL stringexp
+    (53) booleanexp -> . ID DIFFERENT stringexp
+    (54) booleanexp -> . ID EQUAL numericexp
+    (55) booleanexp -> . ID DIFFERENT numericexp
+    (56) booleanexp -> . ID GREATERTHAN numericexp
+    (57) booleanexp -> . ID LESSTHAN numericexp
+    (58) booleanexp -> . ID < numericexp
+    (59) booleanexp -> . ID > numericexp
 
-    ID              shift and go to state 40
+    ID              shift and go to state 42
 
-    booleanexp                     shift and go to state 94
+    booleanexp                     shift and go to state 95
 
 state 64
 
-    (43) stringexp -> stringexp + . stringexp
-    (40) stringexp -> . concat
-    (41) stringexp -> . ID + stringexp
-    (42) stringexp -> . ID + ID
-    (43) stringexp -> . stringexp + stringexp
-    (38) concat -> . ID
-    (39) concat -> . STR
+    (49) booleanexp -> booleanexp OR . booleanexp
+    (48) booleanexp -> . booleanexp AND booleanexp
+    (49) booleanexp -> . booleanexp OR booleanexp
+    (50) booleanexp -> . booleanexp EQUAL booleanexp
+    (51) booleanexp -> . booleanexp DIFFERENT booleanexp
+    (52) booleanexp -> . ID EQUAL stringexp
+    (53) booleanexp -> . ID DIFFERENT stringexp
+    (54) booleanexp -> . ID EQUAL numericexp
+    (55) booleanexp -> . ID DIFFERENT numericexp
+    (56) booleanexp -> . ID GREATERTHAN numericexp
+    (57) booleanexp -> . ID LESSTHAN numericexp
+    (58) booleanexp -> . ID < numericexp
+    (59) booleanexp -> . ID > numericexp
 
-    ID              shift and go to state 69
-    STR             shift and go to state 34
+    ID              shift and go to state 42
 
-    stringexp                      shift and go to state 95
-    concat                         shift and go to state 31
+    booleanexp                     shift and go to state 96
 
 state 65
 
-    (30) numericexp -> ( numericexp . )
-    (29) numericexp -> numericexp . operator numericexp
-    (33) operator -> . +
-    (34) operator -> . -
-    (35) operator -> . *
-    (36) operator -> . /
-    (37) operator -> . ^
+    (50) booleanexp -> booleanexp EQUAL . booleanexp
+    (48) booleanexp -> . booleanexp AND booleanexp
+    (49) booleanexp -> . booleanexp OR booleanexp
+    (50) booleanexp -> . booleanexp EQUAL booleanexp
+    (51) booleanexp -> . booleanexp DIFFERENT booleanexp
+    (52) booleanexp -> . ID EQUAL stringexp
+    (53) booleanexp -> . ID DIFFERENT stringexp
+    (54) booleanexp -> . ID EQUAL numericexp
+    (55) booleanexp -> . ID DIFFERENT numericexp
+    (56) booleanexp -> . ID GREATERTHAN numericexp
+    (57) booleanexp -> . ID LESSTHAN numericexp
+    (58) booleanexp -> . ID < numericexp
+    (59) booleanexp -> . ID > numericexp
 
-    )               shift and go to state 96
-    +               shift and go to state 55
-    -               shift and go to state 56
-    *               shift and go to state 57
-    /               shift and go to state 58
-    ^               shift and go to state 59
+    ID              shift and go to state 42
 
-    operator                       shift and go to state 54
+    booleanexp                     shift and go to state 97
 
 state 66
 
-    (23) numericexp -> ID . + numericexp
-    (24) numericexp -> ID . - numericexp
-    (25) numericexp -> ID . / numericexp
-    (26) numericexp -> ID . * numericexp
-    (27) numericexp -> ID . ^ numericexp
+    (51) booleanexp -> booleanexp DIFFERENT . booleanexp
+    (48) booleanexp -> . booleanexp AND booleanexp
+    (49) booleanexp -> . booleanexp OR booleanexp
+    (50) booleanexp -> . booleanexp EQUAL booleanexp
+    (51) booleanexp -> . booleanexp DIFFERENT booleanexp
+    (52) booleanexp -> . ID EQUAL stringexp
+    (53) booleanexp -> . ID DIFFERENT stringexp
+    (54) booleanexp -> . ID EQUAL numericexp
+    (55) booleanexp -> . ID DIFFERENT numericexp
+    (56) booleanexp -> . ID GREATERTHAN numericexp
+    (57) booleanexp -> . ID LESSTHAN numericexp
+    (58) booleanexp -> . ID < numericexp
+    (59) booleanexp -> . ID > numericexp
 
-    +               shift and go to state 97
-    -               shift and go to state 44
-    /               shift and go to state 45
-    *               shift and go to state 46
-    ^               shift and go to state 47
+    ID              shift and go to state 42
 
+    booleanexp                     shift and go to state 98
 
 state 67
 
-    (5) prodstatement -> INT ID = numericexp .
-    (29) numericexp -> numericexp . operator numericexp
-    (33) operator -> . +
-    (34) operator -> . -
-    (35) operator -> . *
-    (36) operator -> . /
-    (37) operator -> . ^
+    (44) stringexp -> stringexp + . stringexp
+    (41) stringexp -> . concat
+    (42) stringexp -> . ID + stringexp
+    (43) stringexp -> . ID + ID
+    (44) stringexp -> . stringexp + stringexp
+    (39) concat -> . ID
+    (40) concat -> . STR
 
-    ;               reduce using rule 5 (prodstatement -> INT ID = numericexp .)
-    +               shift and go to state 55
-    -               shift and go to state 56
-    *               shift and go to state 57
-    /               shift and go to state 58
-    ^               shift and go to state 59
+    ID              shift and go to state 72
+    STR             shift and go to state 36
 
-    operator                       shift and go to state 54
+    stringexp                      shift and go to state 99
+    concat                         shift and go to state 33
 
 state 68
 
-    (6) prodstatement -> FLOAT ID = numericexp .
-    (29) numericexp -> numericexp . operator numericexp
-    (33) operator -> . +
-    (34) operator -> . -
-    (35) operator -> . *
-    (36) operator -> . /
-    (37) operator -> . ^
+    (31) numericexp -> ( numericexp . )
+    (30) numericexp -> numericexp . operator numericexp
+    (34) operator -> . +
+    (35) operator -> . -
+    (36) operator -> . *
+    (37) operator -> . /
+    (38) operator -> . ^
 
-    ;               reduce using rule 6 (prodstatement -> FLOAT ID = numericexp .)
-    +               shift and go to state 55
-    -               shift and go to state 56
-    *               shift and go to state 57
-    /               shift and go to state 58
-    ^               shift and go to state 59
+    )               shift and go to state 100
+    +               shift and go to state 58
+    -               shift and go to state 59
+    *               shift and go to state 60
+    /               shift and go to state 61
+    ^               shift and go to state 62
 
-    operator                       shift and go to state 54
+    operator                       shift and go to state 57
 
 state 69
 
-    (41) stringexp -> ID . + stringexp
-    (42) stringexp -> ID . + ID
-    (38) concat -> ID .
+    (24) numericexp -> ID . + numericexp
+    (25) numericexp -> ID . - numericexp
+    (26) numericexp -> ID . / numericexp
+    (27) numericexp -> ID . * numericexp
+    (28) numericexp -> ID . ^ numericexp
 
-  ! shift/reduce conflict for + resolved as shift
-    +               shift and go to state 98
-    ;               reduce using rule 38 (concat -> ID .)
-    AND             reduce using rule 38 (concat -> ID .)
-    OR              reduce using rule 38 (concat -> ID .)
-    EQUAL           reduce using rule 38 (concat -> ID .)
-    DIFFERENT       reduce using rule 38 (concat -> ID .)
-    )               reduce using rule 38 (concat -> ID .)
-
-  ! +               [ reduce using rule 38 (concat -> ID .) ]
+    +               shift and go to state 101
+    -               shift and go to state 47
+    /               shift and go to state 48
+    *               shift and go to state 49
+    ^               shift and go to state 50
 
 
 state 70
 
-    (7) prodstatement -> STRING ID = stringexp .
-    (43) stringexp -> stringexp . + stringexp
+    (5) prodstatement -> INT ID = numericexp .
+    (30) numericexp -> numericexp . operator numericexp
+    (34) operator -> . +
+    (35) operator -> . -
+    (36) operator -> . *
+    (37) operator -> . /
+    (38) operator -> . ^
 
-    ;               reduce using rule 7 (prodstatement -> STRING ID = stringexp .)
-    +               shift and go to state 64
+    ;               reduce using rule 5 (prodstatement -> INT ID = numericexp .)
+    )               reduce using rule 5 (prodstatement -> INT ID = numericexp .)
+    +               shift and go to state 58
+    -               shift and go to state 59
+    *               shift and go to state 60
+    /               shift and go to state 61
+    ^               shift and go to state 62
 
+    operator                       shift and go to state 57
 
 state 71
 
-    (8) prodstatement -> BOOLEAN ID = booleanexp .
-    (47) booleanexp -> booleanexp . AND booleanexp
-    (48) booleanexp -> booleanexp . OR booleanexp
-    (49) booleanexp -> booleanexp . EQUAL booleanexp
-    (50) booleanexp -> booleanexp . DIFFERENT booleanexp
+    (6) prodstatement -> FLOAT ID = numericexp .
+    (30) numericexp -> numericexp . operator numericexp
+    (34) operator -> . +
+    (35) operator -> . -
+    (36) operator -> . *
+    (37) operator -> . /
+    (38) operator -> . ^
 
-    ;               reduce using rule 8 (prodstatement -> BOOLEAN ID = booleanexp .)
-    AND             shift and go to state 60
-    OR              shift and go to state 61
-    EQUAL           shift and go to state 62
-    DIFFERENT       shift and go to state 63
+    ;               reduce using rule 6 (prodstatement -> FLOAT ID = numericexp .)
+    )               reduce using rule 6 (prodstatement -> FLOAT ID = numericexp .)
+    +               shift and go to state 58
+    -               shift and go to state 59
+    *               shift and go to state 60
+    /               shift and go to state 61
+    ^               shift and go to state 62
 
+    operator                       shift and go to state 57
 
 state 72
 
-    (12) control -> IF ( booleanexp ) . { block } elif else
+    (42) stringexp -> ID . + stringexp
+    (43) stringexp -> ID . + ID
+    (39) concat -> ID .
 
-    {               shift and go to state 99
+  ! shift/reduce conflict for + resolved as shift
+    +               shift and go to state 102
+    ;               reduce using rule 39 (concat -> ID .)
+    )               reduce using rule 39 (concat -> ID .)
+    AND             reduce using rule 39 (concat -> ID .)
+    OR              reduce using rule 39 (concat -> ID .)
+    EQUAL           reduce using rule 39 (concat -> ID .)
+    DIFFERENT       reduce using rule 39 (concat -> ID .)
+
+  ! +               [ reduce using rule 39 (concat -> ID .) ]
 
 
 state 73
 
-    (17) control -> WHILE ( booleanexp ) . { block }
+    (7) prodstatement -> STRING ID = stringexp .
+    (44) stringexp -> stringexp . + stringexp
 
-    {               shift and go to state 100
+    ;               reduce using rule 7 (prodstatement -> STRING ID = stringexp .)
+    )               reduce using rule 7 (prodstatement -> STRING ID = stringexp .)
+    +               shift and go to state 67
 
 
 state 74
 
-    (42) stringexp -> ID + ID .
-    (23) numericexp -> ID . + numericexp
-    (24) numericexp -> ID . - numericexp
-    (25) numericexp -> ID . / numericexp
-    (26) numericexp -> ID . * numericexp
-    (27) numericexp -> ID . ^ numericexp
-    (41) stringexp -> ID . + stringexp
-    (42) stringexp -> ID . + ID
-    (38) concat -> ID .
+    (8) prodstatement -> BOOLEAN ID = booleanexp .
+    (48) booleanexp -> booleanexp . AND booleanexp
+    (49) booleanexp -> booleanexp . OR booleanexp
+    (50) booleanexp -> booleanexp . EQUAL booleanexp
+    (51) booleanexp -> booleanexp . DIFFERENT booleanexp
 
-  ! shift/reduce conflict for + resolved as shift
-  ! shift/reduce conflict for + resolved as shift
-  ! reduce/reduce conflict for ; resolved using rule 38 (concat -> ID .)
-    +               shift and go to state 43
-    -               shift and go to state 44
-    /               shift and go to state 45
-    *               shift and go to state 46
-    ^               shift and go to state 47
-    ;               reduce using rule 38 (concat -> ID .)
-
-  ! +               [ reduce using rule 42 (stringexp -> ID + ID .) ]
-  ! ;               [ reduce using rule 42 (stringexp -> ID + ID .) ]
-  ! +               [ reduce using rule 38 (concat -> ID .) ]
+    ;               reduce using rule 8 (prodstatement -> BOOLEAN ID = booleanexp .)
+    )               reduce using rule 8 (prodstatement -> BOOLEAN ID = booleanexp .)
+    AND             shift and go to state 63
+    OR              shift and go to state 64
+    EQUAL           shift and go to state 65
+    DIFFERENT       shift and go to state 66
 
 
 state 75
 
-    (23) numericexp -> ID + numericexp .
-    (29) numericexp -> numericexp . operator numericexp
-    (33) operator -> . +
-    (34) operator -> . -
-    (35) operator -> . *
-    (36) operator -> . /
-    (37) operator -> . ^
+    (12) control -> IF ( booleanexp ) . { block } elif else
 
-  ! shift/reduce conflict for + resolved as shift
-  ! shift/reduce conflict for - resolved as shift
-  ! shift/reduce conflict for * resolved as shift
-  ! shift/reduce conflict for / resolved as shift
-  ! shift/reduce conflict for ^ resolved as shift
-    ;               reduce using rule 23 (numericexp -> ID + numericexp .)
-    )               reduce using rule 23 (numericexp -> ID + numericexp .)
-    AND             reduce using rule 23 (numericexp -> ID + numericexp .)
-    OR              reduce using rule 23 (numericexp -> ID + numericexp .)
-    EQUAL           reduce using rule 23 (numericexp -> ID + numericexp .)
-    DIFFERENT       reduce using rule 23 (numericexp -> ID + numericexp .)
-    +               shift and go to state 55
-    -               shift and go to state 56
-    *               shift and go to state 57
-    /               shift and go to state 58
-    ^               shift and go to state 59
+    {               shift and go to state 103
 
-  ! +               [ reduce using rule 23 (numericexp -> ID + numericexp .) ]
-  ! -               [ reduce using rule 23 (numericexp -> ID + numericexp .) ]
-  ! *               [ reduce using rule 23 (numericexp -> ID + numericexp .) ]
-  ! /               [ reduce using rule 23 (numericexp -> ID + numericexp .) ]
-  ! ^               [ reduce using rule 23 (numericexp -> ID + numericexp .) ]
-
-    operator                       shift and go to state 54
 
 state 76
 
-    (41) stringexp -> ID + stringexp .
-    (43) stringexp -> stringexp . + stringexp
+    (17) control -> WHILE ( booleanexp ) . { block }
 
-  ! shift/reduce conflict for + resolved as shift
-    ;               reduce using rule 41 (stringexp -> ID + stringexp .)
-    AND             reduce using rule 41 (stringexp -> ID + stringexp .)
-    OR              reduce using rule 41 (stringexp -> ID + stringexp .)
-    EQUAL           reduce using rule 41 (stringexp -> ID + stringexp .)
-    DIFFERENT       reduce using rule 41 (stringexp -> ID + stringexp .)
-    )               reduce using rule 41 (stringexp -> ID + stringexp .)
-    +               shift and go to state 64
-
-  ! +               [ reduce using rule 41 (stringexp -> ID + stringexp .) ]
+    {               shift and go to state 104
 
 
 state 77
 
-    (24) numericexp -> ID - numericexp .
-    (29) numericexp -> numericexp . operator numericexp
-    (33) operator -> . +
-    (34) operator -> . -
-    (35) operator -> . *
-    (36) operator -> . /
-    (37) operator -> . ^
+    (18) control -> FOR ( prodstatement ; . booleanexp ; prodstatement ) { block }
+    (48) booleanexp -> . booleanexp AND booleanexp
+    (49) booleanexp -> . booleanexp OR booleanexp
+    (50) booleanexp -> . booleanexp EQUAL booleanexp
+    (51) booleanexp -> . booleanexp DIFFERENT booleanexp
+    (52) booleanexp -> . ID EQUAL stringexp
+    (53) booleanexp -> . ID DIFFERENT stringexp
+    (54) booleanexp -> . ID EQUAL numericexp
+    (55) booleanexp -> . ID DIFFERENT numericexp
+    (56) booleanexp -> . ID GREATERTHAN numericexp
+    (57) booleanexp -> . ID LESSTHAN numericexp
+    (58) booleanexp -> . ID < numericexp
+    (59) booleanexp -> . ID > numericexp
 
-  ! shift/reduce conflict for + resolved as shift
-  ! shift/reduce conflict for - resolved as shift
-  ! shift/reduce conflict for * resolved as shift
-  ! shift/reduce conflict for / resolved as shift
-  ! shift/reduce conflict for ^ resolved as shift
-    ;               reduce using rule 24 (numericexp -> ID - numericexp .)
-    )               reduce using rule 24 (numericexp -> ID - numericexp .)
-    AND             reduce using rule 24 (numericexp -> ID - numericexp .)
-    OR              reduce using rule 24 (numericexp -> ID - numericexp .)
-    EQUAL           reduce using rule 24 (numericexp -> ID - numericexp .)
-    DIFFERENT       reduce using rule 24 (numericexp -> ID - numericexp .)
-    +               shift and go to state 55
-    -               shift and go to state 56
-    *               shift and go to state 57
-    /               shift and go to state 58
-    ^               shift and go to state 59
+    ID              shift and go to state 42
 
-  ! +               [ reduce using rule 24 (numericexp -> ID - numericexp .) ]
-  ! -               [ reduce using rule 24 (numericexp -> ID - numericexp .) ]
-  ! *               [ reduce using rule 24 (numericexp -> ID - numericexp .) ]
-  ! /               [ reduce using rule 24 (numericexp -> ID - numericexp .) ]
-  ! ^               [ reduce using rule 24 (numericexp -> ID - numericexp .) ]
-
-    operator                       shift and go to state 54
+    booleanexp                     shift and go to state 105
 
 state 78
 
-    (25) numericexp -> ID / numericexp .
-    (29) numericexp -> numericexp . operator numericexp
-    (33) operator -> . +
-    (34) operator -> . -
-    (35) operator -> . *
-    (36) operator -> . /
-    (37) operator -> . ^
+    (43) stringexp -> ID + ID .
+    (24) numericexp -> ID . + numericexp
+    (25) numericexp -> ID . - numericexp
+    (26) numericexp -> ID . / numericexp
+    (27) numericexp -> ID . * numericexp
+    (28) numericexp -> ID . ^ numericexp
+    (42) stringexp -> ID . + stringexp
+    (43) stringexp -> ID . + ID
+    (39) concat -> ID .
 
   ! shift/reduce conflict for + resolved as shift
-  ! shift/reduce conflict for - resolved as shift
-  ! shift/reduce conflict for * resolved as shift
-  ! shift/reduce conflict for / resolved as shift
-  ! shift/reduce conflict for ^ resolved as shift
-    ;               reduce using rule 25 (numericexp -> ID / numericexp .)
-    )               reduce using rule 25 (numericexp -> ID / numericexp .)
-    AND             reduce using rule 25 (numericexp -> ID / numericexp .)
-    OR              reduce using rule 25 (numericexp -> ID / numericexp .)
-    EQUAL           reduce using rule 25 (numericexp -> ID / numericexp .)
-    DIFFERENT       reduce using rule 25 (numericexp -> ID / numericexp .)
-    +               shift and go to state 55
-    -               shift and go to state 56
-    *               shift and go to state 57
-    /               shift and go to state 58
-    ^               shift and go to state 59
+  ! shift/reduce conflict for + resolved as shift
+  ! reduce/reduce conflict for ; resolved using rule 39 (concat -> ID .)
+  ! reduce/reduce conflict for ) resolved using rule 39 (concat -> ID .)
+    +               shift and go to state 46
+    -               shift and go to state 47
+    /               shift and go to state 48
+    *               shift and go to state 49
+    ^               shift and go to state 50
+    ;               reduce using rule 39 (concat -> ID .)
+    )               reduce using rule 39 (concat -> ID .)
 
-  ! +               [ reduce using rule 25 (numericexp -> ID / numericexp .) ]
-  ! -               [ reduce using rule 25 (numericexp -> ID / numericexp .) ]
-  ! *               [ reduce using rule 25 (numericexp -> ID / numericexp .) ]
-  ! /               [ reduce using rule 25 (numericexp -> ID / numericexp .) ]
-  ! ^               [ reduce using rule 25 (numericexp -> ID / numericexp .) ]
+  ! +               [ reduce using rule 43 (stringexp -> ID + ID .) ]
+  ! ;               [ reduce using rule 43 (stringexp -> ID + ID .) ]
+  ! )               [ reduce using rule 43 (stringexp -> ID + ID .) ]
+  ! +               [ reduce using rule 39 (concat -> ID .) ]
 
-    operator                       shift and go to state 54
 
 state 79
 
-    (26) numericexp -> ID * numericexp .
-    (29) numericexp -> numericexp . operator numericexp
-    (33) operator -> . +
-    (34) operator -> . -
-    (35) operator -> . *
-    (36) operator -> . /
-    (37) operator -> . ^
+    (24) numericexp -> ID + numericexp .
+    (30) numericexp -> numericexp . operator numericexp
+    (34) operator -> . +
+    (35) operator -> . -
+    (36) operator -> . *
+    (37) operator -> . /
+    (38) operator -> . ^
 
   ! shift/reduce conflict for + resolved as shift
   ! shift/reduce conflict for - resolved as shift
   ! shift/reduce conflict for * resolved as shift
   ! shift/reduce conflict for / resolved as shift
   ! shift/reduce conflict for ^ resolved as shift
-    ;               reduce using rule 26 (numericexp -> ID * numericexp .)
-    )               reduce using rule 26 (numericexp -> ID * numericexp .)
-    AND             reduce using rule 26 (numericexp -> ID * numericexp .)
-    OR              reduce using rule 26 (numericexp -> ID * numericexp .)
-    EQUAL           reduce using rule 26 (numericexp -> ID * numericexp .)
-    DIFFERENT       reduce using rule 26 (numericexp -> ID * numericexp .)
-    +               shift and go to state 55
-    -               shift and go to state 56
-    *               shift and go to state 57
-    /               shift and go to state 58
-    ^               shift and go to state 59
+    ;               reduce using rule 24 (numericexp -> ID + numericexp .)
+    )               reduce using rule 24 (numericexp -> ID + numericexp .)
+    AND             reduce using rule 24 (numericexp -> ID + numericexp .)
+    OR              reduce using rule 24 (numericexp -> ID + numericexp .)
+    EQUAL           reduce using rule 24 (numericexp -> ID + numericexp .)
+    DIFFERENT       reduce using rule 24 (numericexp -> ID + numericexp .)
+    +               shift and go to state 58
+    -               shift and go to state 59
+    *               shift and go to state 60
+    /               shift and go to state 61
+    ^               shift and go to state 62
 
-  ! +               [ reduce using rule 26 (numericexp -> ID * numericexp .) ]
-  ! -               [ reduce using rule 26 (numericexp -> ID * numericexp .) ]
-  ! *               [ reduce using rule 26 (numericexp -> ID * numericexp .) ]
-  ! /               [ reduce using rule 26 (numericexp -> ID * numericexp .) ]
-  ! ^               [ reduce using rule 26 (numericexp -> ID * numericexp .) ]
+  ! +               [ reduce using rule 24 (numericexp -> ID + numericexp .) ]
+  ! -               [ reduce using rule 24 (numericexp -> ID + numericexp .) ]
+  ! *               [ reduce using rule 24 (numericexp -> ID + numericexp .) ]
+  ! /               [ reduce using rule 24 (numericexp -> ID + numericexp .) ]
+  ! ^               [ reduce using rule 24 (numericexp -> ID + numericexp .) ]
 
-    operator                       shift and go to state 54
+    operator                       shift and go to state 57
 
 state 80
 
-    (27) numericexp -> ID ^ numericexp .
-    (29) numericexp -> numericexp . operator numericexp
-    (33) operator -> . +
-    (34) operator -> . -
-    (35) operator -> . *
-    (36) operator -> . /
-    (37) operator -> . ^
+    (42) stringexp -> ID + stringexp .
+    (44) stringexp -> stringexp . + stringexp
 
   ! shift/reduce conflict for + resolved as shift
-  ! shift/reduce conflict for - resolved as shift
-  ! shift/reduce conflict for * resolved as shift
-  ! shift/reduce conflict for / resolved as shift
-  ! shift/reduce conflict for ^ resolved as shift
-    ;               reduce using rule 27 (numericexp -> ID ^ numericexp .)
-    )               reduce using rule 27 (numericexp -> ID ^ numericexp .)
-    AND             reduce using rule 27 (numericexp -> ID ^ numericexp .)
-    OR              reduce using rule 27 (numericexp -> ID ^ numericexp .)
-    EQUAL           reduce using rule 27 (numericexp -> ID ^ numericexp .)
-    DIFFERENT       reduce using rule 27 (numericexp -> ID ^ numericexp .)
-    +               shift and go to state 55
-    -               shift and go to state 56
-    *               shift and go to state 57
-    /               shift and go to state 58
-    ^               shift and go to state 59
+    ;               reduce using rule 42 (stringexp -> ID + stringexp .)
+    )               reduce using rule 42 (stringexp -> ID + stringexp .)
+    AND             reduce using rule 42 (stringexp -> ID + stringexp .)
+    OR              reduce using rule 42 (stringexp -> ID + stringexp .)
+    EQUAL           reduce using rule 42 (stringexp -> ID + stringexp .)
+    DIFFERENT       reduce using rule 42 (stringexp -> ID + stringexp .)
+    +               shift and go to state 67
 
-  ! +               [ reduce using rule 27 (numericexp -> ID ^ numericexp .) ]
-  ! -               [ reduce using rule 27 (numericexp -> ID ^ numericexp .) ]
-  ! *               [ reduce using rule 27 (numericexp -> ID ^ numericexp .) ]
-  ! /               [ reduce using rule 27 (numericexp -> ID ^ numericexp .) ]
-  ! ^               [ reduce using rule 27 (numericexp -> ID ^ numericexp .) ]
+  ! +               [ reduce using rule 42 (stringexp -> ID + stringexp .) ]
 
-    operator                       shift and go to state 54
 
 state 81
 
-    (41) stringexp -> ID . + stringexp
-    (42) stringexp -> ID . + ID
-    (23) numericexp -> ID . + numericexp
-    (24) numericexp -> ID . - numericexp
-    (25) numericexp -> ID . / numericexp
-    (26) numericexp -> ID . * numericexp
-    (27) numericexp -> ID . ^ numericexp
-    (38) concat -> ID .
-
-  ! shift/reduce conflict for + resolved as shift
-    +               shift and go to state 101
-    -               shift and go to state 44
-    /               shift and go to state 45
-    *               shift and go to state 46
-    ^               shift and go to state 47
-    AND             reduce using rule 38 (concat -> ID .)
-    OR              reduce using rule 38 (concat -> ID .)
-    EQUAL           reduce using rule 38 (concat -> ID .)
-    DIFFERENT       reduce using rule 38 (concat -> ID .)
-    ;               reduce using rule 38 (concat -> ID .)
-    )               reduce using rule 38 (concat -> ID .)
-
-  ! +               [ reduce using rule 38 (concat -> ID .) ]
-
-
-state 82
-
-    (51) booleanexp -> ID EQUAL stringexp .
-    (43) stringexp -> stringexp . + stringexp
-
-    AND             reduce using rule 51 (booleanexp -> ID EQUAL stringexp .)
-    OR              reduce using rule 51 (booleanexp -> ID EQUAL stringexp .)
-    EQUAL           reduce using rule 51 (booleanexp -> ID EQUAL stringexp .)
-    DIFFERENT       reduce using rule 51 (booleanexp -> ID EQUAL stringexp .)
-    ;               reduce using rule 51 (booleanexp -> ID EQUAL stringexp .)
-    )               reduce using rule 51 (booleanexp -> ID EQUAL stringexp .)
-    +               shift and go to state 64
-
-
-state 83
-
-    (53) booleanexp -> ID EQUAL numericexp .
-    (29) numericexp -> numericexp . operator numericexp
-    (33) operator -> . +
-    (34) operator -> . -
-    (35) operator -> . *
-    (36) operator -> . /
-    (37) operator -> . ^
-
-    AND             reduce using rule 53 (booleanexp -> ID EQUAL numericexp .)
-    OR              reduce using rule 53 (booleanexp -> ID EQUAL numericexp .)
-    EQUAL           reduce using rule 53 (booleanexp -> ID EQUAL numericexp .)
-    DIFFERENT       reduce using rule 53 (booleanexp -> ID EQUAL numericexp .)
-    ;               reduce using rule 53 (booleanexp -> ID EQUAL numericexp .)
-    )               reduce using rule 53 (booleanexp -> ID EQUAL numericexp .)
-    +               shift and go to state 55
-    -               shift and go to state 56
-    *               shift and go to state 57
-    /               shift and go to state 58
-    ^               shift and go to state 59
-
-    operator                       shift and go to state 54
-
-state 84
-
-    (52) booleanexp -> ID DIFFERENT stringexp .
-    (43) stringexp -> stringexp . + stringexp
-
-    AND             reduce using rule 52 (booleanexp -> ID DIFFERENT stringexp .)
-    OR              reduce using rule 52 (booleanexp -> ID DIFFERENT stringexp .)
-    EQUAL           reduce using rule 52 (booleanexp -> ID DIFFERENT stringexp .)
-    DIFFERENT       reduce using rule 52 (booleanexp -> ID DIFFERENT stringexp .)
-    ;               reduce using rule 52 (booleanexp -> ID DIFFERENT stringexp .)
-    )               reduce using rule 52 (booleanexp -> ID DIFFERENT stringexp .)
-    +               shift and go to state 64
-
-
-state 85
-
-    (54) booleanexp -> ID DIFFERENT numericexp .
-    (29) numericexp -> numericexp . operator numericexp
-    (33) operator -> . +
-    (34) operator -> . -
-    (35) operator -> . *
-    (36) operator -> . /
-    (37) operator -> . ^
-
-    AND             reduce using rule 54 (booleanexp -> ID DIFFERENT numericexp .)
-    OR              reduce using rule 54 (booleanexp -> ID DIFFERENT numericexp .)
-    EQUAL           reduce using rule 54 (booleanexp -> ID DIFFERENT numericexp .)
-    DIFFERENT       reduce using rule 54 (booleanexp -> ID DIFFERENT numericexp .)
-    ;               reduce using rule 54 (booleanexp -> ID DIFFERENT numericexp .)
-    )               reduce using rule 54 (booleanexp -> ID DIFFERENT numericexp .)
-    +               shift and go to state 55
-    -               shift and go to state 56
-    *               shift and go to state 57
-    /               shift and go to state 58
-    ^               shift and go to state 59
-
-    operator                       shift and go to state 54
-
-state 86
-
-    (55) booleanexp -> ID GREATERTHAN numericexp .
-    (29) numericexp -> numericexp . operator numericexp
-    (33) operator -> . +
-    (34) operator -> . -
-    (35) operator -> . *
-    (36) operator -> . /
-    (37) operator -> . ^
-
-    AND             reduce using rule 55 (booleanexp -> ID GREATERTHAN numericexp .)
-    OR              reduce using rule 55 (booleanexp -> ID GREATERTHAN numericexp .)
-    EQUAL           reduce using rule 55 (booleanexp -> ID GREATERTHAN numericexp .)
-    DIFFERENT       reduce using rule 55 (booleanexp -> ID GREATERTHAN numericexp .)
-    ;               reduce using rule 55 (booleanexp -> ID GREATERTHAN numericexp .)
-    )               reduce using rule 55 (booleanexp -> ID GREATERTHAN numericexp .)
-    +               shift and go to state 55
-    -               shift and go to state 56
-    *               shift and go to state 57
-    /               shift and go to state 58
-    ^               shift and go to state 59
-
-    operator                       shift and go to state 54
-
-state 87
-
-    (56) booleanexp -> ID LESSTHAN numericexp .
-    (29) numericexp -> numericexp . operator numericexp
-    (33) operator -> . +
-    (34) operator -> . -
-    (35) operator -> . *
-    (36) operator -> . /
-    (37) operator -> . ^
-
-    AND             reduce using rule 56 (booleanexp -> ID LESSTHAN numericexp .)
-    OR              reduce using rule 56 (booleanexp -> ID LESSTHAN numericexp .)
-    EQUAL           reduce using rule 56 (booleanexp -> ID LESSTHAN numericexp .)
-    DIFFERENT       reduce using rule 56 (booleanexp -> ID LESSTHAN numericexp .)
-    ;               reduce using rule 56 (booleanexp -> ID LESSTHAN numericexp .)
-    )               reduce using rule 56 (booleanexp -> ID LESSTHAN numericexp .)
-    +               shift and go to state 55
-    -               shift and go to state 56
-    *               shift and go to state 57
-    /               shift and go to state 58
-    ^               shift and go to state 59
-
-    operator                       shift and go to state 54
-
-state 88
-
-    (57) booleanexp -> ID < numericexp .
-    (29) numericexp -> numericexp . operator numericexp
-    (33) operator -> . +
-    (34) operator -> . -
-    (35) operator -> . *
-    (36) operator -> . /
-    (37) operator -> . ^
-
-    AND             reduce using rule 57 (booleanexp -> ID < numericexp .)
-    OR              reduce using rule 57 (booleanexp -> ID < numericexp .)
-    EQUAL           reduce using rule 57 (booleanexp -> ID < numericexp .)
-    DIFFERENT       reduce using rule 57 (booleanexp -> ID < numericexp .)
-    ;               reduce using rule 57 (booleanexp -> ID < numericexp .)
-    )               reduce using rule 57 (booleanexp -> ID < numericexp .)
-    +               shift and go to state 55
-    -               shift and go to state 56
-    *               shift and go to state 57
-    /               shift and go to state 58
-    ^               shift and go to state 59
-
-    operator                       shift and go to state 54
-
-state 89
-
-    (58) booleanexp -> ID > numericexp .
-    (29) numericexp -> numericexp . operator numericexp
-    (33) operator -> . +
-    (34) operator -> . -
-    (35) operator -> . *
-    (36) operator -> . /
-    (37) operator -> . ^
-
-    AND             reduce using rule 58 (booleanexp -> ID > numericexp .)
-    OR              reduce using rule 58 (booleanexp -> ID > numericexp .)
-    EQUAL           reduce using rule 58 (booleanexp -> ID > numericexp .)
-    DIFFERENT       reduce using rule 58 (booleanexp -> ID > numericexp .)
-    ;               reduce using rule 58 (booleanexp -> ID > numericexp .)
-    )               reduce using rule 58 (booleanexp -> ID > numericexp .)
-    +               shift and go to state 55
-    -               shift and go to state 56
-    *               shift and go to state 57
-    /               shift and go to state 58
-    ^               shift and go to state 59
-
-    operator                       shift and go to state 54
-
-state 90
-
-    (29) numericexp -> numericexp operator numericexp .
-    (29) numericexp -> numericexp . operator numericexp
-    (33) operator -> . +
-    (34) operator -> . -
-    (35) operator -> . *
-    (36) operator -> . /
-    (37) operator -> . ^
+    (25) numericexp -> ID - numericexp .
+    (30) numericexp -> numericexp . operator numericexp
+    (34) operator -> . +
+    (35) operator -> . -
+    (36) operator -> . *
+    (37) operator -> . /
+    (38) operator -> . ^
 
   ! shift/reduce conflict for + resolved as shift
   ! shift/reduce conflict for - resolved as shift
   ! shift/reduce conflict for * resolved as shift
   ! shift/reduce conflict for / resolved as shift
   ! shift/reduce conflict for ^ resolved as shift
-    ;               reduce using rule 29 (numericexp -> numericexp operator numericexp .)
-    )               reduce using rule 29 (numericexp -> numericexp operator numericexp .)
-    AND             reduce using rule 29 (numericexp -> numericexp operator numericexp .)
-    OR              reduce using rule 29 (numericexp -> numericexp operator numericexp .)
-    EQUAL           reduce using rule 29 (numericexp -> numericexp operator numericexp .)
-    DIFFERENT       reduce using rule 29 (numericexp -> numericexp operator numericexp .)
-    +               shift and go to state 55
-    -               shift and go to state 56
-    *               shift and go to state 57
-    /               shift and go to state 58
-    ^               shift and go to state 59
+    ;               reduce using rule 25 (numericexp -> ID - numericexp .)
+    )               reduce using rule 25 (numericexp -> ID - numericexp .)
+    AND             reduce using rule 25 (numericexp -> ID - numericexp .)
+    OR              reduce using rule 25 (numericexp -> ID - numericexp .)
+    EQUAL           reduce using rule 25 (numericexp -> ID - numericexp .)
+    DIFFERENT       reduce using rule 25 (numericexp -> ID - numericexp .)
+    +               shift and go to state 58
+    -               shift and go to state 59
+    *               shift and go to state 60
+    /               shift and go to state 61
+    ^               shift and go to state 62
 
-  ! +               [ reduce using rule 29 (numericexp -> numericexp operator numericexp .) ]
-  ! -               [ reduce using rule 29 (numericexp -> numericexp operator numericexp .) ]
-  ! *               [ reduce using rule 29 (numericexp -> numericexp operator numericexp .) ]
-  ! /               [ reduce using rule 29 (numericexp -> numericexp operator numericexp .) ]
-  ! ^               [ reduce using rule 29 (numericexp -> numericexp operator numericexp .) ]
+  ! +               [ reduce using rule 25 (numericexp -> ID - numericexp .) ]
+  ! -               [ reduce using rule 25 (numericexp -> ID - numericexp .) ]
+  ! *               [ reduce using rule 25 (numericexp -> ID - numericexp .) ]
+  ! /               [ reduce using rule 25 (numericexp -> ID - numericexp .) ]
+  ! ^               [ reduce using rule 25 (numericexp -> ID - numericexp .) ]
 
-    operator                       shift and go to state 54
+    operator                       shift and go to state 57
+
+state 82
+
+    (26) numericexp -> ID / numericexp .
+    (30) numericexp -> numericexp . operator numericexp
+    (34) operator -> . +
+    (35) operator -> . -
+    (36) operator -> . *
+    (37) operator -> . /
+    (38) operator -> . ^
+
+  ! shift/reduce conflict for + resolved as shift
+  ! shift/reduce conflict for - resolved as shift
+  ! shift/reduce conflict for * resolved as shift
+  ! shift/reduce conflict for / resolved as shift
+  ! shift/reduce conflict for ^ resolved as shift
+    ;               reduce using rule 26 (numericexp -> ID / numericexp .)
+    )               reduce using rule 26 (numericexp -> ID / numericexp .)
+    AND             reduce using rule 26 (numericexp -> ID / numericexp .)
+    OR              reduce using rule 26 (numericexp -> ID / numericexp .)
+    EQUAL           reduce using rule 26 (numericexp -> ID / numericexp .)
+    DIFFERENT       reduce using rule 26 (numericexp -> ID / numericexp .)
+    +               shift and go to state 58
+    -               shift and go to state 59
+    *               shift and go to state 60
+    /               shift and go to state 61
+    ^               shift and go to state 62
+
+  ! +               [ reduce using rule 26 (numericexp -> ID / numericexp .) ]
+  ! -               [ reduce using rule 26 (numericexp -> ID / numericexp .) ]
+  ! *               [ reduce using rule 26 (numericexp -> ID / numericexp .) ]
+  ! /               [ reduce using rule 26 (numericexp -> ID / numericexp .) ]
+  ! ^               [ reduce using rule 26 (numericexp -> ID / numericexp .) ]
+
+    operator                       shift and go to state 57
+
+state 83
+
+    (27) numericexp -> ID * numericexp .
+    (30) numericexp -> numericexp . operator numericexp
+    (34) operator -> . +
+    (35) operator -> . -
+    (36) operator -> . *
+    (37) operator -> . /
+    (38) operator -> . ^
+
+  ! shift/reduce conflict for + resolved as shift
+  ! shift/reduce conflict for - resolved as shift
+  ! shift/reduce conflict for * resolved as shift
+  ! shift/reduce conflict for / resolved as shift
+  ! shift/reduce conflict for ^ resolved as shift
+    ;               reduce using rule 27 (numericexp -> ID * numericexp .)
+    )               reduce using rule 27 (numericexp -> ID * numericexp .)
+    AND             reduce using rule 27 (numericexp -> ID * numericexp .)
+    OR              reduce using rule 27 (numericexp -> ID * numericexp .)
+    EQUAL           reduce using rule 27 (numericexp -> ID * numericexp .)
+    DIFFERENT       reduce using rule 27 (numericexp -> ID * numericexp .)
+    +               shift and go to state 58
+    -               shift and go to state 59
+    *               shift and go to state 60
+    /               shift and go to state 61
+    ^               shift and go to state 62
+
+  ! +               [ reduce using rule 27 (numericexp -> ID * numericexp .) ]
+  ! -               [ reduce using rule 27 (numericexp -> ID * numericexp .) ]
+  ! *               [ reduce using rule 27 (numericexp -> ID * numericexp .) ]
+  ! /               [ reduce using rule 27 (numericexp -> ID * numericexp .) ]
+  ! ^               [ reduce using rule 27 (numericexp -> ID * numericexp .) ]
+
+    operator                       shift and go to state 57
+
+state 84
+
+    (28) numericexp -> ID ^ numericexp .
+    (30) numericexp -> numericexp . operator numericexp
+    (34) operator -> . +
+    (35) operator -> . -
+    (36) operator -> . *
+    (37) operator -> . /
+    (38) operator -> . ^
+
+  ! shift/reduce conflict for + resolved as shift
+  ! shift/reduce conflict for - resolved as shift
+  ! shift/reduce conflict for * resolved as shift
+  ! shift/reduce conflict for / resolved as shift
+  ! shift/reduce conflict for ^ resolved as shift
+    ;               reduce using rule 28 (numericexp -> ID ^ numericexp .)
+    )               reduce using rule 28 (numericexp -> ID ^ numericexp .)
+    AND             reduce using rule 28 (numericexp -> ID ^ numericexp .)
+    OR              reduce using rule 28 (numericexp -> ID ^ numericexp .)
+    EQUAL           reduce using rule 28 (numericexp -> ID ^ numericexp .)
+    DIFFERENT       reduce using rule 28 (numericexp -> ID ^ numericexp .)
+    +               shift and go to state 58
+    -               shift and go to state 59
+    *               shift and go to state 60
+    /               shift and go to state 61
+    ^               shift and go to state 62
+
+  ! +               [ reduce using rule 28 (numericexp -> ID ^ numericexp .) ]
+  ! -               [ reduce using rule 28 (numericexp -> ID ^ numericexp .) ]
+  ! *               [ reduce using rule 28 (numericexp -> ID ^ numericexp .) ]
+  ! /               [ reduce using rule 28 (numericexp -> ID ^ numericexp .) ]
+  ! ^               [ reduce using rule 28 (numericexp -> ID ^ numericexp .) ]
+
+    operator                       shift and go to state 57
+
+state 85
+
+    (42) stringexp -> ID . + stringexp
+    (43) stringexp -> ID . + ID
+    (24) numericexp -> ID . + numericexp
+    (25) numericexp -> ID . - numericexp
+    (26) numericexp -> ID . / numericexp
+    (27) numericexp -> ID . * numericexp
+    (28) numericexp -> ID . ^ numericexp
+    (39) concat -> ID .
+
+  ! shift/reduce conflict for + resolved as shift
+    +               shift and go to state 106
+    -               shift and go to state 47
+    /               shift and go to state 48
+    *               shift and go to state 49
+    ^               shift and go to state 50
+    AND             reduce using rule 39 (concat -> ID .)
+    OR              reduce using rule 39 (concat -> ID .)
+    EQUAL           reduce using rule 39 (concat -> ID .)
+    DIFFERENT       reduce using rule 39 (concat -> ID .)
+    ;               reduce using rule 39 (concat -> ID .)
+    )               reduce using rule 39 (concat -> ID .)
+
+  ! +               [ reduce using rule 39 (concat -> ID .) ]
+
+
+state 86
+
+    (52) booleanexp -> ID EQUAL stringexp .
+    (44) stringexp -> stringexp . + stringexp
+
+    AND             reduce using rule 52 (booleanexp -> ID EQUAL stringexp .)
+    OR              reduce using rule 52 (booleanexp -> ID EQUAL stringexp .)
+    EQUAL           reduce using rule 52 (booleanexp -> ID EQUAL stringexp .)
+    DIFFERENT       reduce using rule 52 (booleanexp -> ID EQUAL stringexp .)
+    ;               reduce using rule 52 (booleanexp -> ID EQUAL stringexp .)
+    )               reduce using rule 52 (booleanexp -> ID EQUAL stringexp .)
+    +               shift and go to state 67
+
+
+state 87
+
+    (54) booleanexp -> ID EQUAL numericexp .
+    (30) numericexp -> numericexp . operator numericexp
+    (34) operator -> . +
+    (35) operator -> . -
+    (36) operator -> . *
+    (37) operator -> . /
+    (38) operator -> . ^
+
+    AND             reduce using rule 54 (booleanexp -> ID EQUAL numericexp .)
+    OR              reduce using rule 54 (booleanexp -> ID EQUAL numericexp .)
+    EQUAL           reduce using rule 54 (booleanexp -> ID EQUAL numericexp .)
+    DIFFERENT       reduce using rule 54 (booleanexp -> ID EQUAL numericexp .)
+    ;               reduce using rule 54 (booleanexp -> ID EQUAL numericexp .)
+    )               reduce using rule 54 (booleanexp -> ID EQUAL numericexp .)
+    +               shift and go to state 58
+    -               shift and go to state 59
+    *               shift and go to state 60
+    /               shift and go to state 61
+    ^               shift and go to state 62
+
+    operator                       shift and go to state 57
+
+state 88
+
+    (53) booleanexp -> ID DIFFERENT stringexp .
+    (44) stringexp -> stringexp . + stringexp
+
+    AND             reduce using rule 53 (booleanexp -> ID DIFFERENT stringexp .)
+    OR              reduce using rule 53 (booleanexp -> ID DIFFERENT stringexp .)
+    EQUAL           reduce using rule 53 (booleanexp -> ID DIFFERENT stringexp .)
+    DIFFERENT       reduce using rule 53 (booleanexp -> ID DIFFERENT stringexp .)
+    ;               reduce using rule 53 (booleanexp -> ID DIFFERENT stringexp .)
+    )               reduce using rule 53 (booleanexp -> ID DIFFERENT stringexp .)
+    +               shift and go to state 67
+
+
+state 89
+
+    (55) booleanexp -> ID DIFFERENT numericexp .
+    (30) numericexp -> numericexp . operator numericexp
+    (34) operator -> . +
+    (35) operator -> . -
+    (36) operator -> . *
+    (37) operator -> . /
+    (38) operator -> . ^
+
+    AND             reduce using rule 55 (booleanexp -> ID DIFFERENT numericexp .)
+    OR              reduce using rule 55 (booleanexp -> ID DIFFERENT numericexp .)
+    EQUAL           reduce using rule 55 (booleanexp -> ID DIFFERENT numericexp .)
+    DIFFERENT       reduce using rule 55 (booleanexp -> ID DIFFERENT numericexp .)
+    ;               reduce using rule 55 (booleanexp -> ID DIFFERENT numericexp .)
+    )               reduce using rule 55 (booleanexp -> ID DIFFERENT numericexp .)
+    +               shift and go to state 58
+    -               shift and go to state 59
+    *               shift and go to state 60
+    /               shift and go to state 61
+    ^               shift and go to state 62
+
+    operator                       shift and go to state 57
+
+state 90
+
+    (56) booleanexp -> ID GREATERTHAN numericexp .
+    (30) numericexp -> numericexp . operator numericexp
+    (34) operator -> . +
+    (35) operator -> . -
+    (36) operator -> . *
+    (37) operator -> . /
+    (38) operator -> . ^
+
+    AND             reduce using rule 56 (booleanexp -> ID GREATERTHAN numericexp .)
+    OR              reduce using rule 56 (booleanexp -> ID GREATERTHAN numericexp .)
+    EQUAL           reduce using rule 56 (booleanexp -> ID GREATERTHAN numericexp .)
+    DIFFERENT       reduce using rule 56 (booleanexp -> ID GREATERTHAN numericexp .)
+    ;               reduce using rule 56 (booleanexp -> ID GREATERTHAN numericexp .)
+    )               reduce using rule 56 (booleanexp -> ID GREATERTHAN numericexp .)
+    +               shift and go to state 58
+    -               shift and go to state 59
+    *               shift and go to state 60
+    /               shift and go to state 61
+    ^               shift and go to state 62
+
+    operator                       shift and go to state 57
 
 state 91
 
-    (47) booleanexp -> booleanexp AND booleanexp .
-    (47) booleanexp -> booleanexp . AND booleanexp
-    (48) booleanexp -> booleanexp . OR booleanexp
-    (49) booleanexp -> booleanexp . EQUAL booleanexp
-    (50) booleanexp -> booleanexp . DIFFERENT booleanexp
+    (57) booleanexp -> ID LESSTHAN numericexp .
+    (30) numericexp -> numericexp . operator numericexp
+    (34) operator -> . +
+    (35) operator -> . -
+    (36) operator -> . *
+    (37) operator -> . /
+    (38) operator -> . ^
 
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
-  ! shift/reduce conflict for EQUAL resolved as shift
-  ! shift/reduce conflict for DIFFERENT resolved as shift
-    ;               reduce using rule 47 (booleanexp -> booleanexp AND booleanexp .)
-    )               reduce using rule 47 (booleanexp -> booleanexp AND booleanexp .)
-    AND             shift and go to state 60
-    OR              shift and go to state 61
-    EQUAL           shift and go to state 62
-    DIFFERENT       shift and go to state 63
+    AND             reduce using rule 57 (booleanexp -> ID LESSTHAN numericexp .)
+    OR              reduce using rule 57 (booleanexp -> ID LESSTHAN numericexp .)
+    EQUAL           reduce using rule 57 (booleanexp -> ID LESSTHAN numericexp .)
+    DIFFERENT       reduce using rule 57 (booleanexp -> ID LESSTHAN numericexp .)
+    ;               reduce using rule 57 (booleanexp -> ID LESSTHAN numericexp .)
+    )               reduce using rule 57 (booleanexp -> ID LESSTHAN numericexp .)
+    +               shift and go to state 58
+    -               shift and go to state 59
+    *               shift and go to state 60
+    /               shift and go to state 61
+    ^               shift and go to state 62
 
-  ! AND             [ reduce using rule 47 (booleanexp -> booleanexp AND booleanexp .) ]
-  ! OR              [ reduce using rule 47 (booleanexp -> booleanexp AND booleanexp .) ]
-  ! EQUAL           [ reduce using rule 47 (booleanexp -> booleanexp AND booleanexp .) ]
-  ! DIFFERENT       [ reduce using rule 47 (booleanexp -> booleanexp AND booleanexp .) ]
-
+    operator                       shift and go to state 57
 
 state 92
 
-    (48) booleanexp -> booleanexp OR booleanexp .
-    (47) booleanexp -> booleanexp . AND booleanexp
-    (48) booleanexp -> booleanexp . OR booleanexp
-    (49) booleanexp -> booleanexp . EQUAL booleanexp
-    (50) booleanexp -> booleanexp . DIFFERENT booleanexp
+    (58) booleanexp -> ID < numericexp .
+    (30) numericexp -> numericexp . operator numericexp
+    (34) operator -> . +
+    (35) operator -> . -
+    (36) operator -> . *
+    (37) operator -> . /
+    (38) operator -> . ^
 
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
-  ! shift/reduce conflict for EQUAL resolved as shift
-  ! shift/reduce conflict for DIFFERENT resolved as shift
-    ;               reduce using rule 48 (booleanexp -> booleanexp OR booleanexp .)
-    )               reduce using rule 48 (booleanexp -> booleanexp OR booleanexp .)
-    AND             shift and go to state 60
-    OR              shift and go to state 61
-    EQUAL           shift and go to state 62
-    DIFFERENT       shift and go to state 63
+    AND             reduce using rule 58 (booleanexp -> ID < numericexp .)
+    OR              reduce using rule 58 (booleanexp -> ID < numericexp .)
+    EQUAL           reduce using rule 58 (booleanexp -> ID < numericexp .)
+    DIFFERENT       reduce using rule 58 (booleanexp -> ID < numericexp .)
+    ;               reduce using rule 58 (booleanexp -> ID < numericexp .)
+    )               reduce using rule 58 (booleanexp -> ID < numericexp .)
+    +               shift and go to state 58
+    -               shift and go to state 59
+    *               shift and go to state 60
+    /               shift and go to state 61
+    ^               shift and go to state 62
 
-  ! AND             [ reduce using rule 48 (booleanexp -> booleanexp OR booleanexp .) ]
-  ! OR              [ reduce using rule 48 (booleanexp -> booleanexp OR booleanexp .) ]
-  ! EQUAL           [ reduce using rule 48 (booleanexp -> booleanexp OR booleanexp .) ]
-  ! DIFFERENT       [ reduce using rule 48 (booleanexp -> booleanexp OR booleanexp .) ]
-
+    operator                       shift and go to state 57
 
 state 93
 
-    (49) booleanexp -> booleanexp EQUAL booleanexp .
-    (47) booleanexp -> booleanexp . AND booleanexp
-    (48) booleanexp -> booleanexp . OR booleanexp
-    (49) booleanexp -> booleanexp . EQUAL booleanexp
-    (50) booleanexp -> booleanexp . DIFFERENT booleanexp
+    (59) booleanexp -> ID > numericexp .
+    (30) numericexp -> numericexp . operator numericexp
+    (34) operator -> . +
+    (35) operator -> . -
+    (36) operator -> . *
+    (37) operator -> . /
+    (38) operator -> . ^
 
-  ! shift/reduce conflict for AND resolved as shift
-  ! shift/reduce conflict for OR resolved as shift
-  ! shift/reduce conflict for EQUAL resolved as shift
-  ! shift/reduce conflict for DIFFERENT resolved as shift
-    ;               reduce using rule 49 (booleanexp -> booleanexp EQUAL booleanexp .)
-    )               reduce using rule 49 (booleanexp -> booleanexp EQUAL booleanexp .)
-    AND             shift and go to state 60
-    OR              shift and go to state 61
-    EQUAL           shift and go to state 62
-    DIFFERENT       shift and go to state 63
+    AND             reduce using rule 59 (booleanexp -> ID > numericexp .)
+    OR              reduce using rule 59 (booleanexp -> ID > numericexp .)
+    EQUAL           reduce using rule 59 (booleanexp -> ID > numericexp .)
+    DIFFERENT       reduce using rule 59 (booleanexp -> ID > numericexp .)
+    ;               reduce using rule 59 (booleanexp -> ID > numericexp .)
+    )               reduce using rule 59 (booleanexp -> ID > numericexp .)
+    +               shift and go to state 58
+    -               shift and go to state 59
+    *               shift and go to state 60
+    /               shift and go to state 61
+    ^               shift and go to state 62
 
-  ! AND             [ reduce using rule 49 (booleanexp -> booleanexp EQUAL booleanexp .) ]
-  ! OR              [ reduce using rule 49 (booleanexp -> booleanexp EQUAL booleanexp .) ]
-  ! EQUAL           [ reduce using rule 49 (booleanexp -> booleanexp EQUAL booleanexp .) ]
-  ! DIFFERENT       [ reduce using rule 49 (booleanexp -> booleanexp EQUAL booleanexp .) ]
-
+    operator                       shift and go to state 57
 
 state 94
 
-    (50) booleanexp -> booleanexp DIFFERENT booleanexp .
-    (47) booleanexp -> booleanexp . AND booleanexp
-    (48) booleanexp -> booleanexp . OR booleanexp
-    (49) booleanexp -> booleanexp . EQUAL booleanexp
-    (50) booleanexp -> booleanexp . DIFFERENT booleanexp
+    (30) numericexp -> numericexp operator numericexp .
+    (30) numericexp -> numericexp . operator numericexp
+    (34) operator -> . +
+    (35) operator -> . -
+    (36) operator -> . *
+    (37) operator -> . /
+    (38) operator -> . ^
+
+  ! shift/reduce conflict for + resolved as shift
+  ! shift/reduce conflict for - resolved as shift
+  ! shift/reduce conflict for * resolved as shift
+  ! shift/reduce conflict for / resolved as shift
+  ! shift/reduce conflict for ^ resolved as shift
+    ;               reduce using rule 30 (numericexp -> numericexp operator numericexp .)
+    )               reduce using rule 30 (numericexp -> numericexp operator numericexp .)
+    AND             reduce using rule 30 (numericexp -> numericexp operator numericexp .)
+    OR              reduce using rule 30 (numericexp -> numericexp operator numericexp .)
+    EQUAL           reduce using rule 30 (numericexp -> numericexp operator numericexp .)
+    DIFFERENT       reduce using rule 30 (numericexp -> numericexp operator numericexp .)
+    +               shift and go to state 58
+    -               shift and go to state 59
+    *               shift and go to state 60
+    /               shift and go to state 61
+    ^               shift and go to state 62
+
+  ! +               [ reduce using rule 30 (numericexp -> numericexp operator numericexp .) ]
+  ! -               [ reduce using rule 30 (numericexp -> numericexp operator numericexp .) ]
+  ! *               [ reduce using rule 30 (numericexp -> numericexp operator numericexp .) ]
+  ! /               [ reduce using rule 30 (numericexp -> numericexp operator numericexp .) ]
+  ! ^               [ reduce using rule 30 (numericexp -> numericexp operator numericexp .) ]
+
+    operator                       shift and go to state 57
+
+state 95
+
+    (48) booleanexp -> booleanexp AND booleanexp .
+    (48) booleanexp -> booleanexp . AND booleanexp
+    (49) booleanexp -> booleanexp . OR booleanexp
+    (50) booleanexp -> booleanexp . EQUAL booleanexp
+    (51) booleanexp -> booleanexp . DIFFERENT booleanexp
 
   ! shift/reduce conflict for AND resolved as shift
   ! shift/reduce conflict for OR resolved as shift
   ! shift/reduce conflict for EQUAL resolved as shift
   ! shift/reduce conflict for DIFFERENT resolved as shift
-    ;               reduce using rule 50 (booleanexp -> booleanexp DIFFERENT booleanexp .)
-    )               reduce using rule 50 (booleanexp -> booleanexp DIFFERENT booleanexp .)
-    AND             shift and go to state 60
-    OR              shift and go to state 61
-    EQUAL           shift and go to state 62
-    DIFFERENT       shift and go to state 63
+    ;               reduce using rule 48 (booleanexp -> booleanexp AND booleanexp .)
+    )               reduce using rule 48 (booleanexp -> booleanexp AND booleanexp .)
+    AND             shift and go to state 63
+    OR              shift and go to state 64
+    EQUAL           shift and go to state 65
+    DIFFERENT       shift and go to state 66
 
-  ! AND             [ reduce using rule 50 (booleanexp -> booleanexp DIFFERENT booleanexp .) ]
-  ! OR              [ reduce using rule 50 (booleanexp -> booleanexp DIFFERENT booleanexp .) ]
-  ! EQUAL           [ reduce using rule 50 (booleanexp -> booleanexp DIFFERENT booleanexp .) ]
-  ! DIFFERENT       [ reduce using rule 50 (booleanexp -> booleanexp DIFFERENT booleanexp .) ]
-
-
-state 95
-
-    (43) stringexp -> stringexp + stringexp .
-    (43) stringexp -> stringexp . + stringexp
-
-  ! shift/reduce conflict for + resolved as shift
-    ;               reduce using rule 43 (stringexp -> stringexp + stringexp .)
-    AND             reduce using rule 43 (stringexp -> stringexp + stringexp .)
-    OR              reduce using rule 43 (stringexp -> stringexp + stringexp .)
-    EQUAL           reduce using rule 43 (stringexp -> stringexp + stringexp .)
-    DIFFERENT       reduce using rule 43 (stringexp -> stringexp + stringexp .)
-    )               reduce using rule 43 (stringexp -> stringexp + stringexp .)
-    +               shift and go to state 64
-
-  ! +               [ reduce using rule 43 (stringexp -> stringexp + stringexp .) ]
+  ! AND             [ reduce using rule 48 (booleanexp -> booleanexp AND booleanexp .) ]
+  ! OR              [ reduce using rule 48 (booleanexp -> booleanexp AND booleanexp .) ]
+  ! EQUAL           [ reduce using rule 48 (booleanexp -> booleanexp AND booleanexp .) ]
+  ! DIFFERENT       [ reduce using rule 48 (booleanexp -> booleanexp AND booleanexp .) ]
 
 
 state 96
 
-    (30) numericexp -> ( numericexp ) .
+    (49) booleanexp -> booleanexp OR booleanexp .
+    (48) booleanexp -> booleanexp . AND booleanexp
+    (49) booleanexp -> booleanexp . OR booleanexp
+    (50) booleanexp -> booleanexp . EQUAL booleanexp
+    (51) booleanexp -> booleanexp . DIFFERENT booleanexp
 
-    +               reduce using rule 30 (numericexp -> ( numericexp ) .)
-    -               reduce using rule 30 (numericexp -> ( numericexp ) .)
-    *               reduce using rule 30 (numericexp -> ( numericexp ) .)
-    /               reduce using rule 30 (numericexp -> ( numericexp ) .)
-    ^               reduce using rule 30 (numericexp -> ( numericexp ) .)
-    ;               reduce using rule 30 (numericexp -> ( numericexp ) .)
-    )               reduce using rule 30 (numericexp -> ( numericexp ) .)
-    AND             reduce using rule 30 (numericexp -> ( numericexp ) .)
-    OR              reduce using rule 30 (numericexp -> ( numericexp ) .)
-    EQUAL           reduce using rule 30 (numericexp -> ( numericexp ) .)
-    DIFFERENT       reduce using rule 30 (numericexp -> ( numericexp ) .)
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for EQUAL resolved as shift
+  ! shift/reduce conflict for DIFFERENT resolved as shift
+    ;               reduce using rule 49 (booleanexp -> booleanexp OR booleanexp .)
+    )               reduce using rule 49 (booleanexp -> booleanexp OR booleanexp .)
+    AND             shift and go to state 63
+    OR              shift and go to state 64
+    EQUAL           shift and go to state 65
+    DIFFERENT       shift and go to state 66
+
+  ! AND             [ reduce using rule 49 (booleanexp -> booleanexp OR booleanexp .) ]
+  ! OR              [ reduce using rule 49 (booleanexp -> booleanexp OR booleanexp .) ]
+  ! EQUAL           [ reduce using rule 49 (booleanexp -> booleanexp OR booleanexp .) ]
+  ! DIFFERENT       [ reduce using rule 49 (booleanexp -> booleanexp OR booleanexp .) ]
 
 
 state 97
 
-    (23) numericexp -> ID + . numericexp
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
+    (50) booleanexp -> booleanexp EQUAL booleanexp .
+    (48) booleanexp -> booleanexp . AND booleanexp
+    (49) booleanexp -> booleanexp . OR booleanexp
+    (50) booleanexp -> booleanexp . EQUAL booleanexp
+    (51) booleanexp -> booleanexp . DIFFERENT booleanexp
 
-    ID              shift and go to state 66
-    (               shift and go to state 30
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for EQUAL resolved as shift
+  ! shift/reduce conflict for DIFFERENT resolved as shift
+    ;               reduce using rule 50 (booleanexp -> booleanexp EQUAL booleanexp .)
+    )               reduce using rule 50 (booleanexp -> booleanexp EQUAL booleanexp .)
+    AND             shift and go to state 63
+    OR              shift and go to state 64
+    EQUAL           shift and go to state 65
+    DIFFERENT       shift and go to state 66
 
-    numericexp                     shift and go to state 75
-    num                            shift and go to state 29
+  ! AND             [ reduce using rule 50 (booleanexp -> booleanexp EQUAL booleanexp .) ]
+  ! OR              [ reduce using rule 50 (booleanexp -> booleanexp EQUAL booleanexp .) ]
+  ! EQUAL           [ reduce using rule 50 (booleanexp -> booleanexp EQUAL booleanexp .) ]
+  ! DIFFERENT       [ reduce using rule 50 (booleanexp -> booleanexp EQUAL booleanexp .) ]
+
 
 state 98
 
-    (41) stringexp -> ID + . stringexp
-    (42) stringexp -> ID + . ID
-    (40) stringexp -> . concat
-    (41) stringexp -> . ID + stringexp
-    (42) stringexp -> . ID + ID
-    (43) stringexp -> . stringexp + stringexp
-    (38) concat -> . ID
-    (39) concat -> . STR
+    (51) booleanexp -> booleanexp DIFFERENT booleanexp .
+    (48) booleanexp -> booleanexp . AND booleanexp
+    (49) booleanexp -> booleanexp . OR booleanexp
+    (50) booleanexp -> booleanexp . EQUAL booleanexp
+    (51) booleanexp -> booleanexp . DIFFERENT booleanexp
 
-    ID              shift and go to state 102
-    STR             shift and go to state 34
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for EQUAL resolved as shift
+  ! shift/reduce conflict for DIFFERENT resolved as shift
+    ;               reduce using rule 51 (booleanexp -> booleanexp DIFFERENT booleanexp .)
+    )               reduce using rule 51 (booleanexp -> booleanexp DIFFERENT booleanexp .)
+    AND             shift and go to state 63
+    OR              shift and go to state 64
+    EQUAL           shift and go to state 65
+    DIFFERENT       shift and go to state 66
 
-    stringexp                      shift and go to state 76
-    concat                         shift and go to state 31
+  ! AND             [ reduce using rule 51 (booleanexp -> booleanexp DIFFERENT booleanexp .) ]
+  ! OR              [ reduce using rule 51 (booleanexp -> booleanexp DIFFERENT booleanexp .) ]
+  ! EQUAL           [ reduce using rule 51 (booleanexp -> booleanexp DIFFERENT booleanexp .) ]
+  ! DIFFERENT       [ reduce using rule 51 (booleanexp -> booleanexp DIFFERENT booleanexp .) ]
+
 
 state 99
+
+    (44) stringexp -> stringexp + stringexp .
+    (44) stringexp -> stringexp . + stringexp
+
+  ! shift/reduce conflict for + resolved as shift
+    ;               reduce using rule 44 (stringexp -> stringexp + stringexp .)
+    )               reduce using rule 44 (stringexp -> stringexp + stringexp .)
+    AND             reduce using rule 44 (stringexp -> stringexp + stringexp .)
+    OR              reduce using rule 44 (stringexp -> stringexp + stringexp .)
+    EQUAL           reduce using rule 44 (stringexp -> stringexp + stringexp .)
+    DIFFERENT       reduce using rule 44 (stringexp -> stringexp + stringexp .)
+    +               shift and go to state 67
+
+  ! +               [ reduce using rule 44 (stringexp -> stringexp + stringexp .) ]
+
+
+state 100
+
+    (31) numericexp -> ( numericexp ) .
+
+    +               reduce using rule 31 (numericexp -> ( numericexp ) .)
+    -               reduce using rule 31 (numericexp -> ( numericexp ) .)
+    *               reduce using rule 31 (numericexp -> ( numericexp ) .)
+    /               reduce using rule 31 (numericexp -> ( numericexp ) .)
+    ^               reduce using rule 31 (numericexp -> ( numericexp ) .)
+    ;               reduce using rule 31 (numericexp -> ( numericexp ) .)
+    )               reduce using rule 31 (numericexp -> ( numericexp ) .)
+    AND             reduce using rule 31 (numericexp -> ( numericexp ) .)
+    OR              reduce using rule 31 (numericexp -> ( numericexp ) .)
+    EQUAL           reduce using rule 31 (numericexp -> ( numericexp ) .)
+    DIFFERENT       reduce using rule 31 (numericexp -> ( numericexp ) .)
+
+
+state 101
+
+    (24) numericexp -> ID + . numericexp
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
+
+    ID              shift and go to state 69
+    (               shift and go to state 32
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
+
+    numericexp                     shift and go to state 79
+    num                            shift and go to state 31
+
+state 102
+
+    (42) stringexp -> ID + . stringexp
+    (43) stringexp -> ID + . ID
+    (41) stringexp -> . concat
+    (42) stringexp -> . ID + stringexp
+    (43) stringexp -> . ID + ID
+    (44) stringexp -> . stringexp + stringexp
+    (39) concat -> . ID
+    (40) concat -> . STR
+
+    ID              shift and go to state 107
+    STR             shift and go to state 36
+
+    stringexp                      shift and go to state 80
+    concat                         shift and go to state 33
+
+state 103
 
     (12) control -> IF ( booleanexp ) { . block } elif else
     (1) block -> . statement
     (2) block -> . statement block
     (3) statement -> . prodstatement ;
     (4) statement -> . control
-    (72) statement -> . PRINT ( ID )
+    (73) statement -> . PRINT ( ID )
     (5) prodstatement -> . INT ID = numericexp
     (6) prodstatement -> . FLOAT ID = numericexp
     (7) prodstatement -> . STRING ID = stringexp
     (8) prodstatement -> . BOOLEAN ID = booleanexp
-    (18) prodstatement -> . ID = expr
-    (19) prodstatement -> . FLOAT ID
-    (20) prodstatement -> . INT ID
-    (21) prodstatement -> . STRING ID
-    (22) prodstatement -> . BOOLEAN ID
+    (19) prodstatement -> . ID = expr
+    (20) prodstatement -> . FLOAT ID
+    (21) prodstatement -> . INT ID
+    (22) prodstatement -> . STRING ID
+    (23) prodstatement -> . BOOLEAN ID
     (12) control -> . IF ( booleanexp ) { block } elif else
     (17) control -> . WHILE ( booleanexp ) { block }
+    (18) control -> . FOR ( prodstatement ; booleanexp ; prodstatement ) { block }
 
     PRINT           shift and go to state 5
     INT             shift and go to state 7
@@ -2018,31 +2094,33 @@ state 99
     ID              shift and go to state 6
     IF              shift and go to state 11
     WHILE           shift and go to state 12
+    FOR             shift and go to state 13
 
-    block                          shift and go to state 103
+    block                          shift and go to state 108
     statement                      shift and go to state 2
     prodstatement                  shift and go to state 3
     control                        shift and go to state 4
 
-state 100
+state 104
 
     (17) control -> WHILE ( booleanexp ) { . block }
     (1) block -> . statement
     (2) block -> . statement block
     (3) statement -> . prodstatement ;
     (4) statement -> . control
-    (72) statement -> . PRINT ( ID )
+    (73) statement -> . PRINT ( ID )
     (5) prodstatement -> . INT ID = numericexp
     (6) prodstatement -> . FLOAT ID = numericexp
     (7) prodstatement -> . STRING ID = stringexp
     (8) prodstatement -> . BOOLEAN ID = booleanexp
-    (18) prodstatement -> . ID = expr
-    (19) prodstatement -> . FLOAT ID
-    (20) prodstatement -> . INT ID
-    (21) prodstatement -> . STRING ID
-    (22) prodstatement -> . BOOLEAN ID
+    (19) prodstatement -> . ID = expr
+    (20) prodstatement -> . FLOAT ID
+    (21) prodstatement -> . INT ID
+    (22) prodstatement -> . STRING ID
+    (23) prodstatement -> . BOOLEAN ID
     (12) control -> . IF ( booleanexp ) { block } elif else
     (17) control -> . WHILE ( booleanexp ) { block }
+    (18) control -> . FOR ( prodstatement ; booleanexp ; prodstatement ) { block }
 
     PRINT           shift and go to state 5
     INT             shift and go to state 7
@@ -2052,158 +2130,196 @@ state 100
     ID              shift and go to state 6
     IF              shift and go to state 11
     WHILE           shift and go to state 12
+    FOR             shift and go to state 13
 
-    block                          shift and go to state 104
+    block                          shift and go to state 109
     statement                      shift and go to state 2
     prodstatement                  shift and go to state 3
     control                        shift and go to state 4
 
-state 101
-
-    (41) stringexp -> ID + . stringexp
-    (42) stringexp -> ID + . ID
-    (23) numericexp -> ID + . numericexp
-    (40) stringexp -> . concat
-    (41) stringexp -> . ID + stringexp
-    (42) stringexp -> . ID + ID
-    (43) stringexp -> . stringexp + stringexp
-    (23) numericexp -> . ID + numericexp
-    (24) numericexp -> . ID - numericexp
-    (25) numericexp -> . ID / numericexp
-    (26) numericexp -> . ID * numericexp
-    (27) numericexp -> . ID ^ numericexp
-    (28) numericexp -> . num
-    (29) numericexp -> . numericexp operator numericexp
-    (30) numericexp -> . ( numericexp )
-    (38) concat -> . ID
-    (39) concat -> . STR
-    (31) num -> . INUMBER
-    (32) num -> . FNUMBER
-
-    ID              shift and go to state 105
-    (               shift and go to state 30
-    STR             shift and go to state 34
-    INUMBER         shift and go to state 32
-    FNUMBER         shift and go to state 33
-
-    stringexp                      shift and go to state 76
-    numericexp                     shift and go to state 75
-    concat                         shift and go to state 31
-    num                            shift and go to state 29
-
-state 102
-
-    (42) stringexp -> ID + ID .
-    (41) stringexp -> ID . + stringexp
-    (42) stringexp -> ID . + ID
-    (38) concat -> ID .
-
-  ! shift/reduce conflict for + resolved as shift
-  ! shift/reduce conflict for + resolved as shift
-  ! reduce/reduce conflict for ; resolved using rule 38 (concat -> ID .)
-  ! reduce/reduce conflict for AND resolved using rule 38 (concat -> ID .)
-  ! reduce/reduce conflict for OR resolved using rule 38 (concat -> ID .)
-  ! reduce/reduce conflict for EQUAL resolved using rule 38 (concat -> ID .)
-  ! reduce/reduce conflict for DIFFERENT resolved using rule 38 (concat -> ID .)
-  ! reduce/reduce conflict for ) resolved using rule 38 (concat -> ID .)
-    +               shift and go to state 98
-    ;               reduce using rule 38 (concat -> ID .)
-    AND             reduce using rule 38 (concat -> ID .)
-    OR              reduce using rule 38 (concat -> ID .)
-    EQUAL           reduce using rule 38 (concat -> ID .)
-    DIFFERENT       reduce using rule 38 (concat -> ID .)
-    )               reduce using rule 38 (concat -> ID .)
-
-  ! +               [ reduce using rule 42 (stringexp -> ID + ID .) ]
-  ! ;               [ reduce using rule 42 (stringexp -> ID + ID .) ]
-  ! AND             [ reduce using rule 42 (stringexp -> ID + ID .) ]
-  ! OR              [ reduce using rule 42 (stringexp -> ID + ID .) ]
-  ! EQUAL           [ reduce using rule 42 (stringexp -> ID + ID .) ]
-  ! DIFFERENT       [ reduce using rule 42 (stringexp -> ID + ID .) ]
-  ! )               [ reduce using rule 42 (stringexp -> ID + ID .) ]
-  ! +               [ reduce using rule 38 (concat -> ID .) ]
-
-
-state 103
-
-    (12) control -> IF ( booleanexp ) { block . } elif else
-
-    }               shift and go to state 106
-
-
-state 104
-
-    (17) control -> WHILE ( booleanexp ) { block . }
-
-    }               shift and go to state 107
-
-
 state 105
 
-    (42) stringexp -> ID + ID .
-    (41) stringexp -> ID . + stringexp
-    (42) stringexp -> ID . + ID
-    (23) numericexp -> ID . + numericexp
-    (24) numericexp -> ID . - numericexp
-    (25) numericexp -> ID . / numericexp
-    (26) numericexp -> ID . * numericexp
-    (27) numericexp -> ID . ^ numericexp
-    (38) concat -> ID .
+    (18) control -> FOR ( prodstatement ; booleanexp . ; prodstatement ) { block }
+    (48) booleanexp -> booleanexp . AND booleanexp
+    (49) booleanexp -> booleanexp . OR booleanexp
+    (50) booleanexp -> booleanexp . EQUAL booleanexp
+    (51) booleanexp -> booleanexp . DIFFERENT booleanexp
 
-  ! shift/reduce conflict for + resolved as shift
-  ! shift/reduce conflict for + resolved as shift
-  ! reduce/reduce conflict for AND resolved using rule 38 (concat -> ID .)
-  ! reduce/reduce conflict for OR resolved using rule 38 (concat -> ID .)
-  ! reduce/reduce conflict for EQUAL resolved using rule 38 (concat -> ID .)
-  ! reduce/reduce conflict for DIFFERENT resolved using rule 38 (concat -> ID .)
-  ! reduce/reduce conflict for ; resolved using rule 38 (concat -> ID .)
-  ! reduce/reduce conflict for ) resolved using rule 38 (concat -> ID .)
-    +               shift and go to state 101
-    -               shift and go to state 44
-    /               shift and go to state 45
-    *               shift and go to state 46
-    ^               shift and go to state 47
-    AND             reduce using rule 38 (concat -> ID .)
-    OR              reduce using rule 38 (concat -> ID .)
-    EQUAL           reduce using rule 38 (concat -> ID .)
-    DIFFERENT       reduce using rule 38 (concat -> ID .)
-    ;               reduce using rule 38 (concat -> ID .)
-    )               reduce using rule 38 (concat -> ID .)
-
-  ! +               [ reduce using rule 42 (stringexp -> ID + ID .) ]
-  ! AND             [ reduce using rule 42 (stringexp -> ID + ID .) ]
-  ! OR              [ reduce using rule 42 (stringexp -> ID + ID .) ]
-  ! EQUAL           [ reduce using rule 42 (stringexp -> ID + ID .) ]
-  ! DIFFERENT       [ reduce using rule 42 (stringexp -> ID + ID .) ]
-  ! ;               [ reduce using rule 42 (stringexp -> ID + ID .) ]
-  ! )               [ reduce using rule 42 (stringexp -> ID + ID .) ]
-  ! +               [ reduce using rule 38 (concat -> ID .) ]
+    ;               shift and go to state 110
+    AND             shift and go to state 63
+    OR              shift and go to state 64
+    EQUAL           shift and go to state 65
+    DIFFERENT       shift and go to state 66
 
 
 state 106
 
+    (42) stringexp -> ID + . stringexp
+    (43) stringexp -> ID + . ID
+    (24) numericexp -> ID + . numericexp
+    (41) stringexp -> . concat
+    (42) stringexp -> . ID + stringexp
+    (43) stringexp -> . ID + ID
+    (44) stringexp -> . stringexp + stringexp
+    (24) numericexp -> . ID + numericexp
+    (25) numericexp -> . ID - numericexp
+    (26) numericexp -> . ID / numericexp
+    (27) numericexp -> . ID * numericexp
+    (28) numericexp -> . ID ^ numericexp
+    (29) numericexp -> . num
+    (30) numericexp -> . numericexp operator numericexp
+    (31) numericexp -> . ( numericexp )
+    (39) concat -> . ID
+    (40) concat -> . STR
+    (32) num -> . INUMBER
+    (33) num -> . FNUMBER
+
+    ID              shift and go to state 111
+    (               shift and go to state 32
+    STR             shift and go to state 36
+    INUMBER         shift and go to state 34
+    FNUMBER         shift and go to state 35
+
+    stringexp                      shift and go to state 80
+    numericexp                     shift and go to state 79
+    concat                         shift and go to state 33
+    num                            shift and go to state 31
+
+state 107
+
+    (43) stringexp -> ID + ID .
+    (42) stringexp -> ID . + stringexp
+    (43) stringexp -> ID . + ID
+    (39) concat -> ID .
+
+  ! shift/reduce conflict for + resolved as shift
+  ! shift/reduce conflict for + resolved as shift
+  ! reduce/reduce conflict for ; resolved using rule 39 (concat -> ID .)
+  ! reduce/reduce conflict for ) resolved using rule 39 (concat -> ID .)
+  ! reduce/reduce conflict for AND resolved using rule 39 (concat -> ID .)
+  ! reduce/reduce conflict for OR resolved using rule 39 (concat -> ID .)
+  ! reduce/reduce conflict for EQUAL resolved using rule 39 (concat -> ID .)
+  ! reduce/reduce conflict for DIFFERENT resolved using rule 39 (concat -> ID .)
+    +               shift and go to state 102
+    ;               reduce using rule 39 (concat -> ID .)
+    )               reduce using rule 39 (concat -> ID .)
+    AND             reduce using rule 39 (concat -> ID .)
+    OR              reduce using rule 39 (concat -> ID .)
+    EQUAL           reduce using rule 39 (concat -> ID .)
+    DIFFERENT       reduce using rule 39 (concat -> ID .)
+
+  ! +               [ reduce using rule 43 (stringexp -> ID + ID .) ]
+  ! ;               [ reduce using rule 43 (stringexp -> ID + ID .) ]
+  ! )               [ reduce using rule 43 (stringexp -> ID + ID .) ]
+  ! AND             [ reduce using rule 43 (stringexp -> ID + ID .) ]
+  ! OR              [ reduce using rule 43 (stringexp -> ID + ID .) ]
+  ! EQUAL           [ reduce using rule 43 (stringexp -> ID + ID .) ]
+  ! DIFFERENT       [ reduce using rule 43 (stringexp -> ID + ID .) ]
+  ! +               [ reduce using rule 39 (concat -> ID .) ]
+
+
+state 108
+
+    (12) control -> IF ( booleanexp ) { block . } elif else
+
+    }               shift and go to state 112
+
+
+state 109
+
+    (17) control -> WHILE ( booleanexp ) { block . }
+
+    }               shift and go to state 113
+
+
+state 110
+
+    (18) control -> FOR ( prodstatement ; booleanexp ; . prodstatement ) { block }
+    (5) prodstatement -> . INT ID = numericexp
+    (6) prodstatement -> . FLOAT ID = numericexp
+    (7) prodstatement -> . STRING ID = stringexp
+    (8) prodstatement -> . BOOLEAN ID = booleanexp
+    (19) prodstatement -> . ID = expr
+    (20) prodstatement -> . FLOAT ID
+    (21) prodstatement -> . INT ID
+    (22) prodstatement -> . STRING ID
+    (23) prodstatement -> . BOOLEAN ID
+
+    INT             shift and go to state 7
+    FLOAT           shift and go to state 8
+    STRING          shift and go to state 9
+    BOOLEAN         shift and go to state 10
+    ID              shift and go to state 6
+
+    prodstatement                  shift and go to state 114
+
+state 111
+
+    (43) stringexp -> ID + ID .
+    (42) stringexp -> ID . + stringexp
+    (43) stringexp -> ID . + ID
+    (24) numericexp -> ID . + numericexp
+    (25) numericexp -> ID . - numericexp
+    (26) numericexp -> ID . / numericexp
+    (27) numericexp -> ID . * numericexp
+    (28) numericexp -> ID . ^ numericexp
+    (39) concat -> ID .
+
+  ! shift/reduce conflict for + resolved as shift
+  ! shift/reduce conflict for + resolved as shift
+  ! reduce/reduce conflict for AND resolved using rule 39 (concat -> ID .)
+  ! reduce/reduce conflict for OR resolved using rule 39 (concat -> ID .)
+  ! reduce/reduce conflict for EQUAL resolved using rule 39 (concat -> ID .)
+  ! reduce/reduce conflict for DIFFERENT resolved using rule 39 (concat -> ID .)
+  ! reduce/reduce conflict for ; resolved using rule 39 (concat -> ID .)
+  ! reduce/reduce conflict for ) resolved using rule 39 (concat -> ID .)
+    +               shift and go to state 106
+    -               shift and go to state 47
+    /               shift and go to state 48
+    *               shift and go to state 49
+    ^               shift and go to state 50
+    AND             reduce using rule 39 (concat -> ID .)
+    OR              reduce using rule 39 (concat -> ID .)
+    EQUAL           reduce using rule 39 (concat -> ID .)
+    DIFFERENT       reduce using rule 39 (concat -> ID .)
+    ;               reduce using rule 39 (concat -> ID .)
+    )               reduce using rule 39 (concat -> ID .)
+
+  ! +               [ reduce using rule 43 (stringexp -> ID + ID .) ]
+  ! AND             [ reduce using rule 43 (stringexp -> ID + ID .) ]
+  ! OR              [ reduce using rule 43 (stringexp -> ID + ID .) ]
+  ! EQUAL           [ reduce using rule 43 (stringexp -> ID + ID .) ]
+  ! DIFFERENT       [ reduce using rule 43 (stringexp -> ID + ID .) ]
+  ! ;               [ reduce using rule 43 (stringexp -> ID + ID .) ]
+  ! )               [ reduce using rule 43 (stringexp -> ID + ID .) ]
+  ! +               [ reduce using rule 39 (concat -> ID .) ]
+
+
+state 112
+
     (12) control -> IF ( booleanexp ) { block } . elif else
     (13) elif -> . ELIF ( booleanexp ) { block } elif
     (14) elif -> . epsilon
-    (71) epsilon -> .
+    (72) epsilon -> .
 
-    ELIF            shift and go to state 109
-    ELSE            reduce using rule 71 (epsilon -> .)
-    PRINT           reduce using rule 71 (epsilon -> .)
-    INT             reduce using rule 71 (epsilon -> .)
-    FLOAT           reduce using rule 71 (epsilon -> .)
-    STRING          reduce using rule 71 (epsilon -> .)
-    BOOLEAN         reduce using rule 71 (epsilon -> .)
-    ID              reduce using rule 71 (epsilon -> .)
-    IF              reduce using rule 71 (epsilon -> .)
-    WHILE           reduce using rule 71 (epsilon -> .)
-    $end            reduce using rule 71 (epsilon -> .)
-    }               reduce using rule 71 (epsilon -> .)
+    ELIF            shift and go to state 116
+    ELSE            reduce using rule 72 (epsilon -> .)
+    PRINT           reduce using rule 72 (epsilon -> .)
+    INT             reduce using rule 72 (epsilon -> .)
+    FLOAT           reduce using rule 72 (epsilon -> .)
+    STRING          reduce using rule 72 (epsilon -> .)
+    BOOLEAN         reduce using rule 72 (epsilon -> .)
+    ID              reduce using rule 72 (epsilon -> .)
+    IF              reduce using rule 72 (epsilon -> .)
+    WHILE           reduce using rule 72 (epsilon -> .)
+    FOR             reduce using rule 72 (epsilon -> .)
+    $end            reduce using rule 72 (epsilon -> .)
+    }               reduce using rule 72 (epsilon -> .)
 
-    elif                           shift and go to state 108
-    epsilon                        shift and go to state 110
+    elif                           shift and go to state 115
+    epsilon                        shift and go to state 117
 
-state 107
+state 113
 
     (17) control -> WHILE ( booleanexp ) { block } .
 
@@ -2215,40 +2331,49 @@ state 107
     ID              reduce using rule 17 (control -> WHILE ( booleanexp ) { block } .)
     IF              reduce using rule 17 (control -> WHILE ( booleanexp ) { block } .)
     WHILE           reduce using rule 17 (control -> WHILE ( booleanexp ) { block } .)
+    FOR             reduce using rule 17 (control -> WHILE ( booleanexp ) { block } .)
     $end            reduce using rule 17 (control -> WHILE ( booleanexp ) { block } .)
     }               reduce using rule 17 (control -> WHILE ( booleanexp ) { block } .)
 
 
-state 108
+state 114
+
+    (18) control -> FOR ( prodstatement ; booleanexp ; prodstatement . ) { block }
+
+    )               shift and go to state 118
+
+
+state 115
 
     (12) control -> IF ( booleanexp ) { block } elif . else
     (15) else -> . ELSE { block }
     (16) else -> . epsilon
-    (71) epsilon -> .
+    (72) epsilon -> .
 
-    ELSE            shift and go to state 112
-    PRINT           reduce using rule 71 (epsilon -> .)
-    INT             reduce using rule 71 (epsilon -> .)
-    FLOAT           reduce using rule 71 (epsilon -> .)
-    STRING          reduce using rule 71 (epsilon -> .)
-    BOOLEAN         reduce using rule 71 (epsilon -> .)
-    ID              reduce using rule 71 (epsilon -> .)
-    IF              reduce using rule 71 (epsilon -> .)
-    WHILE           reduce using rule 71 (epsilon -> .)
-    $end            reduce using rule 71 (epsilon -> .)
-    }               reduce using rule 71 (epsilon -> .)
+    ELSE            shift and go to state 120
+    PRINT           reduce using rule 72 (epsilon -> .)
+    INT             reduce using rule 72 (epsilon -> .)
+    FLOAT           reduce using rule 72 (epsilon -> .)
+    STRING          reduce using rule 72 (epsilon -> .)
+    BOOLEAN         reduce using rule 72 (epsilon -> .)
+    ID              reduce using rule 72 (epsilon -> .)
+    IF              reduce using rule 72 (epsilon -> .)
+    WHILE           reduce using rule 72 (epsilon -> .)
+    FOR             reduce using rule 72 (epsilon -> .)
+    $end            reduce using rule 72 (epsilon -> .)
+    }               reduce using rule 72 (epsilon -> .)
 
-    else                           shift and go to state 111
-    epsilon                        shift and go to state 113
+    else                           shift and go to state 119
+    epsilon                        shift and go to state 121
 
-state 109
+state 116
 
     (13) elif -> ELIF . ( booleanexp ) { block } elif
 
-    (               shift and go to state 114
+    (               shift and go to state 122
 
 
-state 110
+state 117
 
     (14) elif -> epsilon .
 
@@ -2261,11 +2386,19 @@ state 110
     ID              reduce using rule 14 (elif -> epsilon .)
     IF              reduce using rule 14 (elif -> epsilon .)
     WHILE           reduce using rule 14 (elif -> epsilon .)
+    FOR             reduce using rule 14 (elif -> epsilon .)
     $end            reduce using rule 14 (elif -> epsilon .)
     }               reduce using rule 14 (elif -> epsilon .)
 
 
-state 111
+state 118
+
+    (18) control -> FOR ( prodstatement ; booleanexp ; prodstatement ) . { block }
+
+    {               shift and go to state 123
+
+
+state 119
 
     (12) control -> IF ( booleanexp ) { block } elif else .
 
@@ -2277,18 +2410,19 @@ state 111
     ID              reduce using rule 12 (control -> IF ( booleanexp ) { block } elif else .)
     IF              reduce using rule 12 (control -> IF ( booleanexp ) { block } elif else .)
     WHILE           reduce using rule 12 (control -> IF ( booleanexp ) { block } elif else .)
+    FOR             reduce using rule 12 (control -> IF ( booleanexp ) { block } elif else .)
     $end            reduce using rule 12 (control -> IF ( booleanexp ) { block } elif else .)
     }               reduce using rule 12 (control -> IF ( booleanexp ) { block } elif else .)
 
 
-state 112
+state 120
 
     (15) else -> ELSE . { block }
 
-    {               shift and go to state 115
+    {               shift and go to state 124
 
 
-state 113
+state 121
 
     (16) else -> epsilon .
 
@@ -2300,49 +2434,51 @@ state 113
     ID              reduce using rule 16 (else -> epsilon .)
     IF              reduce using rule 16 (else -> epsilon .)
     WHILE           reduce using rule 16 (else -> epsilon .)
+    FOR             reduce using rule 16 (else -> epsilon .)
     $end            reduce using rule 16 (else -> epsilon .)
     }               reduce using rule 16 (else -> epsilon .)
 
 
-state 114
+state 122
 
     (13) elif -> ELIF ( . booleanexp ) { block } elif
-    (47) booleanexp -> . booleanexp AND booleanexp
-    (48) booleanexp -> . booleanexp OR booleanexp
-    (49) booleanexp -> . booleanexp EQUAL booleanexp
-    (50) booleanexp -> . booleanexp DIFFERENT booleanexp
-    (51) booleanexp -> . ID EQUAL stringexp
-    (52) booleanexp -> . ID DIFFERENT stringexp
-    (53) booleanexp -> . ID EQUAL numericexp
-    (54) booleanexp -> . ID DIFFERENT numericexp
-    (55) booleanexp -> . ID GREATERTHAN numericexp
-    (56) booleanexp -> . ID LESSTHAN numericexp
-    (57) booleanexp -> . ID < numericexp
-    (58) booleanexp -> . ID > numericexp
+    (48) booleanexp -> . booleanexp AND booleanexp
+    (49) booleanexp -> . booleanexp OR booleanexp
+    (50) booleanexp -> . booleanexp EQUAL booleanexp
+    (51) booleanexp -> . booleanexp DIFFERENT booleanexp
+    (52) booleanexp -> . ID EQUAL stringexp
+    (53) booleanexp -> . ID DIFFERENT stringexp
+    (54) booleanexp -> . ID EQUAL numericexp
+    (55) booleanexp -> . ID DIFFERENT numericexp
+    (56) booleanexp -> . ID GREATERTHAN numericexp
+    (57) booleanexp -> . ID LESSTHAN numericexp
+    (58) booleanexp -> . ID < numericexp
+    (59) booleanexp -> . ID > numericexp
 
-    ID              shift and go to state 40
+    ID              shift and go to state 42
 
-    booleanexp                     shift and go to state 116
+    booleanexp                     shift and go to state 125
 
-state 115
+state 123
 
-    (15) else -> ELSE { . block }
+    (18) control -> FOR ( prodstatement ; booleanexp ; prodstatement ) { . block }
     (1) block -> . statement
     (2) block -> . statement block
     (3) statement -> . prodstatement ;
     (4) statement -> . control
-    (72) statement -> . PRINT ( ID )
+    (73) statement -> . PRINT ( ID )
     (5) prodstatement -> . INT ID = numericexp
     (6) prodstatement -> . FLOAT ID = numericexp
     (7) prodstatement -> . STRING ID = stringexp
     (8) prodstatement -> . BOOLEAN ID = booleanexp
-    (18) prodstatement -> . ID = expr
-    (19) prodstatement -> . FLOAT ID
-    (20) prodstatement -> . INT ID
-    (21) prodstatement -> . STRING ID
-    (22) prodstatement -> . BOOLEAN ID
+    (19) prodstatement -> . ID = expr
+    (20) prodstatement -> . FLOAT ID
+    (21) prodstatement -> . INT ID
+    (22) prodstatement -> . STRING ID
+    (23) prodstatement -> . BOOLEAN ID
     (12) control -> . IF ( booleanexp ) { block } elif else
     (17) control -> . WHILE ( booleanexp ) { block }
+    (18) control -> . FOR ( prodstatement ; booleanexp ; prodstatement ) { block }
 
     PRINT           shift and go to state 5
     INT             shift and go to state 7
@@ -2352,42 +2488,103 @@ state 115
     ID              shift and go to state 6
     IF              shift and go to state 11
     WHILE           shift and go to state 12
+    FOR             shift and go to state 13
 
-    block                          shift and go to state 117
+    prodstatement                  shift and go to state 3
+    block                          shift and go to state 126
+    statement                      shift and go to state 2
+    control                        shift and go to state 4
+
+state 124
+
+    (15) else -> ELSE { . block }
+    (1) block -> . statement
+    (2) block -> . statement block
+    (3) statement -> . prodstatement ;
+    (4) statement -> . control
+    (73) statement -> . PRINT ( ID )
+    (5) prodstatement -> . INT ID = numericexp
+    (6) prodstatement -> . FLOAT ID = numericexp
+    (7) prodstatement -> . STRING ID = stringexp
+    (8) prodstatement -> . BOOLEAN ID = booleanexp
+    (19) prodstatement -> . ID = expr
+    (20) prodstatement -> . FLOAT ID
+    (21) prodstatement -> . INT ID
+    (22) prodstatement -> . STRING ID
+    (23) prodstatement -> . BOOLEAN ID
+    (12) control -> . IF ( booleanexp ) { block } elif else
+    (17) control -> . WHILE ( booleanexp ) { block }
+    (18) control -> . FOR ( prodstatement ; booleanexp ; prodstatement ) { block }
+
+    PRINT           shift and go to state 5
+    INT             shift and go to state 7
+    FLOAT           shift and go to state 8
+    STRING          shift and go to state 9
+    BOOLEAN         shift and go to state 10
+    ID              shift and go to state 6
+    IF              shift and go to state 11
+    WHILE           shift and go to state 12
+    FOR             shift and go to state 13
+
+    block                          shift and go to state 127
     statement                      shift and go to state 2
     prodstatement                  shift and go to state 3
     control                        shift and go to state 4
 
-state 116
+state 125
 
     (13) elif -> ELIF ( booleanexp . ) { block } elif
-    (47) booleanexp -> booleanexp . AND booleanexp
-    (48) booleanexp -> booleanexp . OR booleanexp
-    (49) booleanexp -> booleanexp . EQUAL booleanexp
-    (50) booleanexp -> booleanexp . DIFFERENT booleanexp
+    (48) booleanexp -> booleanexp . AND booleanexp
+    (49) booleanexp -> booleanexp . OR booleanexp
+    (50) booleanexp -> booleanexp . EQUAL booleanexp
+    (51) booleanexp -> booleanexp . DIFFERENT booleanexp
 
-    )               shift and go to state 118
-    AND             shift and go to state 60
-    OR              shift and go to state 61
-    EQUAL           shift and go to state 62
-    DIFFERENT       shift and go to state 63
+    )               shift and go to state 128
+    AND             shift and go to state 63
+    OR              shift and go to state 64
+    EQUAL           shift and go to state 65
+    DIFFERENT       shift and go to state 66
 
 
-state 117
+state 126
+
+    (18) control -> FOR ( prodstatement ; booleanexp ; prodstatement ) { block . }
+
+    }               shift and go to state 129
+
+
+state 127
 
     (15) else -> ELSE { block . }
 
-    }               shift and go to state 119
+    }               shift and go to state 130
 
 
-state 118
+state 128
 
     (13) elif -> ELIF ( booleanexp ) . { block } elif
 
-    {               shift and go to state 120
+    {               shift and go to state 131
 
 
-state 119
+state 129
+
+    (18) control -> FOR ( prodstatement ; booleanexp ; prodstatement ) { block } .
+
+    PRINT           reduce using rule 18 (control -> FOR ( prodstatement ; booleanexp ; prodstatement ) { block } .)
+    INT             reduce using rule 18 (control -> FOR ( prodstatement ; booleanexp ; prodstatement ) { block } .)
+    FLOAT           reduce using rule 18 (control -> FOR ( prodstatement ; booleanexp ; prodstatement ) { block } .)
+    STRING          reduce using rule 18 (control -> FOR ( prodstatement ; booleanexp ; prodstatement ) { block } .)
+    BOOLEAN         reduce using rule 18 (control -> FOR ( prodstatement ; booleanexp ; prodstatement ) { block } .)
+    ID              reduce using rule 18 (control -> FOR ( prodstatement ; booleanexp ; prodstatement ) { block } .)
+    IF              reduce using rule 18 (control -> FOR ( prodstatement ; booleanexp ; prodstatement ) { block } .)
+    WHILE           reduce using rule 18 (control -> FOR ( prodstatement ; booleanexp ; prodstatement ) { block } .)
+    FOR             reduce using rule 18 (control -> FOR ( prodstatement ; booleanexp ; prodstatement ) { block } .)
+    $end            reduce using rule 18 (control -> FOR ( prodstatement ; booleanexp ; prodstatement ) { block } .)
+    }               reduce using rule 18 (control -> FOR ( prodstatement ; booleanexp ; prodstatement ) { block } .)
+
+
+state 130
 
     (15) else -> ELSE { block } .
 
@@ -2399,29 +2596,31 @@ state 119
     ID              reduce using rule 15 (else -> ELSE { block } .)
     IF              reduce using rule 15 (else -> ELSE { block } .)
     WHILE           reduce using rule 15 (else -> ELSE { block } .)
+    FOR             reduce using rule 15 (else -> ELSE { block } .)
     $end            reduce using rule 15 (else -> ELSE { block } .)
     }               reduce using rule 15 (else -> ELSE { block } .)
 
 
-state 120
+state 131
 
     (13) elif -> ELIF ( booleanexp ) { . block } elif
     (1) block -> . statement
     (2) block -> . statement block
     (3) statement -> . prodstatement ;
     (4) statement -> . control
-    (72) statement -> . PRINT ( ID )
+    (73) statement -> . PRINT ( ID )
     (5) prodstatement -> . INT ID = numericexp
     (6) prodstatement -> . FLOAT ID = numericexp
     (7) prodstatement -> . STRING ID = stringexp
     (8) prodstatement -> . BOOLEAN ID = booleanexp
-    (18) prodstatement -> . ID = expr
-    (19) prodstatement -> . FLOAT ID
-    (20) prodstatement -> . INT ID
-    (21) prodstatement -> . STRING ID
-    (22) prodstatement -> . BOOLEAN ID
+    (19) prodstatement -> . ID = expr
+    (20) prodstatement -> . FLOAT ID
+    (21) prodstatement -> . INT ID
+    (22) prodstatement -> . STRING ID
+    (23) prodstatement -> . BOOLEAN ID
     (12) control -> . IF ( booleanexp ) { block } elif else
     (17) control -> . WHILE ( booleanexp ) { block }
+    (18) control -> . FOR ( prodstatement ; booleanexp ; prodstatement ) { block }
 
     PRINT           shift and go to state 5
     INT             shift and go to state 7
@@ -2431,43 +2630,45 @@ state 120
     ID              shift and go to state 6
     IF              shift and go to state 11
     WHILE           shift and go to state 12
+    FOR             shift and go to state 13
 
-    block                          shift and go to state 121
+    block                          shift and go to state 132
     statement                      shift and go to state 2
     prodstatement                  shift and go to state 3
     control                        shift and go to state 4
 
-state 121
+state 132
 
     (13) elif -> ELIF ( booleanexp ) { block . } elif
 
-    }               shift and go to state 122
+    }               shift and go to state 133
 
 
-state 122
+state 133
 
     (13) elif -> ELIF ( booleanexp ) { block } . elif
     (13) elif -> . ELIF ( booleanexp ) { block } elif
     (14) elif -> . epsilon
-    (71) epsilon -> .
+    (72) epsilon -> .
 
-    ELIF            shift and go to state 109
-    ELSE            reduce using rule 71 (epsilon -> .)
-    PRINT           reduce using rule 71 (epsilon -> .)
-    INT             reduce using rule 71 (epsilon -> .)
-    FLOAT           reduce using rule 71 (epsilon -> .)
-    STRING          reduce using rule 71 (epsilon -> .)
-    BOOLEAN         reduce using rule 71 (epsilon -> .)
-    ID              reduce using rule 71 (epsilon -> .)
-    IF              reduce using rule 71 (epsilon -> .)
-    WHILE           reduce using rule 71 (epsilon -> .)
-    $end            reduce using rule 71 (epsilon -> .)
-    }               reduce using rule 71 (epsilon -> .)
+    ELIF            shift and go to state 116
+    ELSE            reduce using rule 72 (epsilon -> .)
+    PRINT           reduce using rule 72 (epsilon -> .)
+    INT             reduce using rule 72 (epsilon -> .)
+    FLOAT           reduce using rule 72 (epsilon -> .)
+    STRING          reduce using rule 72 (epsilon -> .)
+    BOOLEAN         reduce using rule 72 (epsilon -> .)
+    ID              reduce using rule 72 (epsilon -> .)
+    IF              reduce using rule 72 (epsilon -> .)
+    WHILE           reduce using rule 72 (epsilon -> .)
+    FOR             reduce using rule 72 (epsilon -> .)
+    $end            reduce using rule 72 (epsilon -> .)
+    }               reduce using rule 72 (epsilon -> .)
 
-    elif                           shift and go to state 123
-    epsilon                        shift and go to state 110
+    elif                           shift and go to state 134
+    epsilon                        shift and go to state 117
 
-state 123
+state 134
 
     (13) elif -> ELIF ( booleanexp ) { block } elif .
 
@@ -2480,73 +2681,74 @@ state 123
     ID              reduce using rule 13 (elif -> ELIF ( booleanexp ) { block } elif .)
     IF              reduce using rule 13 (elif -> ELIF ( booleanexp ) { block } elif .)
     WHILE           reduce using rule 13 (elif -> ELIF ( booleanexp ) { block } elif .)
+    FOR             reduce using rule 13 (elif -> ELIF ( booleanexp ) { block } elif .)
     $end            reduce using rule 13 (elif -> ELIF ( booleanexp ) { block } elif .)
     }               reduce using rule 13 (elif -> ELIF ( booleanexp ) { block } elif .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for + in state 24 resolved as shift
-WARNING: shift/reduce conflict for + in state 69 resolved as shift
-WARNING: shift/reduce conflict for + in state 74 resolved as shift
-WARNING: shift/reduce conflict for + in state 74 resolved as shift
-WARNING: shift/reduce conflict for + in state 75 resolved as shift
-WARNING: shift/reduce conflict for - in state 75 resolved as shift
-WARNING: shift/reduce conflict for * in state 75 resolved as shift
-WARNING: shift/reduce conflict for / in state 75 resolved as shift
-WARNING: shift/reduce conflict for ^ in state 75 resolved as shift
-WARNING: shift/reduce conflict for + in state 76 resolved as shift
-WARNING: shift/reduce conflict for + in state 77 resolved as shift
-WARNING: shift/reduce conflict for - in state 77 resolved as shift
-WARNING: shift/reduce conflict for * in state 77 resolved as shift
-WARNING: shift/reduce conflict for / in state 77 resolved as shift
-WARNING: shift/reduce conflict for ^ in state 77 resolved as shift
+WARNING: shift/reduce conflict for + in state 26 resolved as shift
+WARNING: shift/reduce conflict for + in state 72 resolved as shift
 WARNING: shift/reduce conflict for + in state 78 resolved as shift
-WARNING: shift/reduce conflict for - in state 78 resolved as shift
-WARNING: shift/reduce conflict for * in state 78 resolved as shift
-WARNING: shift/reduce conflict for / in state 78 resolved as shift
-WARNING: shift/reduce conflict for ^ in state 78 resolved as shift
+WARNING: shift/reduce conflict for + in state 78 resolved as shift
 WARNING: shift/reduce conflict for + in state 79 resolved as shift
 WARNING: shift/reduce conflict for - in state 79 resolved as shift
 WARNING: shift/reduce conflict for * in state 79 resolved as shift
 WARNING: shift/reduce conflict for / in state 79 resolved as shift
 WARNING: shift/reduce conflict for ^ in state 79 resolved as shift
 WARNING: shift/reduce conflict for + in state 80 resolved as shift
-WARNING: shift/reduce conflict for - in state 80 resolved as shift
-WARNING: shift/reduce conflict for * in state 80 resolved as shift
-WARNING: shift/reduce conflict for / in state 80 resolved as shift
-WARNING: shift/reduce conflict for ^ in state 80 resolved as shift
 WARNING: shift/reduce conflict for + in state 81 resolved as shift
-WARNING: shift/reduce conflict for + in state 90 resolved as shift
-WARNING: shift/reduce conflict for - in state 90 resolved as shift
-WARNING: shift/reduce conflict for * in state 90 resolved as shift
-WARNING: shift/reduce conflict for / in state 90 resolved as shift
-WARNING: shift/reduce conflict for ^ in state 90 resolved as shift
-WARNING: shift/reduce conflict for AND in state 91 resolved as shift
-WARNING: shift/reduce conflict for OR in state 91 resolved as shift
-WARNING: shift/reduce conflict for EQUAL in state 91 resolved as shift
-WARNING: shift/reduce conflict for DIFFERENT in state 91 resolved as shift
-WARNING: shift/reduce conflict for AND in state 92 resolved as shift
-WARNING: shift/reduce conflict for OR in state 92 resolved as shift
-WARNING: shift/reduce conflict for EQUAL in state 92 resolved as shift
-WARNING: shift/reduce conflict for DIFFERENT in state 92 resolved as shift
-WARNING: shift/reduce conflict for AND in state 93 resolved as shift
-WARNING: shift/reduce conflict for OR in state 93 resolved as shift
-WARNING: shift/reduce conflict for EQUAL in state 93 resolved as shift
-WARNING: shift/reduce conflict for DIFFERENT in state 93 resolved as shift
-WARNING: shift/reduce conflict for AND in state 94 resolved as shift
-WARNING: shift/reduce conflict for OR in state 94 resolved as shift
-WARNING: shift/reduce conflict for EQUAL in state 94 resolved as shift
-WARNING: shift/reduce conflict for DIFFERENT in state 94 resolved as shift
-WARNING: shift/reduce conflict for + in state 95 resolved as shift
-WARNING: shift/reduce conflict for + in state 102 resolved as shift
-WARNING: shift/reduce conflict for + in state 102 resolved as shift
-WARNING: shift/reduce conflict for + in state 105 resolved as shift
-WARNING: shift/reduce conflict for + in state 105 resolved as shift
-WARNING: reduce/reduce conflict in state 74 resolved using rule (concat -> ID)
-WARNING: rejected rule (stringexp -> ID + ID) in state 74
-WARNING: reduce/reduce conflict in state 102 resolved using rule (concat -> ID)
-WARNING: rejected rule (stringexp -> ID + ID) in state 102
-WARNING: reduce/reduce conflict in state 105 resolved using rule (concat -> ID)
-WARNING: rejected rule (stringexp -> ID + ID) in state 105
+WARNING: shift/reduce conflict for - in state 81 resolved as shift
+WARNING: shift/reduce conflict for * in state 81 resolved as shift
+WARNING: shift/reduce conflict for / in state 81 resolved as shift
+WARNING: shift/reduce conflict for ^ in state 81 resolved as shift
+WARNING: shift/reduce conflict for + in state 82 resolved as shift
+WARNING: shift/reduce conflict for - in state 82 resolved as shift
+WARNING: shift/reduce conflict for * in state 82 resolved as shift
+WARNING: shift/reduce conflict for / in state 82 resolved as shift
+WARNING: shift/reduce conflict for ^ in state 82 resolved as shift
+WARNING: shift/reduce conflict for + in state 83 resolved as shift
+WARNING: shift/reduce conflict for - in state 83 resolved as shift
+WARNING: shift/reduce conflict for * in state 83 resolved as shift
+WARNING: shift/reduce conflict for / in state 83 resolved as shift
+WARNING: shift/reduce conflict for ^ in state 83 resolved as shift
+WARNING: shift/reduce conflict for + in state 84 resolved as shift
+WARNING: shift/reduce conflict for - in state 84 resolved as shift
+WARNING: shift/reduce conflict for * in state 84 resolved as shift
+WARNING: shift/reduce conflict for / in state 84 resolved as shift
+WARNING: shift/reduce conflict for ^ in state 84 resolved as shift
+WARNING: shift/reduce conflict for + in state 85 resolved as shift
+WARNING: shift/reduce conflict for + in state 94 resolved as shift
+WARNING: shift/reduce conflict for - in state 94 resolved as shift
+WARNING: shift/reduce conflict for * in state 94 resolved as shift
+WARNING: shift/reduce conflict for / in state 94 resolved as shift
+WARNING: shift/reduce conflict for ^ in state 94 resolved as shift
+WARNING: shift/reduce conflict for AND in state 95 resolved as shift
+WARNING: shift/reduce conflict for OR in state 95 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 95 resolved as shift
+WARNING: shift/reduce conflict for DIFFERENT in state 95 resolved as shift
+WARNING: shift/reduce conflict for AND in state 96 resolved as shift
+WARNING: shift/reduce conflict for OR in state 96 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 96 resolved as shift
+WARNING: shift/reduce conflict for DIFFERENT in state 96 resolved as shift
+WARNING: shift/reduce conflict for AND in state 97 resolved as shift
+WARNING: shift/reduce conflict for OR in state 97 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 97 resolved as shift
+WARNING: shift/reduce conflict for DIFFERENT in state 97 resolved as shift
+WARNING: shift/reduce conflict for AND in state 98 resolved as shift
+WARNING: shift/reduce conflict for OR in state 98 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 98 resolved as shift
+WARNING: shift/reduce conflict for DIFFERENT in state 98 resolved as shift
+WARNING: shift/reduce conflict for + in state 99 resolved as shift
+WARNING: shift/reduce conflict for + in state 107 resolved as shift
+WARNING: shift/reduce conflict for + in state 107 resolved as shift
+WARNING: shift/reduce conflict for + in state 111 resolved as shift
+WARNING: shift/reduce conflict for + in state 111 resolved as shift
+WARNING: reduce/reduce conflict in state 78 resolved using rule (concat -> ID)
+WARNING: rejected rule (stringexp -> ID + ID) in state 78
+WARNING: reduce/reduce conflict in state 107 resolved using rule (concat -> ID)
+WARNING: rejected rule (stringexp -> ID + ID) in state 107
+WARNING: reduce/reduce conflict in state 111 resolved using rule (concat -> ID)
+WARNING: rejected rule (stringexp -> ID + ID) in state 111
 WARNING: Rule (stringexp -> ID + ID) is never reduced

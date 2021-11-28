@@ -4,8 +4,8 @@ int declaration( j )
 j := 20
 print( i )
 string declaration( nick )
-nick := aaaa
-t1 := nick concat aaa
+nick := "aaaa"
+t1 := nick concat "aaa"
 nick := t1
 if (j != i) GOTO COSO1
 t 2 := false
@@ -31,41 +31,66 @@ i := 20
 
 
 COSO -> 5
-int declaration( f )
-f := 0
-if (f < 20) GOTO COSO6
+int declaration( a )
+a := 0
+a := 0
+COSO -> 6
+COSO -> FOR DECLARATION
+if (a < 10) GOTO COSO7
 t 3 := false
-GOTO COSO 7
-
-
-COSO -> 6
-t 3 := true
-
-
-COSO ->7
-if (f < 20) GOTO COSO8
-t 4 := false
-GOTO COSO 9
-
-
-COSO -> 8
-t 4 := true
-
-
-COSO ->9
-if (t3) GOTO COSO6
-t3 := false
-GOTO COSO8
-
-
-COSO -> 6
-if (t4) GOTO COSO7
-t3 := false
-GOTO COSO8
+GOTO COSO 8
 
 
 COSO -> 7
-t3 := true
+t 3 := true
 
 
-COSO -> 8
+COSO ->8
+COSO -> 9
+if (t3) GOTO COSO -> 10
+GOTO COSO -> 11
+COSO -> 10
+t4 := a + 1
+a := t4
+t5 := a + 1
+a := t5
+GOTO COSO -> 6
+COSO -> 11
+int declaration( f )
+f := 0
+if (f < 20) GOTO COSO12
+t 6 := false
+GOTO COSO 13
+
+
+COSO -> 12
+t 6 := true
+
+
+COSO ->13
+if (f < 20) GOTO COSO14
+t 7 := false
+GOTO COSO 15
+
+
+COSO -> 14
+t 7 := true
+
+
+COSO ->15
+if (t6) GOTO COSO12
+t6 := false
+GOTO COSO14
+
+
+COSO -> 12
+if (t7) GOTO COSO13
+t6 := false
+GOTO COSO14
+
+
+COSO -> 13
+t6 := true
+
+
+COSO -> 14

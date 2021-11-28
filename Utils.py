@@ -30,7 +30,7 @@ class Nodo:
             child.parent = node
     
     def findScopeNode(self, node):
-        if(node.type in ["block", "if", "elif", "else", "while"]): 
+        if(node.type in ["block","for", "if", "elif", "else", "while"]): 
             return node
         if(node.parent):
             return self.findScopeNode(self, node.parent)

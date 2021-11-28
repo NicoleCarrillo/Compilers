@@ -24,8 +24,8 @@ reserved = {
     'elif' : 'ELIF',
     'else' : 'ELSE',
     'while' : 'WHILE',
-    'boolean' : 'BOOLEAN',
     'for' : 'FOR',
+    'boolean' : 'BOOLEAN',
     'true' : 'TRUE',
     'false' : 'FALSE',
     'print' : 'PRINT'
@@ -313,6 +313,13 @@ def p_control_while(p):
     p[0] = Nodo('while', [p[3], p[6]])
     Nodo.setParent(p[0])
 
+def p_control_for(p):
+    '''
+    control : FOR '(' prodstatement ';' booleanexp ';' prodstatement ')' '{' block '}'
+    '''
+    p[0] = Nodo('for', [p[3], p[5], p[7], p[10]])
+    Nodo.setParent(p[0])
+
 def p_prodstatement_assigment(p):
     '''
     prodstatement : ID '=' expr
@@ -556,7 +563,7 @@ def numCheck(node):
             else:
                 for i in range(len(node.children)):
                     if node.children[i].ptype == "int":
-                        countInt = countInt + 1;
+                        countInt = countInt + 1
                         parseNode = Nodo('int2float', ptype="float")
                         node.children[i].parent = parseNode
                         parseNode.children = [node.children[i]]
@@ -806,6 +813,23 @@ def threeAddressCode(node):
             finalFile.write("COSO -> " + str(saveLCount2) + "\n")
     elif node.type == "while":
         threeAddressCode(node.children[0])
+    elif node.type == "for":
+        threeAddressCode(node.children[0])
+        finalFile.write("COSO -> " + str(destinyCounter) + "\n")
+        forJumps = destinyCounter
+        destinyCounter += 1
+        finalFile.write("COSO -> " + "FOR DECLARATION" + "\n")
+        threeAddressCode(node.children[1])
+        finalFile.write("COSO -> " + str(destinyCounter) + "\n")
+        finalFile.write("if (" + tokenNodes[node.children[1]] + ") GOTO COSO -> " + str(destinyCounter + 1) + "\n")
+        finalFile.write("GOTO COSO -> " + str(destinyCounter + 2) + "\n")
+        finalFile.write("COSO -> " + str(destinyCounter + 1) + "\n")
+        forJumps2 = destinyCounter
+        destinyCounter += 3
+        threeAddressCode(node.children[3])
+        threeAddressCode(node.children[2])
+        finalFile.write("GOTO COSO -> " + str(forJumps) + "\n")
+        finalFile.write("COSO -> " + str(forJumps2 + 2) + "\n")
     elif node.type == 'print':
         finalFile.write("print( " + node.children[0].type + " )\n")
     elif not node.children:
